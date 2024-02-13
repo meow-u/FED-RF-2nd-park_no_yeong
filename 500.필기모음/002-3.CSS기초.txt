@@ -75,4 +75,4 @@ display 하기전에 셋업하도록 명령한다!
 4. 웹색상명: 지정된 컬러명으로 색생을 셋팅
 예) red, green, blue, pink, navy, 등
 - 모든 색상은 w3schools.com의 색상참조로 가서확인!
-https://www.w3schools.com/cssref/css_colors.asp
+https://www.w3schools.com/cssref/css_colors.asp            ★★★★★ 웹색상참고

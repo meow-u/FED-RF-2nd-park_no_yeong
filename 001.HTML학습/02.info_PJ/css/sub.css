@@ -1,0 +1,98 @@
+/* info pj 서브페이지용 css - sub.css */
+
+/* 공통 외부 css 불러오기 */
+@import url(./common.css);
+/* 
+    @import 방식으로 외부파일 불러와서 합치면
+    html파일에서 link방식으로 불러올 필요가 없음
+    이것의 이점은 웹요청이 (http request) 쥴어들어 html렌더링 속도가 향상 됨!
+*/
+
+
+/* 서브페이지 타이틀 */
+h2.sub-title{
+/* 글자색: color (c) */
+color: #08c45d;
+/* color: rgba(23, 219, 111, 0.568); */
+
+/* 글자크기 : font-size (fz) */
+font-size: 38px;
+
+/* 글자두께 : font-weight (fw) */
+font-weight: normal;
+/* font-weight: bold; (fwb) */
+
+/* 글자체 : font-family 
+- 콤마로 구분된 글자체는 대체체임   
+앞의 글자체가 없으면 뒤의 글자체가 적용됨. 만약 모두 없다면 브라우저 기본체가 적용됨!*/
+
+/* font-family: '맑은 고딕','굴림','돋움'; */
+font-family: 'Bagel Fat One', system-ui;
+/* 텍스트 정렬 - taxt-align:center ( tac:중앙정렬 ) */
+text-align:center;
+
+/* 글자 그림자 : text-shadow (x,y,블러,투명도) */
+text-shadow: 2px 2px 2px rgba(0, 0, 0 ,0.35);
+
+/* 박스 테두리 -border (bd) //두 종 색 
+    -두께: 선두께
+    -종류: 선종류(solid실선,dotted점선,dashed데쉬선 등)
+    -색상: 테두리 색상
+
+
+*/
+border: 2px solid rgb(226, 176, 255);
+
+/* 둥근모서리: border-radius */
+border-radius: 25px;
+/* 패딩 : p */
+padding: 20px;
+
+/* 배경색: background-color (bgc) */
+background-color: rgb(255, 255, 255)
+
+/* 배경이미지: bgi -->>개별적으로 줌 */;
+
+
+/* background-image: url(../images/titbg4.jpg); */
+
+
+/* 외부 cs에서 이미지경로 주의 
+html파일이 아닌 "css파일 위치"에서 상대경로를
+잡아야 이미지가 나온다!!! */
+
+/* 배경반복여부 background-repeat(bgr) */
+background-repeat: no-repeat;
+/* 배경고정 */
+
+/* 배경위치 background-position (bgp) */
+background-position: center;
+
+/* 배경크기 background-size(bgz)
+- cover는 박스를 빈틈없이 "비율유지"하여 채움!
+*/
+background-size: cover;
+
+}
+
+/* 정치 */
+.politics{
+    background-image: url(../images/titbg1.jpg);
+}
+/* 경제 */
+.economics{
+    background-image: url(../images/titbg2.jpg);
+}
+/* 사회 */
+.social{
+    background-image: url(../images/titbg3.jpg);
+}
+/* it */
+.it{
+    background-image: url(../images/titbg4.jpg);
+}
+/* tv */
+.tv{
+    background-image: url(../images/titbg5.jpg);
+}
+
