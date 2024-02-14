@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /* INfo PJ 공통 CSS - common.css */
 
 /* 웹폰트 구글CDN(Content Delivery Network) */
@@ -251,6 +253,11 @@ footer.part {
 /* 타이틀 */
 .tit {
   font-family: "Gowun Batang", serif;
+  font-size: 63px;
+  color: darkblue;
+  text-shadow: 4px 2px 2px #f4d6ff;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 /* 메뉴 */

@@ -1,3 +1,8 @@
+@charset "utf-8";
+/* 맨위에 utf-8 인코딩 설정 필수!!
+- 외부 css파일은 파일 자체적으로 처리되므로 
+인코딩 형식도 따로 지정해야 한다!  */
+
 /* info pj 서브페이지용 css - sub.css */
 
 /* 공통 외부 css 불러오기 */
@@ -7,6 +12,11 @@
     html파일에서 link방식으로 불러올 필요가 없음
     이것의 이점은 웹요청이 (http request) 쥴어들어 html렌더링 속도가 향상 됨!
 */
+
+/* 서브 페이지 글씨체 지정하기 */
+#main-area{
+    font-family: "Noto Sans KR", sans-serif;
+}
 
 
 /* 서브페이지 타이틀 */
@@ -102,3 +112,23 @@ background-size: cover;
     background-image: url(../images/titbg5.jpg);
 }
 
+/* 언론사 로고 */
+.press-logo img{
+    height: 32px;
+    /* 이미지는 가로/세로중 하나만 주면 
+    비율을 유지하여 변경된다 */
+}
+/* 기사 타이틀 */
+.article-title{
+    font-size: 30px;
+}
+
+/* 기사 이미지박스 */
+.article-picture{
+margin: 0;
+}
+/* 기사 이미지 */
+.article-picture img{
+    width: 100%;
+
+}
