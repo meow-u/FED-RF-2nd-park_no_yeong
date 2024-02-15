@@ -7,9 +7,11 @@ html,body{
     height: 100%;
 }
 body{
-
-    background-image:
-    linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255));
+ 
+    background:
+    url(../images/main.jpg) no-repeat center bottom/100%;
+    
+    /* linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255); */
 
 /* 
 [선형 그라데이션]
@@ -27,4 +29,5 @@ width: 600px;
 margin: 0 auto;
 padding: 20px;
 text-align: center;
+background-color: #ffffff79;
 }
