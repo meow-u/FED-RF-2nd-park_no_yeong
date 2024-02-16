@@ -20,7 +20,7 @@ html,body,.page{
 
 body{
     background:
-    url(../images/main.jpg) no-repeat fixed center /cover,
+    url(../images/main.jpg) no-repeat fixed center /cover;
             linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255));
  
 /* 
@@ -34,24 +34,81 @@ linear-gradient(방향,색1,색2,색3,...)
 
 /* 메뉴박스 */
 .menu{
-    width: 600px;
+    width: 100%;
     margin: 0 auto;
-    background-color: lightblue;
-    background-color: #cefdff;
+    /* background-color: lightblue; */
     padding: 15px;
+    text-align: center;    
 }
+
+
+/*  클래스 나눠서 배경이미지 따로설정 */
+.one{
+    background-image: linear-gradient(to right, rgba(199, 243, 255, 0), rgba(255, 252, 175, 0.637), rgba(31, 77, 137, 0.724));
+}
+.two{
+    background-image: linear-gradient(to left, rgba(199, 243, 255, 0), rgba(255, 252, 175, 0.637), rgba(31, 77, 137, 0.724));
+}
+
 /* 메뉴 하위 h1,h2 옆으로 흐르게 display하기 */
-.menu>*{
+/* .menu img{
     display: inline-block;
+} */
+
+/*  밑줄없애봄 */
+.menu a{
+    text-decoration-line: none;
+    color: #634407;
+    display: inline-block;
+    padding: 0px 10px;
+}
+
+/*  h1(sapn,a) 배경처리  */
+.one h1{
+    margin-bottom: 10px;
+    background-color: #ffffffb6;
+}
+
+/* 호버시 span이 밀려서 패딩줌 */
+.one h1 a{
+    padding: 0px 10px;
+}
+
+
+.link-box a{
+    text-decoration-line: none;
+    color: #634407;
+    font-weight: bold;
+    line-height: 25px;
 }
 
 /* 컨텐츠박스 */
 .link-box{
-    border: 2px dashed darkblue;
+    border: 3px dashed rgb(255, 255, 255);
     border-radius: 20px;
     width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 10px auto;
+    padding: 20px 0px;
     text-align: center;
     background-color: #ffffff6e;
+    color: #1277aa;
+    box-sizing: content-box;
+}
+/* 링크 호버시 색전환 */
+.page a:hover{
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    color: #2072ff;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 0 10px;
+box-shadow: 0 0 10px;
+}
+/* h2에 아래 여백주기 */
+.link-box h2{
+    margin-bottom: 10px;
+}
+
+.link-box p:hover{
+    background-image: linear-gradient(to left,rgba(255, 255, 255, 0)5%, rgba(146, 137, 130, 0.648),rgba(255, 0, 0, 0)25%,rgba(255, 0, 0, 0)75%,rgba(196, 191, 187, 0.642),rgba(255, 255, 255, 0)95%);
 }
