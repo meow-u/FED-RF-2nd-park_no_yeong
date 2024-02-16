@@ -16,6 +16,7 @@ html,body,h1,h2,h3,p{
 html,body,.page{
     /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
+    wedth: 100%;
 }
 
 body{
