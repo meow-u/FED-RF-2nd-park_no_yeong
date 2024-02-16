@@ -1,14 +1,26 @@
 @charset "utf-8";
 /* 인트로 사이트 메인 CSS - main.css */
 
-html,body{
+/* 스크롤 에니메이션 셋팅 */
+html{
+    scroll-behavior: smooth;
+    /* html 즉, root에 부드러운 스크롤 설정을 하면 
+    이동시 스크롤 애니메이션이 연출된다. */
+}
+
+/* 마진패딩 초기화 */
+html,body,h1,h2,h3,p{
     margin: 0;
     padding: 0;
+}
+html,body,.page{
+    /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
 }
-body{
 
-    background:url(../images/main.jpg) no-repeat 50% 90%/90%,
+body{
+    background:
+    url(../images/main.jpg) no-repeat fixed center /cover,
             linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255));
  
 /* 
@@ -20,31 +32,26 @@ linear-gradient(방향,색1,색2,색3,...)
 
 }
 
-h2 a{
-    text-decoration: none;
-    color: #6669ff;
+/* 메뉴박스 */
+.menu{
+    width: 600px;
+    margin: 0 auto;
+    background-color: lightblue;
+    background-color: #cefdff;
+    padding: 15px;
+}
+/* 메뉴 하위 h1,h2 옆으로 흐르게 display하기 */
+.menu>*{
+    display: inline-block;
 }
 
-h2 a:hover{
-    font-style: italic;
-    text-decoration: wavy;
-    text-decoration-line: underline;
-    color: rgb(255, 114, 227);
-}
-.wrap {
-border: 5px dashed #ffffff;
-border-radius: 20px;
-width: 600px;
-margin: 0 auto;
-padding: 20px;
-text-align: center;
-background-color: #ffffff79;
-}
-
-.wrap em:hover{
-    font-style: normal;
-    color: rgb(255, 114, 227);
-    text-decoration: wavy;
-    text-decoration-line: overline;
-
+/* 컨텐츠박스 */
+.link-box{
+    border: 2px dashed darkblue;
+    border-radius: 20px;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff6e;
 }
