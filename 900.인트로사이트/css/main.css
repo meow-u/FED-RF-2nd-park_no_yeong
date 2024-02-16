@@ -66,7 +66,9 @@ linear-gradient(방향,색1,색2,색3,...)
 /*  h1(sapn,a) 배경처리  */
 .one h1{
     margin-bottom: 10px;
-    background-color: #ffffffb6;
+    background-color: #ffffff6e;
+
+    border: 3px dashed rgb(255, 255, 255);
 }
 
 /* 호버시 span이 밀려서 패딩줌 */
