@@ -16,12 +16,11 @@ html,body,h1,h2,h3,p{
 html,body,.page{
     /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
-    width: 100%;
 }
 
 body{
     background:
-    url(../images/main.jpg) no-repeat fixed center /cover;
+    url(../images/main.jpg) no-repeat fixed center /cover,
             linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255));
  
 /* 
@@ -38,11 +37,13 @@ linear-gradient(방향,색1,색2,색3,...)
     width: 100%;
     margin: 0 auto;
     /* background-color: lightblue; */
-    padding: 15px;
+    padding: 15px 0px;
     text-align: center;    
 }
 
-
+/* 추가: 이미지가 부모 요소에 맞게 크기 조절*/
+.menu img {
+    max-width: 100%; } 
 /*  클래스 나눠서 배경이미지 따로설정 */
 .one{
     background-image: linear-gradient(to right, rgba(199, 243, 255, 0), rgba(255, 252, 175, 0.637), rgba(31, 77, 137, 0.724));
@@ -68,8 +69,8 @@ linear-gradient(방향,색1,색2,색3,...)
 .one h1{
     margin-bottom: 10px;
     background-color: #ffffff6e;
-
-    border: 3px dashed rgb(255, 255, 255);
+    border-top: 3px dashed rgb(255, 255, 255);
+    border-bottom: 3px dashed rgb(255, 255, 255);
 }
 
 /* 호버시 span이 밀려서 패딩줌 */
@@ -89,8 +90,15 @@ linear-gradient(방향,색1,색2,색3,...)
 .link-box{
     border: 3px dashed rgb(255, 255, 255);
     border-radius: 20px;
-    width: 600px;
-    margin: 10px auto;
+    /* 
+    링크박스 너비를  최대너비로 설정
+    걍 width: 600px로 지정하면 모바일,브라우저에서 둘다 600px로 나오기 떄문에
+    작은 모바일 화면서 퍼센테이지로 설정한 값들과 어우러지지 않고 전체적으로 볼때 옆공간이 비게 됨.
+    이렇게 설정해서 브라우저에서는 600px이 잘 노출되며 모바일에서는 그보다 작으면 화면에 맞춰짐*/
+    max-width: 600px;
+    /* 모바일에서 화면의 90%만 써서 약간의 공백을 남김 */
+    width: 90%; 
+    margin: 15px auto;
     padding: 20px 0px;
     text-align: center;
     background-color: #ffffff6e;
