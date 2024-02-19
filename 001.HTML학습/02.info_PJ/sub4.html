@@ -226,6 +226,173 @@
   > 닫는 꺽쇠 &gt; (gt는 greater than ~ 보다 큰)
  -->
 
+ <!-- 
+  반대방향부터 출력하기
+  <bdo dir="rtl">우리나라대한민국만세</bdo> -->
+
+<!-- 
+  [ 순서없는 리스트 : ul]
+  unordered list 
+
+  (참고: 불릿옵션)
+https://www.w3schools.com/
+tags/tryit.asp?filename=tryhtml_ul_type_css
+
+  [ 순서있는 리스트 : ol]
+  ordered list
+
+  (참고: 순서표시 옵션)
+  https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ol_type_all_css
+
+  [ ul/ol 공통사항 ]
+  - 하위필수요소 : li (개별리스트)
+  - 주의 : 하위에 li 이외의 블록요소나 
+  그 어떤요소도 직계자식으로  사용할 수 없다!
+  예) <ul><li><div></div></ul> -> 사용불가!
+-->
+<!-- 주요뉴스 -->
+<article class="main-news news-box">
+  <h3>주요뉴스</h3>
+  <!-- <ul style="list-style-type: circle;"> -->
+  <ul>
+    <li>
+      <a href="http://www.inews24.com/view/1685881" target="_blank">"1500만원만 내세요"…미분양 해소 '안간힘'</a>
+    </li>
+    <li>
+      <a href="http://www.inews24.com/view/1686160" target="_blank">'서울의 봄' 불법 유출본 확산에…제작·배급사 "법적 책임 물을 것"</a>
+    </li>
+    <li>
+      <a href="http://www.inews24.com/view/1686096" target="_blank">공시지원금 인상에 불법보조금까지...'성지'에선 갤24가 8만원</a>
+    </li>
+  </ul>
+</article>
+
+
+
+<!-- 랭킹뉴스: ol -->
+<article class="rank-news news-box">
+<h3>랭킹뉴스</h3>
+<!-- <ol style="list-style-type: lower-roman;" start="3" reversed> -->
+  <!-- ol은 start로 시작번호 지정옵션, 
+      reversed를 주면 역순으로 순서를 보여준다 -->  
+<ol>
+  <li>
+    <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813542?ntype=RANKING" target="_blank">1. 한동훈 "개혁신당, 돈때문에 모였나…이혼하면 보조금 사기"</a>
+  </li>
+  <li>
+    <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813511?ntype=RANKING" target="_blank">2. 이준석 "정부, 전공의 비판하는 국민 늘기만 바라"</a>
+  </li>
+  <li>
+    <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813532?ntype=RANKING" target="_blank">3. bhc, '값싼 브라질산 닭' 쓰면서 가격도 인상</a>
+  </li>
+</ol>
+
+</article>
+
+<!-- 
+  [ 용어정의리스트  : dl ]
+
+  dl > dt + dd (형제임)
+  _____________________
+  dl: 용어 리스트
+  (defines the description list)
+  dt : 용어정의
+  (defines the term)
+  dd : 용어설명
+  (description each term)
+  _____________________
+  주의 - dl은 반드시 자식요소로 dt와 dd가
+  반드시 한번이상 사용되어야 함!
+  또 주의 -  dt와 dd는 '형제'관계임 (자식아님!!)
+ -->
+ <!-- 분야별뉴스: dl -->
+ <article class="sec-news news-box">
+  <h3>분야별 뉴스</h3>
+  <dl>
+    <!-- 경제파트 -->
+    <dt>경제</dt>
+    <dd>
+      <a href="https://n.news.naver.com/mnews/article/055/0001132018" target="_blank">자동차 봉인제 62년 만에 폐지…번호판 부착 의무는 유지</a>
+    </dd>
+    <dd>
+      <a href="https://n.news.naver.com/mnews/article/018/0005676119" target="_blank">30년 국채선물 시장 19일 개장…"금리변동 위험성에 효과</a>
+    </dd>
+
+    <!-- 사회파트 -->
+    <dt>사회</dt>
+    <dd>
+      <a href="https://n.news.naver.com/mnews/article/001/0014513264" target="_blank">
+        병원협회, 의료현안 상황대응위원회 구성…"필수의료 유지"</a>
+    </dd>
+    <dd>
+      <a href="https://n.news.naver.com/mnews/article/032/0003279600" target="_blank">서울 대형병원들 ‘진료 차질’ 불가피…수술 일정 조정, 평소 절반까지 줄 듯</a>
+    </dd>
+    
+    <!-- TV/연예파트 -->
+    <dt>TV/연예파트</dt>
+    <dd>
+      <a href="https://entertain.naver.com/read?oid=609&aid=0000824699" target="_blank">김나영 "'노래의 신' 신용재 만나고 보니 같이 늙어가는 동네 오빠"(라디오쇼)</a>
+    </dd>
+    <dd>
+      <a href="https://entertain.naver.com/read?oid=003&aid=0012380225" target="_blank">김영옥, 남편 군입대에 "출산 12일 만에 생업 복귀·육아 병행"</a>
+    </dd>
+
+  </dl>
+
+
+ </article>
+
+<!-- 
+  [ 테이블 요소 : table]
+  table > tbody > tr > td
+
+  >tbody는 안쓰고 tr부터 구현해도 
+  브라우저가 자동으로 그려준다
+
+  주의) table > tr로 직계선택하게 되면 
+  위와같은 구조적인 이유로 선택되지 않는다!
+  ______________________________________
+
+  ((간단한 테이블 작성시 필수요소 3가지!))
+  table : 테이블 박스 부모요소 
+  tr : 테이블 행요소(table row)
+  td : 테이블 데이터요소 (table data)
+ -->
+
+ <!-- 사진뉴스 :table -->
+ <article class="photo-news news-box">
+  <h3>사진뉴스</h3>
+  <!-- 3행3열 테이블 구성하기 -->
+  <!-- border="1"로 테이블 간격확인하기 -->
+  <table>
+    <tr>
+      <td>1</td>
+      <td>
+        <a href="https://n.news.naver.com/mnews/article/015/0004950082" target="_blank">
+        "스토리텔링과 소비자 경험 확대가 와인 시장 회복의 핵심"
+        한국경제</a>
+      </td>
+      <td><img src="./images/pnews1.jpg" alt="이미지1"></td>
+    </tr>
+
+    <tr>
+      <td>2</td>
+      <td>
+        <a href="https://n.news.naver.com/mnews/article/422/0000645559">포근한 날씨 속 산발적 비…밤부터 동해안</a>
+      </td>
+      <td><img src="./images/pnews2.jpg" alt="이미지2"></td>
+    </tr>
+
+    <tr>
+      <td>3</td>
+      <td>
+        <a href="https://n.news.naver.com/mnews/article/031/0000813583">벤츠, 차세대 드림카 '디 올 뉴 CLE 쿠페' 출시</a>
+      </td>
+      <td><img src="./images/pnews3.jpg" alt="이미지3"></td>
+    </tr>
+    
+  </table>
+ </article>
 
 
 

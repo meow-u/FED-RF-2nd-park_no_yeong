@@ -1,6 +1,8 @@
 [ 벤치마킹하기 ] : 
 소스대상 - https://www.awwwards.com
 https://www.awwwards.com/elements/
+
+메뉴 다안살려도됨 
 ________________________________________
 
 개인PJ주제:  크로스오버 사이트 (디자인<->내용)
@@ -46,3 +48,6 @@ https://www.awwwards.com/inspiration/mask-cursor
 
 4.베스트셀러부분 누끼상품 선택넘어가는거 좋아보인다.
 https://wearelittles.com/
+
+5. 가이드선택부분 카드펼치기 맘에든다.
+https://viewbook.tiltonschool.org/experience/
