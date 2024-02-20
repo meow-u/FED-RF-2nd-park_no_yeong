@@ -6,17 +6,18 @@
     <title>03.블록요소의 float속성</title>
     <style>
         /* 
-        [ 블록요소의 float ]
-        - 필요성 : 블록요소는 옆에 다른요소가 올 수 
-        없음! 그래서 옆으로 흐르게 하는 속성셋팅이 필요함!
+            [ 블록요소의 float ]
+            - 필요성 : 블록요소는 옆에 다른요소가 올 수
+            없음! 그래서 옆으로 흐르게 하는 속성셋팅이 필요함!
 
-        - float 속성값 : 
-        1)left -> 설정요소는 왼쪽에 다른요소는 
-                    오른쪽으로 흐르게 해줌.
-        1)right -> 설정요소는 오른쪽에 다른요소는 
-                    왼쪽으로 흐르게 해줌.
+            - float 속성값 : 
+            1) left -> 설정요소는 왼쪽에 다른요소는 
+                        오른쪽으로 흐르게 해줌. 
+            2) right -> 설정요소는 오른쪽에 다른요소는 
+                        왼쪽으로 흐르게 해줌. 
 
-        [ float만 설정한 경우 생기는 문제! ]
+
+            [ float만 설정한 경우 생기는 문제! ]
             - 하위요소가 float설정된 요소를 인지하지 못해
             위로 올라오게됨
             - 이것을 위해 다음 속성셋팅 필수!
@@ -25,7 +26,6 @@
             1) left -> 이전 요소가 float:left일때
             2) right -> 이전 요소가 float:right일때
             3) both -> 이전 요소가 어떤 경우에 모두 지우기적용
-
 
 
             -> 일반적으로 이전요소의 float을 
@@ -63,6 +63,7 @@
             float:right 만 사용 : 오른쪽 -> 왼쪽
             (경우5)
 
+            ___________________________________
 
             가상요소란?
             어떤요소의 내부에 자식요소로 직접 태그를 쓰지
@@ -84,7 +85,7 @@
             -> 마치 span태그를 넣은 것과 같아짐
                 display:block로 쓰면 마치 div를 쓴것과
                 같아짐!
-            */
+        */
 
         h1 {
             text-align: center;
@@ -152,9 +153,9 @@
             /* 오른쪽float지워! */
         }
 
-        /* clear설정을 위한 빈 블록요소를 만들기 어려우므로 
-            편리하게 가상요소 after를 사용한 clear설정을 셋팅함! */
-        .flclb:after{
+        /* clear설정을 위한 빈 블록요소를 만들기 어려우므로
+        편리하게 가상요소 after를 사용한 clear설정을 셋팅함! */
+        .flclb::after{
             content: '';
             /* content만 쓰면 span태그와 유사! */
             display: block;
@@ -167,20 +168,18 @@
         .case4 .bx{
             float: left;
         }
-        
-        /* 플롯 자식의 부모박스기 overflow:hidden이면 
+        /* 플롯 자식의 부모박스가 overflow:hidden이면 
         자식요소의 높이값이 체크됨! */
-        .case4 {
+        .case4{
             overflow: hidden;
         }
-        
+
         /* 경우5 */
         .case5 .bx{
             float: right;
         }
 
-
-        </style>
+    </style>
 </head>
 <body>
     <h1>003.블록요소의 float</h1>
@@ -197,7 +196,6 @@
         <div class="bx bx4"></div>
     </div>
 
-
     <h2>경우2</h2>
     <h3>
         첫번째 float:left, 두번째 float:right, <br>
@@ -210,8 +208,7 @@
         <div class="bx bx3 clb fll"></div>
         <div class="bx bx4 flr"></div>
         <!-- clear속성은 블록인 형제요소에만 적용됨! -->
-        <!-- 마지막에 떙긴애로 상자가 망가짐. 이때 끊어주기위해 빈 div에 클리어적용 -->
-        <div style="clear:both"></div>
+        <div style="clear: both;"></div>
     </div>
 
     <h2>경우3</h2>
@@ -231,7 +228,6 @@
     <h3>
         모든 .bx박스에 float:left 적용하기 <br>
         부모박스에 overflow:hidden 적용하기
-        <!-- 박스요소높이 달라지면 숨기기되서 문제생길수 있음 -->
     </h3>
     <div class="wrap case4">
         <div class="bx bx1"></div>
@@ -252,5 +248,6 @@
         <div class="bx bx4"></div>
     </div>
 
+    
 </body>
 </html>
