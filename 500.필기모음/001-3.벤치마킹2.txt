@@ -64,6 +64,9 @@ https://www.maison-deuza.com/fr/
 https://ceremonycoffee.com/?ref=shown
 
 💛9.스크롤시 화면 내용들이 올라와서 겹쳐지고 굉장히! 동적이다!!!
+중간스크롤부분 스크롤시 상품리스트가 옆으로 돌아가는것 좋다
+하단 Reviews 상품 선택
+최하단 사진뒤에 글자숨어서 올라오는것도 좋음
 https://clingr.me/en/
 
 💛10. 햄버거 메뉴 특이해! 이것도 해보고싶다.
