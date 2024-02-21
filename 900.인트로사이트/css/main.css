@@ -2,176 +2,177 @@
 /* 인트로 사이트 메인 CSS - main.css */
 
 /* 스크롤 에니메이션 셋팅 */
-html{
-    scroll-behavior: smooth;
-    /* html 즉, root에 부드러운 스크롤 설정을 하면 
+html {
+   scroll-behavior: smooth;
+   /* html 즉, root에 부드러운 스크롤 설정을 하면 
     이동시 스크롤 애니메이션이 연출된다. */
 }
 
 /* 마진패딩 초기화 */
-html,body,h1,h2,h3,p,ul,ol{
-    margin: 0;
-    padding: 0;
+html,
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+   margin: 0;
+   padding: 0;
 }
-ul,ol{
-    list-style:none;
-    /* 리스트 스타일 없앰 */
+ul,
+ol {
+   list-style: none;
+   /* 리스트 스타일 없앰 */
 }
 
-html,body,.page{
-    /* 높이값 보이는 화면 기준 채우기 */
-    height: 100%;
+html,
+body,
+.page {
+   /* 높이값 보이는 화면 기준 채우기 */
+   height: 100%;
 }
 
-#pg1{
-    background:
-    /* url(../images/main.jpg) no-repeat fixed center /cover, */
-            linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255),#ffffff00);
- 
-/* 
+#pg1 {
+   background:
+    /* url(../images/main.jpg) no-repeat fixed center /cover, */ linear-gradient(
+      to bottom,
+      rgb(255, 167, 240),
+      rgb(198, 251, 255),
+      #ffffff00
+   );
+
+   /* 
 [선형 그라데이션]
 background-image:
 linear-gradient(방향,색1,색2,색3,...) 
 -방향: to top, to left, to right, to bottom
 */
-
 }
 
-#pg2{
-    background:
-    url(../images/main.jpg) no-repeat fixed center /cover,
-            linear-gradient(to bottom,rgb(255, 167, 240),rgb(198, 251, 255));
-
+#pg2 {
+   background: url(../images/main.jpg) no-repeat fixed center bottom/50% ,
+      linear-gradient(to bottom, rgb(255, 237, 195), rgb(216, 252, 255));
+      /* 이미지에 넣으려다 발견 신기함. */
+      border-radius: 20%;
 }
 
 /* 상단영역 */
-.top-area{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #ffffff75;
-/* 패딩 : 위아래만 */
-    padding: 20px 0;
-/* 상단박스 맨위! */
-    z-index: 999;
-    text-align: center;
-}
-
-/* 로고박스 */
-.logo{
-    /* text-align: center; */
+.top-area {
+   position: fixed;
+   top: 0;
+   width: 100%;
+   background-color: #ffffff91;
+   /* 패딩 : 위아래만 */
+   padding: 20px 0;
+   /* 상단박스 맨위! */
+   z-index: 999;
+   text-align: center;
+   border-radius: 0 0 50px 50px;
 }
 
 /* 메뉴박스 */
-.menu{
-    width: 600px;
-    max-width: 90%;
-    margin: 0 auto;
-    /* background-color: lightblue; */
-    padding: 15px 0px;
-    text-align: center;    
-    border-radius: 50px;
+.menu {
+   width: 600px;
+   max-width: 90%;
+   margin: 0 auto;
+   /* background-color: lightblue; */
+   padding: 15px 0px;
+   text-align: center;
+   border-radius: 50px;
 }
+
 /* clear설정 */
-.menu ul::after{
-    content: '';
-    display: block;
-    clear: both;
+.menu ul::after {
+   content: "";
+   display: block;
+   clear: both;
 }
 /* 각리스트 */
-.menu li{
-    /* 블록요소 옆으로 흐르게 */
-    float: left;
-    width: 50%;
-    text-align: center;
-    font-size: 30px;
+.menu li {
+   /* 블록요소 옆으로 흐르게 */
+   float: left;
+   width: 50%;
+   text-align: center;
+   font-size: 30px;
 }
 /* 메뉴 a요소 : 글자색변경, 밑줄 없앰 */
-.menu a{
-    color: #222;
-    text-decoration: none;
+.menu a {
+   color: #222;
+   text-decoration: none;
 }
 
 /* 링크 호버시 색전환 */
-.menu a:hover{
-    text-decoration: underline;
-    text-decoration-style: wavy;
-    color: #2067ff;
-    background-color: #fff;
-    border-radius: 30px;
-    padding: 0 10px;
-box-shadow: 0 0 10px;
+.menu a:hover {
+   /* text-decoration: overline; */
+   text-decoration-style: wavy;
+   color: #2067ff;
+   background-color: #fff;
+   border-radius: 30px;
+   padding: 0 10px;
+   box-shadow: 0 0 10px;
 }
 
 /* 추가: 이미지가 부모 요소에 맞게 크기 조절*/
 .menu img {
-    max-width: 100%;  
-    height: auto; /* 이미지의 비율유지 */
+   max-width: 100%;
+   height: auto; /* 이미지의 비율유지 */
 }
 /*  클래스 나눠서 배경이미지 따로설정 */
-.one{
-    background-image: linear-gradient(to right, rgba(199, 243, 255, 0), rgba(255, 252, 175, 0.637), rgba(31, 77, 137, 0.724));
-}
-.two{
-    background-image: linear-gradient(to left, rgba(199, 243, 255, 0), rgba(255, 252, 175, 0.637), rgba(31, 77, 137, 0.724));
-}
 
 /*밑줄없애봄 */
-.menu a{
-    text-decoration-line: none;
-    color: #634407;
-    display: inline-block;
-    padding: 0px 10px;
+.menu a {
+   text-decoration-line: none;
+   color: #9562b2;
+   display: inline-block;
+   padding: 0px 10px;
+}
+.link-box a {
+   text-decoration-line: none;
+   color: #634407;
+   font-weight: bold;
+   line-height: 30px;
+   font-size: 17px;
+}
+.link-box a:hover {
+   background-color: #fff;
+   border-radius: 30px;
+   padding: 0 10px;
+   box-shadow: 0 0 10px;
+   color: #bb28ac;
 }
 
-/*  h1(sapn,a) 배경처리  */
-.one h1{
-    margin-bottom: 10px;
-    background-color: #ffffff6e;
-    border-top: 3px dashed rgb(255, 255, 255);
-    border-bottom: 3px dashed rgb(255, 255, 255);
-}
-
-/* 호버시 span이 밀려서 패딩줌 */
-.one h1 a{
-    padding: 0px 10px;
-}
-
-
-.link-box a{
-    text-decoration-line: none;
-    color: #634407;
-    font-weight: bold;
-    line-height: 25px;
+.link-box p:hover {
+   background-image: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.579),
+      rgb(255, 201, 247)
+   );
 }
 
 /* 컨텐츠박스 */
-.link-box{
-    position: relative;
-    top: 40%;
+.link-box {
+   position: relative;
+   top: 40%;
 
-    border: 3px dashed rgb(255, 255, 255);
-    border-radius: 20px;
-    /* 
+   border: 3px dashed rgb(255, 255, 255);
+   border-radius: 20px;
+   /* 
     링크박스 너비를  최대너비로 설정
     걍 width: 600px로 지정하면 모바일,브라우저에서 둘다 600px로 나오기 떄문에
     작은 모바일 화면서 퍼센테이지로 설정한 값들과 어우러지지 않고 전체적으로 볼때 옆공간이 비게 됨.
     이렇게 설정해서 브라우저에서는 600px이 잘 노출되며 모바일에서는 그보다 작으면 화면에 맞춰짐*/
-    max-width: 600px;
-    /* 모바일에서 화면의 90%만 써서 약간의 공백을 남김 */
-    width: 90%; 
-    margin: 15px auto;
-    padding: 20px 0px;
-    text-align: center;
-    background-color: #ffffff6e;
-    color: #1277aa;
-    box-sizing: content-box;
+   max-width: 600px;
+   /* 모바일에서 화면의 90%만 써서 약간의 공백을 남김 */
+   width: 90%;
+   margin: 15px auto;
+   padding: 20px 0px;
+   text-align: center;
+   background-color: #ffffff6e;
+   color: #9562b2;
+   box-sizing: content-box;
 }
 /* h2에 아래 여백주기 */
-.link-box h2{
-    margin-bottom: 10px;
-}
-
-.link-box p:hover{
-    background-image: linear-gradient(to left,rgba(255, 255, 255, 0)5%, rgba(146, 137, 130, 0.648),rgba(255, 0, 0, 0)25%,rgba(255, 0, 0, 0)75%,rgba(196, 191, 187, 0.642),rgba(255, 255, 255, 0)95%);
+.link-box h2 {
+   margin-bottom: 10px;
 }
