@@ -5,8 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGV에 오신것을 환영합니다!</title>
     <link rel="stylesheet" href="./css/main.css">
+    <!-- 자바스크립트 코드구역 -->
+    <script>
+
+        // JS 코드구역
+        // alert('나는누구? 여긴어디?');
+        // JS코드는 만나자마자 바로 실행됨!
+        // 그래서 함수라는 코드저장소를 만들고 
+        // 호출시에만 실행되도록 한다!
+        
+        // JS함수 -> funtion 함수명(){코드}
+        function 냥냥이(먹이) {
+            alert(먹이);
+document.getElementById('ifr').src = "https://www.youtube.com/embed/"+먹이;
+        } ///////////냥냥이 함수구역 /////////////////
+
+    </script>
 </head>
 <body>
-    
+    <!-- 1. 상단영역 -->
+    <header class="top-area part">
+        <!-- 1-1. 타이틀 -->
+        <h1 class="tit">CGV 예고편 상영관</h1><!--마진초기화 안하면 상단 부모박스 밀림 -->
+    </header>
+    <!-- 2. 메인영역 -->
+    <main class="main-area part">
+    <!-- 2.1.스크린 -->
+        <div class="screen">
+            <!-- 유튜브 아이프레임 -->
+            <iframe id="ifr" src="https://www.youtube.com/embed/vteD1f-SV5I?autoplay=1&mute=1&loop=1&playlist=vteD1f-SV5I"
+             allow="autoplay"></iframe>
+             <!-- url주소?키=값&키=값&키=값 -->
+        </div>
+        <!-- 2-2.포스터메뉴 -->
+        <nav class="poster-menu">
+            <ul>
+                <li>
+                    <a href="#" 
+                    onclick="냥냥이('CKFjcmV_hg8')">
+                        <img src="./images/mv1.jpg" alt="아기상어 극장판">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" 
+                    onclick="냥냥이('OAMDkBrItoc')">>
+                        <img src="./images/mv2.jpg" alt="스노우 퍼핀즈">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./images/mv3.jpg" alt="아이엠 티라노">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./images/mv4.jpg" alt="월레스와 그로밋 더 클래식">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./images/mv5.jpg" alt="웡카">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./images/mv6.jpg" alt="귀멸의 칼날">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </main>
+    <!-- 3. 하단영역 -->
+    <footer class="footer-area part">
+    </footer>
 </body>
 </html>
