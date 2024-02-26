@@ -81,6 +81,8 @@
       .bx .bd2 {
         border: 5px dashed darkcyan;
       }
+      
+      
       .bx .bd3 {
         border: 20px ridge darkorchid;
       }
@@ -95,7 +97,17 @@
 
       2. 클래스를 다중 적용할때 같은 레벨이라면 
       나중에 쓴것이 먼저쓴 클래스보다 우선한다!
-      (CSS 에서 코딩의 순서가 중요함!) 
+      (CSS 에서 코딩의 순서가 중요함!)
+
+      -> 이때 나중에쓴거라는 말은  
+      <li class="fcls3 bd3 bd2">클래스적용6</li>
+      이 순서가 아니라
+      
+      .bx .bd2 {border: 5px dashed darkcyan;}
+      .bx .bd3 {border: 20px ridge darkorchid;}
+    
+      이 순서임!!
+
 
       3. 상위 레벨에 같은 속성이 셋팅되어 있으면 
       상위레벨 셋팅이 하위 레벨 셋팅에 우선한다!
