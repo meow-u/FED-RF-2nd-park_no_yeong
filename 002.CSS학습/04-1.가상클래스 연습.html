@@ -38,9 +38,109 @@
             cursor: pointer;
          }
          /* __________________________________________ */
-
-
+         h1,h2{/* 내부요소 가운데 보내기 */
+            text-align: center;
+         }
+         h2 a {/* 밑줄제거 색변경 */
+            text-decoration: none;
+            color: hotpink;
+         }
+         h3{/* 너비주고 사방패딩 블록박스 중앙정렬 (내부요소만 tar) */
+            width: 800px;
+            box-sizing: border-box;
+            text-align: right;
+            padding: 20px;
+            margin: 0 auto;
+         }
+         /* _____________________________________________ */
+         .part1 li:first-child{
+            color: red;
+            font: 40px '궁서';
+         }
+         .part1 li:first-child:hover{
+            color:green;
+            font: 40px '궁서';
+         }
+         .part1 li:nth-child(2){
+            color: rgb(0, 110, 255);
+            font: 20px '굴림';
+         }
+         .part1 li:nth-child(2):hover{
+            color: rgb(0, 110, 255);
+            font: 40px '굴림';
+         }
+         .part1 li:nth-child(3){
+            color: rgb(171, 171, 51);
+         }
+         .part1 li:nth-child(3):hover{
+            color: rgb(171, 171, 51);
+            word-spacing: 10px;
+            letter-spacing: 5px;
+         }
+         .part1 li:nth-child(4) {
+            color: purple;
+         }
+         .part1 li:nth-child(4):hover {
+            color: purple;
+         }
+         .part1 li:nth-child(4) b{
+            color: purple;
+            display: none;
+         }
+         .part1 li:nth-child(4):hover b{
+            color: purple;
+            display: block
+         }
+         .part1 li:nth-child(4):hover span{
+            color: purple;
+            display: none;
+         }
+         /* *******5~9까지 형제선택자 (-n+9)는 9,8,7,6,5,... */
+         .part1 li:nth-child(4) ~ li:nth-child(-n+9){
+            color: blue;
+         }
          
+         /* *********** */
+         .part1 li:nth-child(3n+1)::before{
+            content: '😁';
+         }
+         .part1 li:nth-child(odd){
+            background-image: linear-gradient(to right, white, rgb(149, 149, 255), rgb(183, 255, 183));
+         }
+         .part1 li:nth-child(even){
+       background-image: linear-gradient(to left, white, rgb(164, 255, 164), rgb(255, 255, 173));}
+
+       .part1 li:last-child{
+         background-image: linear-gradient(to left, rgb(255, 155, 155), rgb(41, 109, 24), rgb(210, 198, 255));
+         background-clip:text;
+         font-size: 40px;
+         font-weight: bold;
+         -webkit-text-fill-color: transparent;
+       }
+      /* _______________________________________________ */
+      .part2 div:nth-of-type(2){
+         color: red;
+         font-size: 20px;
+         line-height:200%;
+      }
+      /* .part2 div:nth-of-type(2)::after{
+      content: '❤️';
+      } */
+      .part2 [title]{
+         outline: red dotted;
+      }
+      .part2 [title*='ㅋ']::after{
+         content: '🐱';
+      }
+      .part2 [title='역겨워!']::before{
+         content: '🐈‍⬛';
+      }
+      .part2 i:nth-of-type(1){
+         color: red;
+      }
+      .part2 i:nth-of-type(1) ~ *{
+         color: blue;
+      }
       </style>
    </head>
    <body>

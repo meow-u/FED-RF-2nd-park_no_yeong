@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>트랜지션</title>
+      <style>
+         h1 {
+            text-align: center;
+         }
+         body {
+            padding-bottom: 400px;
+         }
+         h1 {
+            text-align: center;
+         }
+
+         /* 트랙 */
+         div {
+            border: 5px dotted blue;
+            padding: 15px;
+         }
+
+         /*______________________________________ */
+
+         span {
+            position: relative; /* 이게 있어야 움직임 */
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            top: 0;
+            left: 0;
+            display: block;
+            border-radius: 50%;
+            border: 3px solid #000;
+         }
+         #tr1 span {
+            transition: 2s 0.2s;
+         }
+
+         #tr1:hover span {
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+            top: 0;
+            left: 50%;
+            display: block;
+            border-radius: 0%;
+            border: 3px solid #000;
+         }
+
+         #tr2:hover span {
+            background-color: greenyellow;
+            width: 300px;
+            height: 300px;
+            transition: 2s;
+            left: 70%;
+         }
+         #tr3 span {
+            width: 50px;
+            height: 50px;
+            background-color: palevioletred;
+            border-radius: 0;
+            transition: all 2s 1s, top 1s;
+            /* ******************왜 right랑 bottom은 안먹지?! ?????*/
+         }
+         /* 마우스 오버시 트랜지션 설정 */
+         #tr3:hover span {
+            top: 200px;
+            left: 70%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background-color: lightgreen;
+            transition: 5s, top 1s 5s;
+         }
+
+         /* _____________________________________________ */
+         /* **************** 넘어렵다!!! */
+         #tr4 span {
+            left: 0%;
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            transition: 2s 1s, left 2s 3s, height 2s 2s, background-color 2s 1s;
+         }
+
+         input#chkbx:checked + span {
+            height: 200px;
+            width: 200px;
+            background-color: red;
+            left: 50%;
+            transition: 2s 1s, height 2s 2s, background-color 3s 4s;
+         }
+      </style>
+   </head>
+
+   <body>
+      <h1>트랜지션</h1>
+
+      <h2>1.원본에 트랜지션 주고 양방향이 동일함</h2>
+      <div id="tr1">
+         <span></span>
+      </div>
+
+      <h2>2.오버시에 트랜지션 주고 원본엔 없음</h2>
+      <div id="tr2">
+         <span></span>
+      </div>
+
+      <h2>3.원본과 오버시 트랜지션을 각각 잡아준다</h2>
+      <div id="tr3">
+         <span></span>
+      </div>
+
+      <h2>4.원본에 트랜지션을 각 속성별로 다르게 준다</h2>
+      <div id="tr4">
+         <label for="chkbx">체크하면 작동!</label>
+         <input type="checkbox" name="chkbx" id="chkbx" />
+         <span></span>
+         <!-- 체크박스 다음에 변경할 요소가 와야함!
+        그래야 형제선택자로 변경을 할 수 있음! -->
+      </div>
+
+      <!--     
+        [ 체크박스를 응용한 클릭이벤트 작동 CSS로 구현 ]
+        label 요소 : input 입력요소의 네임태그이며 
+                    서로 for 속성으로 연결됨
+                    for의 값은 input 요소의 id값이다!
+        input 요소 : 여러종류의 입력양식이 있음
+                    checkbox -> 체크박스형식
+                    text -> 글자입력형식
+                    password -> 비번입력형식
+                    radio -> 라디오버튼형식 
+            -> name 속성은 무엇? 백엔드에서 값을 읽어갈때
+                기본적으로 name속성의 값으로 읽어간다! 필수셋팅!
+            -> id 속성은 label의 for와 연결하므로 필수셋팅!
+
+            [클릭 이벤트처럼 효과내기]
+            :checked 라는 가상클래스를 사용!
+            + 형제요소 선택자를 사용!
+
+            ->> 체크박스:checked + 변경할요소 { 변경내용 }
+
+            -> 라벨은 서로 붙여서 코딩하지 않아도 되므로
+            다른곳에 원하는 디자인요소를 구현후 이것을 클릭하면
+            체크박스가 체크되므로 기능이 작동함!
+
+            -> 체크박스는 display:none으로 처리하여 숨겨놓아도
+            동일한 작동을 할 수 있음!
+
+     -->
+   </body>
+</html>
