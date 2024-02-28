@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+      <script>
+         // document.write("<h3>나는 노영이다</h3>");
+         // window.alert('너도 개발자냐?');
+         // console.log("진짜연습은 지금부터다!!");
+
+      function 첫함수() {
+         //호출확인
+         console.log("잘나오냐");
+             // 2. HTML 넣기 /////////////
+            // 변경대상 : #name
+            // 선택요소에 html넣기 : innerHTML속성에 할당
+            // 전체문서.가져와아이디요소(아이디명).html넣기
+        document.getElementById("name").innerHTML =
+        '<img src="./images/kim.png" art= "김비서가 왜그럴까">';
+         
+        console.log(document.getElementById("name"));
+
+        /* 콘솔에 선택요소 찍기 */
+        console.log(document.getElementsByClassName("pbox"));
+
+        /* 잘 뜬다면 변수 정의! */
+        /* var 변수명 = 값 */
+
+        var 피박스 = document.getElementsByClassName("pbox")[0];
+        
+            // 3-1. 배경이미지 넣기
+            피박스.style.background =
+               "url(./images/kimbs.jpg) no-repeat center/cover";
+
+            // 3-2. 글자색 변경하기
+            피박스.style.color = "lime"
+            // 3-3. 글자크기 변경 : 40px
+            피박스.style.fontSize = "40px";
+            // 3-4. 글자그림자 : textShadow
+            피박스.style.textShadow = "2px 2px 2px #000";
+            // 3-5. 가로,세로 크기변경 : 600px X 600px
+            피박스.style.width = "600px";
+            피박스.style.height = "600px";
+            // 3-6. 줄간격 : lineHeight
+            피박스.style.lineHeight = "100px";
+            // 3-7. 트랜지션 : transition
+            피박스.style.transition = `2s,
+            left 2s 0s,
+            top 2s 2s,
+            transform 1s 2s`;
+            // 0초도 s 안넣으니 작동안함 조심!!
+
+
+            // 3-8. 원만들기 : borderRadius
+            피박스.style.borderRadius ="50%";
+            // 3-9. 중앙이동을 위한 top,left 변경
+            피박스.style.top = "50%"
+            피박스.style.left = "50%"
+            // 3-10. 트랜스폼 변경 :
+            // 중앙이동, 360도 회전, 크기변경
+            피박스.style.transform =`
+            transLate(-50%,-50%)
+            rotate(360deg)
+            scale(1.3)`;
+
+            
+            // 3-11. 전체 배경색 바꾸기
+            document.body.style.backgroundColor = "lightgreen";
+            
+            var 바디 = document.body;
+
+            바디.style.transition = "2s";
+            // 대상: body
+
+            // JS에서 body는 특별히 취급하여
+
+            // document.body
+
+
+      }/* 첫함수 영역 ************************************** */
+         /* 정의! */
+       function 두함수(순서,이름){
+         /* html에 함수 인라인 달고 호출확인! */
+         console.log('보자!!',순서,이름);
+         /* 주소기니까 지정 */
+       var 그림주소 = document.querySelectorAll(".박스야 .원이야");
+       // tor 에 s붙이면 안나옴 --> 이건 콘솔값에 출력되는건 아님 
+       /* 출력확인 */
+       console.log(그림주소,그림주소.length);
+      
+       /* 상세선택하기위해 순서추가 */
+      var 그림주소 = 그림주소.item(순서);
+      /* 출력확인 */
+      console.log(그림주소);
+
+      /* 탑값이동  */
+      그림주소.style.top = "calc(100% - 200px)";
+      그림주소.style.right = "calc(100% - 200px - " + 순서 + "*200px)";
+
+
+       /* 주소호출 잘됐나? */
+      }/* 두함수 영역 ************************************** */
+      </script>
+      <style>
+         html,
+         body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            /* 보이는 화면에 채우기 */
+         }
+         body {
+            overflow: hidden;
+         }
+
+         .pbox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* 부모는? window(보이는화면) */
+            margin: 0;
+            padding: 0;
+
+            width: 500px;
+            height: 500px;
+            padding-top: 200px;
+
+            /* 글자 */
+            line-height: 50px;
+            font-size: 30px;
+            text-align: center;
+            /* 줄바꿈방지 */
+            white-space: nowrap;
+
+            border: 4px solid purple;
+            /* 보더박스:보더,패딩포함 */
+            box-sizing: border-box;
+
+            /* 사용자 텍스트 영역 선택방지 */
+            user-select: none;
+
+            /* background: url(./images/kimbs.jpg) no-repeat center/cover; */
+         }
+         p.pbox {
+            z-index: 1;
+
+         
+         }
+
+         /* 원모양 */
+         .원이야 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* 부모는? window */
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            /* 배경공통 */
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* 보더박스 : 보더,패딩포함박스 */
+            box-sizing: border-box;
+         }
+         /* 원모양 개별셋팅 */
+         .원이야:nth-child(1) {
+            right: 400px;
+            background-image: url(./images/01.png);
+         }
+         .원이야:nth-child(2) {
+            right: 200px;
+            background-image: url(./images/02.png);
+         }
+         .원이야:nth-child(3) {
+            background-image: url(./images/03.png);
+         }
+
+
+         /* 전체 사각형으로 변할 원 */
+         .넌뭐냐 {
+            position: absolute;
+            top: 40%;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            white-space: nowrap;
+            border-radius: 50%;
+            background: #bbd3b3 url(./images/prog.jpg) no-repeat center/auto
+               100%;
+         }
+      </style>
+   </head>
+   <body>
+      <!-- 드라마 소개박스 -->
+      <p class="pbox" onclick="첫함수()">
+         나는 요즘 매일 생각한다! <br />
+         도대체
+         <span id="name"> </span>
+      </p>
+
+      <!-- 원모양 박스 -->
+      <div class="박스야">
+         <!-- 원모양 -->
+         <div class="원이야" onmouseover="두함수(1,'별이 빛나는 밤')"></div>
+         <div class="원이야" onmouseover="두함수(2,'어쩌구 강')"></div>
+         <div class="원이야" onmouseover="두함수(3,'카페 테라스')"></div>
+      </div>
+
+      <!-- 사각형으로 변할 전체 마무리 원박스 -->
+      <div 
+      class="넌뭐냐" 
+      title="더블클릭해주세요!">
+   </div>
+   </body>
+</html>
