@@ -23,6 +23,12 @@ ol {
    margin: 0;
    padding: 0;
 }
+
+/* html 루트설정 */
+html{
+   font-size: 10px;
+   /* rem단위 글자계산 편의 위해 */
+}
 /* 전체 배경이미지 */
 body {
    background: url(../images/bg.jpg) no-repeat fixed top/cover;
@@ -44,12 +50,36 @@ body * {
 }
 
 /************************ 1.상단영역 ************************/
+h1.logo {
+   z-index: 999;
+   position: fixed;
+   width: 20vw;
+   height: 20vw;
+   border-radius: 50%;
+   background: pink url(../images/robot_03.png) no-repeat center/auto 100%;
+   box-shadow: inset 0px 0px 20px 5px #000000b6,
+   0 0 20px 5px #2bc3ff;
+
+   /* 글자설정 */
+   text-align: center;
+   line-height: 20vw;
+   font-family: 'Orbitron', sans-serif;
+   font-size: 5vw;
+   color: #8bfbff;
+   text-shadow: 0 0 10px #000;
+
+   top: calc(50% - 10vw);
+   left: calc(50% - 10vw);
+
+   
+
+}
 
 /************************ 2.메인영역 ************************/
 /* 2-1.로봇박스 */
 .robot-box {
    padding-top: 200px;
-   margin-bottom: 900px;
+   margin-bottom: 560px;
 }
 /* 2-1-1.로봇머리 */
 .head {
@@ -158,8 +188,8 @@ body * {
    margin: 0 auto;
    margin-top: 50px;
    /* 배경이미지 조정  */
-   background-repeat: repeat;
-   background-size: 50%;
+   /* background-repeat: repeat; */
+   background-size: 80%;
 }
 /* 몸통 가상요소로 상의 만들기 */
 .body::before {
@@ -170,7 +200,7 @@ body * {
    width: 110%;
    height: 55%;
    background-image: linear-gradient(to bottom, #fff87d, #6efff0);
-   border-radius: 10px;
+   border-radius: 20px 20px 30% 30%;
 }
 /* 몸통 가상요소로 하의 만들기 */
 .body::after {
@@ -181,7 +211,7 @@ body * {
    width: 110%;
    height: 35%;
    background-image: linear-gradient(to bottom, #ff9393, #a3059b);
-   border-radius: 17px;
+   border-radius: 27px 27px 30% 30%;
 }
 /* 목 */
 .neck {
@@ -438,6 +468,112 @@ body * {
    left: -29px;
    width: 182px;
    height: 101px;
+}
+/* 2-2. 로봇설명박스 */
+.text-box{
+   max-width: 800px;
+   margin: 0 auto;
+   color: #fff;
+   padding: 15px 30px;
+   background-color: #00000080;
+   border-radius: 20px;
+   box-shadow: inset 0px 0px 20px blue,
+   inset 0px 0px 50px rgb(241, 88, 255);
+
+
+
+/* <filter-function> 값 */
+/* 백드롭 필터효과
+
+- filter 속성과 동일한 셋팅을 가지며
+적용대상이 겹쳐지는 하단의 그래픽을 변경한다!
+
+backdrop-filter: blur(2px); ->흐림
+backdrop-filter: brightness(60%); -> 밝기
+backdrop-filter: contrast(40%); -> 대비
+backdrop-filter: drop-shadow(4px 4px 10px blue); -> 그림자
+backdrop-filter: grayscale(30%); -> 흑백
+backdrop-filter: hue-rotate(120deg); -> 색상변경
+backdrop-filter: invert(70%); -> 반전색 
+backdrop-filter: opacity(20%); -> 투명도
+backdrop-filter: sepia(90%); -> 세피아효과
+backdrop-filter: saturate(80%); -> 채도
+
+-> 복합적용 가능!
+backdrop-filter: blur(4px) saturate(150%);
+*/
+
+backdrop-filter: blur(6px);
+}
+
+
+/* 2-2-1. 제목 */
+.text-box h2{
+   position: sticky;
+   top: 10px;
+   /* 글자크기 35px -> em단위 */
+   font-family: 'Chakra Petch', sans-serif;
+   font-size: 3.5rem;
+   text-align: center;
+   background-color: #ffffffb6;
+   border-radius: 20px;
+   color: #ff36bc;
+   text-shadow: 2px 2px 5px #35b1a0;
+   /* 얇은글자 */
+   font-weight: normal;
+}
+
+/* 2-2-2. 출처 */
+.text-box small{
+   /* 인라인은 디자인상 블록으로 전환! */
+   display: block;
+   text-align: center;
+/* 글자크기 12px */
+   font-size: 1.2rem;
+   font-family: 'Chakra Petch', sans-serif;
+   color: yellow;
+   text-shadow: 2px 2px 1px #000;
+   line-height: 2.5rem;
+}
+/* 2-2-3. 내용단락 */
+.text-box p{
+   font-family: 'Barlow', sans-serif;
+   font-size: 1.7rem;
+   /* 줄간격 */
+   line-height: 1.7;
+   /* 자간 */
+   letter-spacing: 1px;
+   /* 단어간격 */
+   word-spacing: 2px;
+
+/* [ 다단설정하기 ]
+- 다중열속성
+-> column-count : 다중열개수
+-> column-rule : 다중열구분선 
+-> column-gap : 다중열 사이간격
+*/
+
+/* 다단수 셋팅 */
+column-count: 3;
+/* 사이구분선은 border와 유사*/
+column-rule: 5px dotted rgb(175, 216, 255);
+/* column-rule: 두께 종류 색상; */
+/* 사이간격 */
+column-gap: 55px;
+/* 양쪽정렬 */
+text-align: justify;
+/* 영문자는 단어를 깨줘야 함! */
+word-break:break-all;
+/* 첫줄 들여쓰기 : text-indent */
+text-indent: 40px;;
+}
+
+/* 가상요소 첫글자 변경하기 */
+.text-box p::first-letter {
+   color: hotpink;
+   font-size: 2.8rem;
+   font-weight: bold;
+
 }
 
 /************************ 3.하단영역 ************************/
