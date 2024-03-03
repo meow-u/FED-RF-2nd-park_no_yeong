@@ -101,6 +101,16 @@
 
        /* 주소호출 잘됐나? */
       }/* 두함수 영역 ************************************** */
+
+      function 셋함수(){
+         console.log(document.getElementsByClassName('pbox')[0]);
+
+         var 피박스 = document.getElementsByClassName('pbox')[0];
+
+         피박스.style.background =
+               "url(./images/img1.jpg) no-repeat center/cover";
+
+      }/* 셋함수 영역 ************************************** */
       </script>
       <style>
          html,
@@ -195,7 +205,9 @@
    </head>
    <body>
       <!-- 드라마 소개박스 -->
-      <p class="pbox" onclick="첫함수()">
+      <p class="pbox" 
+      onclick="첫함수()" 
+      ondblclick="셋함수()">
          나는 요즘 매일 생각한다! <br />
          도대체
          <span id="name"> </span>
