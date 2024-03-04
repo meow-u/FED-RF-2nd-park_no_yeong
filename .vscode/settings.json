@@ -1,3 +1,38 @@
 {
-    "liveServer.settings.port": 5503
+    "liveServer.settings.port": 5503,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "comment",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "punctuation.definition.tag.begin.html",
+                    "punctuation.definition.tag.end.html",
+                    "punctuation.definition.tag.html",
+                    "entity.name.tag",
+                    "meta.tag.block.any.html"
+                ],
+                "settings": {
+                    "foreground": "#97bdfff3"
+                }
+            },
+            {
+                "scope": [
+                    "constant.numeric"
+                ]
+            },
+            {
+                "scope": [
+                    "constant.character.entity",
+                    "punctuation.definition.entity"
+                ],
+                "settings": {}
+            }
+        ],
+        "comments": ""
+    }
 }
