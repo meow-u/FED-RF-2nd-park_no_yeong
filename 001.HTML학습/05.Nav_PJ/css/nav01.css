@@ -127,9 +127,8 @@ ol::after,
 }
 
 /* 예시로 5번째 높이값 개별셋팅 */
-.gnb ul > li:nth-child(5):hover .smenu {
-   /* height: 58px; */
-}
+/* .gnb ul > li:nth-child(5):hover .smenu {
+   /* height: 58px; */ */
 
 .smenu ol {
    padding: 10px;
