@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>JS3-1. 제어문 - if문, switch case문, for문, while문</title>
+      <!-- JS코드구역 -->
+      <script>
+          /* 클릭시작동함수 */
+          function A() {
+            /* 인풋요소찍어 변수만들기 */
+            var inp = document.querySelector("#inp");
+            /* 인풋요소 잘찍히는지확인 */
+            // console.log(inp);
+
+            /* 인풋입력값 변수만들기 */
+            var inpV = inp.value;
+
+            /* 잘찍히는지확인 */
+            // console.log(inpV);
+
+            /* h2에 스타일지정하는 연습 */
+            document.querySelector(".h2");
+            console.log(document.querySelector(".h2"));
+
+            var h2 = document.querySelector(".h2");
+            /* h2 경로 잘찍히는지 확인 */
+            console.log(h2);
+
+            if (inpV >= 90) {
+               alert("짱잘했어요!");
+               h2.innerHTML = "짱잘했음";
+               h2.style.color = "orange";
+            } else if (inpV >= 70) {
+               alert("잘했어요");
+               h2.innerHTML = "잘했음";
+               h2.style.color = "blue";
+            } else if (inpV >= 50) {
+               alert("좋아요!");
+               h2.innerHTML = "좋아요";
+               h2.style.color = "pink";
+            } else if (inpV >= 30) {
+               alert("노력해요!");
+               h2.innerHTML = "노력해요";
+               h2.style.color = "purple";
+            } else if (inpV >= 1) {
+               alert("더많이노력해요!");
+               h2.innerHTML = "더많이노력해요";
+               h2.style.color = "lime";
+            } else {
+               alert("재입력해주세요");
+               h2.innerHTML = "입력오류! 점수만 입력하세요";
+               h2.style.color = "red";
+            }
+         }
+      </script>
+   </head>
+   <body>
+     
+
+      <div class="test">
+         <h2 class="h2" style="font-size: 20px">연습</h2>
+         <input
+            id="inp"
+            type="text"
+            placeholder="점수(숫자만) 입력해요"
+            maxlength="2"
+            onkeypress="
+        if (event.keyCode == 13) A()
+        "
+         />
+
+         <button onclick="A()">클릭</button>
+      </div>
+   </body>
+</html>
