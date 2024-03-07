@@ -28,6 +28,7 @@ ol {
 html{
    font-size: 10px;
    /* rem단위 글자계산 편의 위해 */
+   scroll-behavior: smooth;
 }
 /* 전체 배경이미지 */
 body {
@@ -37,7 +38,7 @@ body {
 
 /* 공사중 표시 */
 body * {
-   outline: 2px dashed yellow;
+   /* outline: 2px dashed yellow; */
 }
 
 /************************ 공통 클래스 ************************/
@@ -75,17 +76,142 @@ h1.logo {
    
 
 }
+/* 1-2. 탑이동버튼 */
+.btn-top{
+   position: fixed;
+   bottom: 3vw;
+   right: 3vw;
+
+   width: 5vw;
+   height: 5vw;
+   border-radius: 50%;
+   border: 5px outset #fff;
+   background-color: #ccc;
+   z-index: 10;
+}
+/* a요소 확장 */
+.btn-top a{
+   display: block;
+   width: 100%;
+   height: 100%;
+
+   /* 글자셋팅 */
+   color: blue;
+   text-decoration: none;
+   /* font 스두크/줄체 */
+   font: 1.4vw/5vw 'Black Ops One';
+}
+/* 오버시 설정 */
+.btn-top:hover {
+   background-color: #ff0;
+   /*outset 나온버튼,inset 들어간버튼 */
+   border-style: inset;
+}
+.btn-top:hover a{
+   color: #f00;
+}
 
 /************************ 2.메인영역 ************************/
 /* 2-1.로봇박스 */
 .robot-box {
     position: fixed;
-    top: 0;
+    top: 5%;
     left: 50%;
     transform:translate(124%, -10%) scale(0.3);
     /* padding-top: 200px; */
     margin-bottom: 560px;
+
+    /* 박스 내에있는 '모든요소'의 외곽선에 그림자(글로우)효과
+    box-shadow는 가상요소같은애들은 안되고 개별적으로 줘야댐  */
+    filter: drop-shadow(0px 0px 10px aqua);;
+    /*     backdrop-filter: blur(6px); 설명란에 준것도 꼭 참고!! */
 }
+
+/* 로봇말풍선 */
+.link-title{
+position: absolute;
+top: -5vw;
+left: 20vw;
+
+/* 로봇머리로부터 위치 일정하게 */
+transform: translateX(200px) scale(0);
+/* 로봇쪽에서 커지게 하기위해
+트랜스폼 기준변경 (왼쪽아래) */
+transform-origin: left bottom;
+width: 35vw;
+height: 20vw;
+
+border-radius: 50%;
+background-color: #fff;
+text-align: center;
+line-height: 20vw;
+
+text-decoration: none;
+font-weight: bold;
+color: #4400ff;
+font-size: 3vw;
+
+border: 10px dashed rgb(92, 250, 255);
+box-sizing: border-box;
+}
+
+/* 가상요소로 삼각형만들기 */
+.link-title::after{
+   content: '';
+   position: absolute;
+   top: 70%;
+   left: -5%;
+   /* 왜 %인가? 유동적인 부모를 기준한 위치값이다. */
+   transform: rotate(43deg);
+
+   /* 가로,세로 크기 0 */
+   width: 0;
+   height: 0;
+   /* 보더탑 크기+색설정 */
+   border-top: 8vw solid rgb(255, 255, 255);
+   /* 양쪽보더 크기+투명색 설정 */
+   border-left: 1.5vw solid transparent;
+   border-right: 1.5vw solid transparent;
+}
+
+/* 로봇말풍선 오버시 */
+.link-title:hover{
+   color: #fff;
+   background-image: 
+   radial-gradient(circle,red 5%,blue 30%, yellow 70%);
+}
+/* 
+    [ 원형 그라데이션 ]
+
+    - 기본형, 영역지정형은 박스모양을 따라감!
+
+    1) 기본형: 중앙중심, 모양은 박스크기에 맞춤
+    background-image: 
+        radial-gradient(색1,색2,색3,...);
+    - 시작색으로부터 중앙에서 시작됨
+
+    2) 영역 지정형:
+    background-image: 
+        radial-gradient(색1 몇%,색2 몇%,색3 몇%,...);
+    - 색 뒤에 한칸 띄고 %수치로 영역지정함
+
+    3) 그라데이션 모양을 원형으로 사용할 경우:
+    background-image: 
+        radial-gradient(circle,색1,색2,색3,...);
+    - circle 키워드를 첫번째에 사용함
+
+    4) 영역옵션 지정형: 중심점 변경
+    background-image: 
+        radial-gradient(옵션 at 가로위치 세로위치,색1,색2,색3,...);
+    - 옵션4가지 : closest-side / farthest-side
+                closest-corner / farthest-corner
+                ___________________________________
+                - closest는 중심점으로 좀더 모아진것
+                - farthest는 중심점에서 멀리 퍼진것
+                - side와 corner는 경계선과 끝부분옵션임
+    - 가로위치, 세로위치 (중심점) - 단위는 px / %
+*/
+
 /* 2-1-1.로봇머리 */
 .head {
    position: relative;
@@ -98,6 +224,9 @@ h1.logo {
    /* 모서리 라운드처리 
     왼쪽 위부터 시계방향 수치 입력*/
    border-radius: 80px 80px 100px 100px;
+
+   transform-origin: center bottom;
+   transform: rotate(0deg);
 }
 /* 로봇머리 가상요소로 가발만들기 */
 .head::after {
@@ -195,6 +324,8 @@ h1.logo {
    /* 배경이미지 조정  */
    /* background-repeat: repeat; */
    background-size: 80%;
+   transform-origin: center top;
+   transform: rotate(0deg);
 }
 /* 몸통 가상요소로 상의 만들기 */
 .body::before {
@@ -331,6 +462,7 @@ h1.logo {
 .leg {
    position: absolute;
    top: 100%;
+   border-radius: 20px 20px 0 0;
    /* 부모는 .body */
    width: 70px;
    height: 200px;
@@ -381,6 +513,8 @@ h1.logo {
    width: 80%;
    height: 80%;
    left: 10%;
+   transform: rotate(0deg);
+   transform-origin: center top;
 }
 /* 다리하단 가상요소 부츠만들기 공통 */
 /* 부츠상단 */
@@ -582,3 +716,29 @@ text-indent: 40px;;
 }
 
 /************************ 3.하단영역 ************************/
+/* 3-1. 회사정보 */
+#bottom-area{
+   /* z -index 주기위해 포지션을 줘야함!!!!! */
+   position: relative;
+   z-index: 100;
+
+   margin-top: 50px;
+   color: #fff;
+   /* 글자크기: 30px, 글자체 'Black Ops One' */
+   font: 3rem 'Black Ops One';
+   /* 글자그림자 */
+   text-shadow: 2px 2px 2px #000;
+   /* 글자중앙 */
+   text-align: center;
+   /* 패딩: 가로/세로중에 작은 화면기준 7%
+   -> vmin(작은쪽기준), vmax(큰쪽기준) */
+   padding: 7vmin;
+   /* 반투명 배경넣기:검은색 반투명 */
+   
+   /* rgb(0 0 0 /0.5) -> 요즘 더많이 사용함 */
+   
+   background-color: rgb( 0 0 0/0.5);
+
+
+   
+}
