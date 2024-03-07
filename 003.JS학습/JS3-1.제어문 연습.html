@@ -6,8 +6,8 @@
       <title>JS3-1. 제어문 - if문, switch case문, for문, while문</title>
       <!-- JS코드구역 -->
       <script>
-          /* 클릭시작동함수 */
-          function A() {
+         /* 클릭시작동함수 */
+         function A() {
             /* 인풋요소찍어 변수만들기 */
             var inp = document.querySelector("#inp");
             /* 인풋입력값 변수만들기 */
@@ -50,11 +50,129 @@
                h2.style.color = "red";
             }
          }
+
+         /**********************************************
+             [ switch case문 ]
+             - 단일조건을 분류하여 실행문을 만들어 줄때 사용하는 제어문
+
+             ((구문구조))
+             ________________________________________
+
+             switch(변수){
+                 case 경우1: 실행코드; break;
+                 case 경우2: 실행코드; break;
+                 case 경우3: 실행코드; break;
+                 ...
+                 default: 실행문;
+             }
+             ________________________________________
+
+             ((구문해석))
+
+             1. 변수값에 해당하는 경우 그 값에 해당하는
+             case에 들어가서 실행코드를 실행함
+
+             2. 각 case 끝에 break 예약어를 반드시 써야함!
+             -> 안쓰면 다른 case에 또 들어가는 경우가 생김!
+             -> 일반적으로 break 키워드는 제어문을 빠져나갈때 씀!
+
+             3. default 는 if문의 else문과 비슷하여 해당 케이스가
+             없으면 이 부분이 실행됨(단, 필요시 사용)
+             -> default문에는 break를 쓰지 않는다!
+         **********************************************/
+
+         /*************************************************
+                함수명 : likefood
+                기능 : 사람이름을 입력하면 좋아하는 음식을 출력한다
+
+          *************************************************/
+
+         //1. 함수 호출확인
+         function Likefood() {
+            console.log("대답해봐! 호출!");
+
+            //2. 대상선정: 변경대상
+
+            /* 입력요소 */
+            var input2 = document.querySelector("#input2");
+            /* 출력요소 */
+            var tit = document.querySelector(".tit");
+            console.log("인풋찍기", input2, tit);
+
+            //3. 입력된 값 읽어오기
+            var txt_box_value = input2.value;
+            console.log(txt_box_value);
+
+            //4. 빈값 걸러내기
+            if (txt_box_value.trim() == "") {
+               tit.innerHTML = "값을 입력하세요";
+
+               input2.value = "";
+               input2.focus();
+
+               return;
+            }
+
+            if (!isNaN(txt_box_value)) {
+               // txt_box_value가 숫자가 아니면 TRUE라 
+               //한글일시 FALSE를 만들기위해 !씀 
+               tit.innerHTML = "한글을 입력하세요";
+
+               input2.value = "";
+               input2.focus();
+
+               return;
+            }
+
+            var msg;
+            //메시지변수
+            var tit_color;
+            //5. 지역명을 switch case문으로 분류하여 메세지넣기
+            switch (txt_box_value) {
+               case "노영":
+                  msg = "초밥";
+                  tit_color = "red";
+                  break;
+               case "영민":
+                  msg = "햄버거";
+                  tit_color = "blue";
+                  break;
+               case "민지":
+                  msg = "마라탕";
+                  tit_color = "green";
+                  break;
+               case "미유":
+                  msg = "츄르";
+                  tit_color = "yellow";
+                  break;
+               default:
+                  msg = "?누구신데 물어보세요";
+                  tit_color = "black";
+            }
+
+            console.log(msg, tit_color);
+            //6. 메시지 만들기
+            //message 변수에 최종 출력내용을 다시 담아서 저장한 후 출력한다!
+
+            if (msg == "?누구신데 물어보세요") {
+               tit.innerHTML = msg;
+               tit.style.color = tit_color;
+               /* 입력창초기화 */
+               input2.value = "";
+               input2.focus();
+            } else {
+               msg = `<span style="color:pink;font-size:50px">${txt_box_value}</span>님의 좋아하는 음식은${msg}입니다!`;
+            }
+
+            //7. 화면출력하기
+            tit.innerHTML = msg;
+            tit.style.color = tit_color;
+         }
+         /* ____________________________Likefood 함수구역_____________ */
       </script>
    </head>
    <body>
-     
-
+      <!-- ________________________________________________________ -->
       <div class="test">
          <h2 class="h2" style="font-size: 20px">평가출력</h2>
          <input
@@ -63,11 +181,24 @@
             placeholder="점수(숫자만) 입력해요"
             maxlength="2"
             onkeypress="
-        if (event.keyCode == 13) A()
-        "
+               if (event.keyCode == 13) A()
+               "
          />
 
          <button onclick="A()">클릭</button>
+      </div>
+      <!-- ________________________________________________________ -->
+
+      <div class="box">
+         <h2 class="tit">출력</h2>
+         <input
+            id="input2"
+            type="text"
+            placeholder="이름을 입력해주세요 "
+            onkeypress="if(event.keyCode==13)Likefood()"
+            maxlength="2"
+         />
+         <button onclick="Likefood()">누르세요!</button>
       </div>
    </body>
 </html>
