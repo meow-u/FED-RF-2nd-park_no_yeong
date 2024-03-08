@@ -114,8 +114,8 @@
             }
 
             if (!isNaN(txt_box_value)) {
-               // txt_box_value가 숫자가 아니면 TRUE라 
-               //한글일시 FALSE를 만들기위해 !씀 
+               // txt_box_value가 숫자가 아니면 TRUE라
+               //한글일시 FALSE를 만들기위해 !씀
                tit.innerHTML = "한글을 입력하세요";
 
                input2.value = "";
@@ -138,15 +138,23 @@
                   tit_color = "blue";
                   break;
                case "민지":
-                  msg = "마라탕";
+                  msg = "계란찜";
                   tit_color = "green";
                   break;
                case "미유":
                   msg = "츄르";
                   tit_color = "yellow";
                   break;
+               case "윤철":
+                  msg = "애플파이";
+                  tit_color = "purple";
+                  break;
+               case "현우":
+                  msg = "커피";
+                  tit_color = "lightblue";
+                  break;
                default:
-                  msg = "?누구신데 물어보세요";
+                  msg = "?누구";
                   tit_color = "black";
             }
 
@@ -154,7 +162,7 @@
             //6. 메시지 만들기
             //message 변수에 최종 출력내용을 다시 담아서 저장한 후 출력한다!
 
-            if (msg == "?누구신데 물어보세요") {
+            if (msg == "?누구") {
                tit.innerHTML = msg;
                tit.style.color = tit_color;
                /* 입력창초기화 */
@@ -169,12 +177,46 @@
             tit.style.color = tit_color;
          }
          /* ____________________________Likefood 함수구역_____________ */
+
+         /*************************************************
+                함수명 : B
+                기능 : 숫자입력하면 한글변환
+
+          *************************************************/
+         function B(){
+         /* 입력요소 */
+         var inputbox = document.querySelector('#inpbox');
+         /* 출력요소 */
+         var titbox = document.querySelector('.titbox');
+
+         console.log('찍힙니까!',inputbox, titbox);  
+         
+         /* 입력값 */
+            var inputbox_value = inputbox.value;
+            console.log(inputbox_value);
+         
+         /* 리셋 */
+            var rset = function(msg){
+            titbox.innerHTML = msg;
+            inputbox_value ="";
+            inputbox.focus();
+            return;
+            }
+
+         if (inputbox_value.trim()=="") {
+            rset('값을입력하세요');
+
+         }   
+
+
+         } 
+         /* ____________________________ B 함수구역_____________ */
       </script>
    </head>
    <body>
       <!-- ________________________________________________________ -->
       <div class="test">
-         <h2 class="h2" style="font-size: 20px">평가출력</h2>
+         <h2 class="h2">점수 평가</h2>
          <input
             id="inp"
             type="text"
@@ -190,7 +232,7 @@
       <!-- ________________________________________________________ -->
 
       <div class="box">
-         <h2 class="tit">출력</h2>
+         <h2 class="tit">좋아하는 음식</h2>
          <input
             id="input2"
             type="text"
@@ -200,5 +242,20 @@
          />
          <button onclick="Likefood()">누르세요!</button>
       </div>
+
+      <!-- ________________________________________________________ -->
+      <div class="testbox">
+         <h2 class="titbox">숫자</h2>
+         <input
+            id="inpbox"
+            type="text"
+            placeholder="숫자만 입력하세요"
+            maxlength="1"
+            onkeypress=""
+         />
+
+         <button onclick="B()">클릭</button>
+      </div>
+      <!-- ________________________________________________________ -->
    </body>
 </html>
