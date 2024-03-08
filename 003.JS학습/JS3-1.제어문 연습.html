@@ -211,6 +211,135 @@
 
          } 
          /* ____________________________ B 함수구역_____________ */
+
+         
+
+                  function whatscore(){
+
+         var inputbox =document.querySelector('.inputbox');
+
+         var ntc =document.querySelector('.notice');
+
+
+         console.log(inputbox, ntc)
+
+
+         var put_value = inputbox.value;
+
+         console.log(put_value);
+
+
+         //걸러낸후 공통함수 불러야나옴
+
+         var getout = function(msg){
+
+         //변경되었을수있어서 색초화
+
+         ntc.style.color='black'
+
+         ntc.innerText = msg;
+
+         inputbox.value ="";
+
+         inputbox.focus();
+         }
+
+
+         if(put_value.trim() ==""){
+
+         getout('값을입력하세요');
+         return;
+
+         }
+
+         else if (isNaN(put_value)){
+
+         getout('숫자만입력하세요');
+         return;
+         }
+
+         else if (put_value < 1 || put_value > 5){
+
+         getout('1~5까지의 숫자만 입력하세요');
+         return;
+         }
+
+         switch(put_value){
+
+         case '1':
+
+         msg='일';
+
+         ntccolor='red';
+
+         break;
+
+
+         case '2':
+
+         msg='이';
+
+         ntccolor='blue';
+
+         break;
+
+
+         case '3':
+
+         msg='삼';
+
+         ntccolor='Orange';
+
+         break;
+
+
+         case '4':
+
+         msg='사';
+
+         ntccolor='purple';
+
+         break;
+
+
+         case '5':
+
+         msg='오';
+
+         ntccolor='green';
+
+         break;
+
+
+         default:
+
+         msg='other';
+         ntccolor='black';
+
+         getout('지원하지 않는 입력값입니다')
+
+
+         }
+
+         //결과값출력
+         var msg;
+         var ntccolor;
+
+         msg=`<span>입력한 ${put_value}는 한글로 ${msg}입니다.</span>`
+
+         console.log ('출력전 최종값:',msg,ntccolor);
+
+
+         ntc.innerHTML =msg;
+
+         ntc.style.color =ntccolor;
+         inputbox.value ="";
+
+         inputbox.focus();
+      }
+         /* ____________________________ whatscore () 함수구역_____________ */
+
+    
       </script>
    </head>
    <body>
@@ -229,7 +358,7 @@
 
          <button onclick="A()">클릭</button>
       </div>
-      <!-- ________________________________________________________ -->
+      <!-- __________________________________________Likefood()______________ -->
 
       <div class="box">
          <h2 class="tit">좋아하는 음식</h2>
@@ -243,7 +372,7 @@
          <button onclick="Likefood()">누르세요!</button>
       </div>
 
-      <!-- ________________________________________________________ -->
+      <!-- ___________________________________________B()_____________ -->
       <div class="testbox">
          <h2 class="titbox">숫자</h2>
          <input
@@ -255,6 +384,19 @@
          />
 
          <button onclick="B()">클릭</button>
+      </div>
+      <!-- _________________________________________whatscore ()_______________ -->
+      <div class="testbox">
+         <h2 class="notice">숫자2</h2>
+         <input class="inputbox"
+            id="inpbox"
+            type="text"
+            placeholder="1-5 숫자만 입력하세요"
+            maxlength="3"
+            onkeypress="if (event.keyCode==(13)){whatscore ()}"
+         />
+
+         <button onclick="whatscore()">클릭</button>
       </div>
       <!-- ________________________________________________________ -->
    </body>
