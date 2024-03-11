@@ -3,7 +3,7 @@
 /* 네비게이션 유형1 CSS - nav01.css */
 
 /* 12그리드 불러오기 */
-@import url(./grid_12_float.css);
+@import url(./grid_12_flex.css);
 
 html,
 body,
@@ -51,23 +51,35 @@ ul::after,ol::after,.clb::after{
 }
 
 /* GNB 메뉴 */
-.gnb{
-    margin-left: 63px;
-}
+/* .gnb{} */
+    /* ul이 플렉스 박스이므로
+    정렬은 ul에서 하도록 함! */
+    /* margin-left: 63px; */
+
 /* GNB 메뉴 하위 a요소 */
 .gnb a{
     display: block;
     /* 블록요소로 확장설정함! */
 }
 
+/* 메뉴 플렉스박스 설정 */
+.gnb ul{
+    display: flex;
+    /* 진행방향 오른쪽끝정렬 */
+    justify-content: flex-end;
+
+    /* 메뉴 글자 줄바꿈방지 */
+    white-space: nowrap;
+}
 /* 상위메뉴만 적용하기 
 직계자식(>)선택으로 상위메뉴만 선택함 */
 .gnb ul > li{
     position: relative;
     /* 부모자격 - .smenu의 left값 */
-    float: left;
-    padding: 0 32px;
-    line-height: 78px;
+    /* float: left; ->flex로 전환! */
+    padding: 27px 32px;
+    /* line-height: 78px;
+    ->블록가상요소 밑줄이 아래로 밀려서 주석 */
     font-weight: bold;
     /* 글자관련셋팅은
     하위요소로 모두 상속됨! */
@@ -78,6 +90,10 @@ ul::after,ol::after,.clb::after{
     left: 50%;
     /* x축 중앙이동 */
     transform: translateX(-50%);
+
+    /* top을 쓰지 않고 마진탑으로 이동한 이유는
+    젠틀앱솔루트의 위치에서 부터 이동하려고! */
+    margin-top: 26px;
 
     width: 200px;
     background-color: rgba(0, 0, 0, 0.7);
@@ -169,18 +185,26 @@ ul::after,ol::after,.clb::after{
     transition-delay: .5s;
 }
 
-/* 가상요소 밑줄을 위한 부모자격 */
-.gnb ul>li>a{
+/* 가상요소 밑줄을 위한 부모자격 - 불필요! */
+/* .gnb ul>li>a{
     position: relative;
-}
-/* GNB 상위메뉴 오버시 밑줄애니 */
-.gnb ul>li>a::after{
+} */
+
+/* 다른 같은 구조의 요소에도 모두 적용위해
+클래스를 주고 셋팅되도록 만든다!!!
+->>> .uline 이라는 클래스를 주면 됨! */
+/* 상위메뉴 오버시 밑줄애니 */
+.uline ul>li>a::after{
     content: '';
-    position: absolute;
-    /* 앱솔루트는 자동블록됨! */
-    top: 53px;
-    /* 마우스 나갈때 left값 밀기 */
-    left: 100%;
+    /* 디자인 적용위해 block */
+    display: block;
+    /* position: absolute; */
+    /* 앱솔루트는 자동블록됨! -> 안씀! */
+    /* top: 53px; */
+    /* 마우스 나갈때 margin-left값 밀기 */
+    margin-left: 100%;
+    /* 글자와의 간격조정은 마진탑으로! */
+    margin-top: 2px;
     width: 0;
     height: 2px;
     background-color: #fff;
@@ -188,12 +212,28 @@ ul::after,ol::after,.clb::after{
     transition: .3s;
 }
 /* 오버시 밑줄박스 애니 */
-.gnb ul>li:hover>a::after{
-    left: 0;
+.uline ul>li:hover>a::after{
+    margin-left: 0;
     width: 100%;
     /* 오버시 트랜지션 
-    ->>> left 는 트랜지션 적용말것!!! */
+    ->>> margin-left 는 트랜지션 적용말것!!! */
     transition: width .3s;
+}
+
+/* 다국어 메뉴파트 */
+.multi-lang ul{
+    display: flex;
+}
+.multi-lang ul li{
+    padding: 27px 5px;
+}
+/* 2번째li 이후 가상요소 after 지우기 */
+.multi-lang ul li:nth-child(2)~li a::after{
+    display: none;
+}
+/* 2번째li 이후 오버시 색상변경 */
+.multi-lang ul li:nth-child(2)~li a:hover{
+    color: aquamarine;
 }
 
 

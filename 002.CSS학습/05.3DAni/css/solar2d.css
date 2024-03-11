@@ -69,7 +69,7 @@ Image replacement - 배경이미지에 설명을 넣고
    display: block;
    width: 0;
    height: 0;
-   overflow: hidden;
+   /* overflow: hidden; */
    /* display:none으로 숨기면
     화면리더기가 못읽는다. */
 }
@@ -93,9 +93,9 @@ body {
 }
 
 /* 공사중표시 */
-/* body * {
+body * {
    outline: 2px dashed #ccc;
-} */
+}
 
 /* 태양계박스 */
 #solar {
@@ -408,16 +408,13 @@ ____________________________________
 
 /* 가상요소로 행성 경로 원 그리기 공통 */
 .path-way div{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--earth-trans-size)*-2);
-    height: calc(var(--earth-trans-size)*-2);
-    transform: translate(-50%,-50%);
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    opacity: 0.5;
-
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   border: 2px solid #ccc;
+   border-radius: 50%;
+   opacity: 0.5;
     /* html에서 형제 앱솔루트중에 젤 마지막이라서 
     다른행성을 가릴 수 있으니, z-index를 줌 */
     z-index: -1;
