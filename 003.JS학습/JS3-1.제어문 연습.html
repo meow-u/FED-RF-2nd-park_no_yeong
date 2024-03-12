@@ -185,7 +185,7 @@
           *************************************************/
          function B() {
             /* 입력요소 */
-            var inputbox = document.querySelector("#inpbox");
+            var inputbox = document.querySelector("#inp-box");
             /* 출력요소 */
             var titbox = document.querySelector(".titbox");
 
@@ -304,12 +304,135 @@
             inputbox.focus();
          }
          /* ____________________________ whatscore () 함수구역_____________ */
-      </script>
+         
+         /* 돔컨텐츠 로딩 후에 대상 선택___________________ */
+         window.addEventListener('DOMContentLoaded',()=>{
+                // console.log('로딩완료!')
+         
+         /* 대상: id=sel */
+         let sel = document.querySelector('#sel');
+               // console.log(sel);
+         
+         /* 이벤트와 대상연결하기 */
+         sel.addEventListener('change',Dogugu); 
+         /* 함수괄호열면바로실행되니 ()   X!! */
+         })/* 로딩구역 _________________________________ */
+            
+            /* 이 함수는 로딩구역 내에서 체인지 이벤트와 연결해주었음.  */
+
+            /************************************************** 
+                  Dogugu 함수 : 선택박스(#sel)를 선택하면 값을 
+                  읽어와서 그에 맞는 구구단을 계산값을 
+                  구구박스안에 html로 넣어준다(.gugubox)  
+            **************************************************/
+
+                  function Dogugu() {
+
+            let selval = this.value;
+            //  let selval = sel.value;
+            /* 
+ JavaScript의 클로저 개념 :  Dogugu 함수가 DOMContentLoaded 이벤트 리스너 함수 내부에서 선언된 sel 변수에 접근할 수 있는 이유는 클로저(closure) 개념 때문입니다.
+
+클로저는 내부 함수가 외부 함수의 변수를 기억하고 사용할 수 있게 해줍니다. 이것은 외부 함수가 이미 실행을 마친 후에도 내부 함수가 외부 함수의 변수에 접근할 수 있다는 것을 의미합니다. */
+
+            console.log("선택박스값:",selval);
+
+            if(selval ==1){
+               document.querySelector('.gugubox').innerHTML ='';
+               /* let gugubox는 아래서 선언해서 못씀 호이스팅x */
+               document.querySelector('.gugubox').style.backgroundColor ='#000';
+               return; /* Dogugu() 함수에서 나가기 (1단X) */
+            }
+            
+            let txtval=`<h2>${selval}단</h2>`
+            console.log(txtval);
+            
+            /* for(시;한;증){실행코드} */
+            for(let i=1; i<10; i++){
+              txtval += `${selval} x ${i} = ${selval*i}<br>`;
+
+
+            }
+            
+            /* 출력하기 */
+
+            let gugubox = document.querySelector('.gugubox');
+            // console.log(gugubox);
+            
+            // console.log(txtval);
+            gugubox.innerHTML =txtval + `<h4>어려운 구구단!</h4>`
+
+
+
+            if(selval) gugubox.style.backgroundColor =`#${selval}${selval}${selval}`
+
+
+         }
+         /* ____________________________Dogugu 함수구역_____________ */
+         
+
+            /* 로딩 함수구역 _________________________________ */
+
+            window.addEventListener('DOMContentLoaded',function(){
+            // console.log('로딩완');
+
+            /* 선택대상 */
+            let sel2 = document.querySelector('#sel2');
+            
+            /* 선택대상 이벤트 함수연결 */
+            sel2.addEventListener('change',Dogugu2);
+            });/* 로딩 함수구역 _________________________________ */
+
+            function Dogugu2(){/* 이벤트와 연결된 함수 */
+               /* 선택요소값 */
+               let sel2val = this.value;
+               console.log(sel2val);
+
+               /* 변경대상 */
+               let gugubox2 = document.querySelector('.gugubox2')
+
+               /* 값이 1일시  구구박스 내용지우고 함수나가기 */
+                     if(sel2val == 1) {
+                        gugubox2.innerHTML ='';
+                        return;
+                     };
+
+               let innertxt = `<h2>${sel2val}단</h2>`;
+               console.log(innertxt);
+               
+               i = 1;
+               while(i <= 9){
+               innertxt += `${sel2val} x ${i} = ${sel2val*i}<br>`;
+               i++;
+               }
+                   // console.log(innertxt);
+
+
+               gugubox2.innerHTML =`<h4>어렵다구구단!</h4>` + innertxt;
+
+                        /* 값에따라 배경색지정 */
+            if(sel2val <= 10) gugubox2.style.backgroundColor ='lightyellow';
+            else{gugubox2.style.backgroundColor ='pink'};
+
+            };
+
+
+         
+         
+         /************************************************** 
+                  Dogugu2 함수 : 선택박스(#sel)를 선택하면 값을 
+                  읽어와서 그에 맞는 구구단을 계산값을 
+                  구구박스안에 html로 넣어준다(.gugubox)  
+            **************************************************/
+
+         
+
+           /* ___________________________Dogugu2 함수구역_____________ */
+         </script>
    </head>
    <body>
-      <!-- ________________________________________________________ -->
       <div class="test">
-         <h2 class="h2">점수 평가</h2>
+         <h2 class="h2">if 점수 평가</h2>
          <input
             id="inp"
             type="text"
@@ -325,7 +448,7 @@
       <!-- __________________________________________Likefood()______________ -->
 
       <div class="box">
-         <h2 class="tit">좋아하는 음식</h2>
+         <h2 class="tit">switch case 좋아하는 음식</h2>
          <input
             id="input2"
             type="text"
@@ -338,9 +461,9 @@
 
       <!-- ___________________________________________B()_____________ -->
       <div class="testbox">
-         <h2 class="titbox">숫자</h2>
+         <h2 class="titbox">고쳐야함</h2>
          <input
-            id="inpbox"
+            id="inp-box"
             type="text"
             placeholder="숫자만 입력하세요"
             maxlength="1"
@@ -351,7 +474,7 @@
       </div>
       <!-- _________________________________________whatscore ()_______________ -->
       <div class="testbox">
-         <h2 class="notice">숫자2</h2>
+         <h2 class="notice">if + switch 숫자 한글표기</h2>
          <input
             class="inputbox"
             id="inpbox"
@@ -361,8 +484,68 @@
             onkeypress="if (event.keyCode==(13)){whatscore ()}"
          />
 
-         <button onclick="whatscore()">클릭</button>
+         <button onclick="whatscore()">클릭</button><br><br>
       </div>
-      <!-- ________________________________________________________ -->
+      <!-- _______________________________________gugudan_________________ -->
+      <style> 
+      .gugubox {
+         width: 400px;
+         height: 200px;
+         border: 2px solid #000;
+         text-align: center;
+         /* Y축 넘치는부분 스크롤로 처리  */
+         overflow-y: scroll;
+         color: #fff;
+      }
+      </style>
+      
+      <h2 class="gugutit">for 구구단을 외자</h2>
+      <select name="sel" id="sel">
+         <option value="1">구구단을 선택하세요~</option>
+         <option value="2">2단</option>
+         <option value="3">3단</option>
+         <option value="4">4단</option>
+         <option value="5">5단</option>
+         <option value="6">6단</option>
+         <option value="7">7단</option>
+         <option value="8">8단</option>
+         <option value="9">9단</option>
+      </select>
+      <div class="gugubox"></div>
+      <!-- ______________________________________gugudan2__________________ -->
+      <style> 
+      .gugubox2 {
+         width: 400px;
+         height: 200px;
+         border: 2px solid #000;
+         text-align: center;
+         /* Y축 넘치는부분 스크롤로 처리  */
+         overflow-y: scroll;
+      }
+      </style>
+      
+      <h2 class="gugutit2">while 구구단을 외자</h2>
+      <select name="sel2" id="sel2">
+         <option value="1">구구단을 선택하세요~</option>
+         <option value="2">2단</option>
+         <option value="3">3단</option>
+         <option value="4">4단</option>
+         <option value="5">5단</option>
+         <option value="6">6단</option>
+         <option value="7">7단</option>
+         <option value="8">8단</option>
+         <option value="9">9단</option>
+         <option value="10">10단</option>
+         <option value="11">11단</option>
+         <option value="12">12단</option>
+         <option value="13">13단</option>
+         <option value="14">14단</option>
+         <option value="15">15단</option>
+         <option value="16">16단</option>
+         <option value="17">17단</option>
+         <option value="18">18단</option>
+         <option value="19">19단</option>
+      </select>
+      <div class="gugubox2"></div>
    </body>
 </html>
