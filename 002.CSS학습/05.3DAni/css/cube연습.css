@@ -1,0 +1,89 @@
+@charset "upf-8";
+/* 큐브 애니메이션 CSS - cube.css */
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: linear-gradient(to bottom, rgb(154, 200, 230),rgb(244, 253, 212));
+    height: 100vh;
+}
+/* CSS 변수세트 */
+
+:root{
+    /* 큐브공통크기 */
+    --cube-size: 300px;
+    /* z축거리나눔수 */
+    --divide-num: 2;
+}
+
+html.on:root{
+    --divide-num: 1.5;
+}
+
+/* 큐브 */
+.cube{
+    position: absolute;
+    width: var(--cube-size);
+    height: var(--cube-size);
+    /* outline: 2px solid red; */
+    left: calc(50% - var(--cube-size)/2);
+    top: calc(50% - var(--cube-size)/2);
+
+    transform-style:preserve-3d;
+    transform:rotatex(10deg) rotateY(30deg);
+}
+
+/* 각면 공통 */
+.cube span{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(127, 255, 212, 0.538); */
+    opacity: 0.8;
+    outline: 2px solid #ccc;
+    box-sizing: border-box;
+}
+
+.cube span:nth-child(1){
+    /* 배경이미지 넣기 */
+     background: url(../images/seoulCity.jpg) no-repeat center/cover;
+    
+    /* 화면방향 Z축 이동 
+    translateZ  속성을 사용
+    양의 값은 앞쪽, 음의 값은 뒷쪽 */
+    
+    transform: translateZ(calc(var(--cube-size)/var(--divide-num)));
+    /* 큐브의 앞쪽이동은 큐브 크기의 절반 */
+}
+.cube span:nth-child(2){
+    background: url(../images/parisCity.jpg) no-repeat center/cover;
+    
+    transform: rotateY(90deg) 
+    translateZ(calc(var(--cube-size)/var(--divide-num)));   
+}
+.cube span:nth-child(3){
+    background: url(../images/London_city.jpg) no-repeat center/cover;
+    transform:rotateY(-90deg)
+    translateZ(calc(var(--cube-size)/var(--divide-num)))
+}
+.cube span:nth-child(4){
+    background: url(../images/cityMain.jpg) no-repeat center/cover;
+    transform:rotateY(180deg)
+    translateZ(calc(var(--cube-size)/var(--divide-num)));
+}
+
+/* 아랫면 */
+.cube span:nth-child(5){
+    background: url(../images/citys.jpg) no-repeat center/cover;
+    transform:rotatex(90deg)
+    translateZ(calc(var(--cube-size)/var(--divide-num)*-1));
+}
+/* 윗면 */
+.cube span:nth-child(6){
+    background: url(../images/house.png) no-repeat center/cover;
+    transform:rotatex(90deg)
+    translateZ(calc(var(--cube-size)/var(--divide-num)*1));
+}
