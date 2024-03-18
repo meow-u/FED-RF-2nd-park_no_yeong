@@ -63,8 +63,79 @@
             const target = document.querySelectorAll(".cont");
 
             console.log("타겟:", target);
+         
+            
+// *****************************************************
+// **********< target 3어렵구 중요!> ********************
 
-        /* __TEST_target[6]__ */  
+      /* __TEST_target[0]__ */  
+         // 객체선언   
+            const miu ={name:'미유',year:'7세',weight:'7kg',favorite:'츄르',show:function(a,b){
+                //이함수 클릭이벤트는 target[3]에 걸었음.
+               
+                //여기서 a는 이벤트클릭건 익명함수의 text 매개변수
+                //여기서 b는 이벤트클릭건 익명함수의 this 값
+                b.style.lineHeight = '200px';
+                b.innerHTML = a;
+
+               console.log('함수랑 this 찍으까:',miu.show,this);
+               //객체 리터럴 안에서 함수명을 show:miuFn(){}같이 직접함수이름을 사용할 수 없다!
+               
+            }};
+
+      
+            target[0].innerHTML = `이름: ${miu.name}/ 나이: ${miu['year']}/ 몸무게 ${miu.weight}/ 좋아하는간식:${miu.favorite}`;
+      
+      /* __TEST_target[1]__ */  
+         // 배열선언
+            const txt =['미유는','사람을','좋아해','가장','좋아하는','사람은','노영이 (뒷함수무시!)',function(){
+               console.log('함수 메서드 호출!this는?:',this);
+               alert('클릭됐다!')
+               this.style.backgroundColor = 'green';
+               this.style.transform = 'rotate(360deg)';
+               this.style.transition ='1s ease-in-out';
+
+               //이함수 클릭이벤트는 target[2]에 걸었음.
+
+               
+            }]; // txt배열 //
+
+            // console.log('배열전체와 함수콘솔에찍기',txt,txt[7]);
+
+            target[1].innerHTML = txt.join('~!! ');
+
+      /* __TEST_target[2]__ */  
+            target[2].innerHTML = 
+            `여기에 <br>클릭이벤트 걸 꺼에요!`;
+            target[2].style.lineHeight ='35px';
+            target[2].title ='나를 클릭하세요!';
+            target[2].style.cursor = 'pointer';
+            target[2].onclick =txt[7];
+
+      /* __TEST_target[3]__ */  
+      target[3].innerHTML =`miu 객체안의 메서드함수 show에 매개변수를(a,b) 받아서 실행해볼거에요 `;
+      target[3].title ='클릭시 함수실행!';
+      target[3].style.cursor = 'pointer';
+
+// *****************************************************
+// **********< target 3어렵구 중요!> ********************
+
+      target[3].onclick = function(){
+         let text = `클릭되면 실행되는 익명함수서 받아온 글! (text)`; 
+         console.log(text,this);
+         this.style.backgroundColor ='yellow';
+         this.style.transform = 'scale(1.2) rotate(-720deg)';
+         this.style.transition ='1s ease-in-out';
+         // this.innerHTML = text; 
+         // 여기서 할수도있지만 매개변수를 통해 전달해서
+         // 이너텍스트 바꿀예정
+
+         miu.show(text,this);
+      };
+
+      /* __TEST_target[4]__ */  
+      /* __TEST_target[5]__ */  
+      /* __TEST_target[6]__ */  
         const NY ={
             name:'노영',
             tall:'171cm',
@@ -81,8 +152,10 @@
         target[6].innerHTML =`
         내 이름은 ${NY.name}키는 ${NY.tall}입니다. <br> 고양이 이름은 ${NY.고양이}이고, 나이는 ${NY.미유나이}입니다.`;
         target[6].onclick = NY.얍;
-        target[6].style.lineHeight = '40px';
-        /* __________________ */    
+        target[6].style.lineHeight = '40px';  
+
+
+
 
             
          } //////////////loadFn함수////////////////////////////
