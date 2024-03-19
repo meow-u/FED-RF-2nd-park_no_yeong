@@ -308,3 +308,51 @@ jjyObj.trailer = function () {
    // 예고편 플레이 함수호출
    playMovie("_bm91mlFaJI");
 }; ////// trailer 함수 //////
+
+
+
+/* 연습 객체 */
+
+let mj = {};
+
+mj.name = '민지'
+mj.year = '25살'
+mj.color = '보라색좋아'
+mj.gender = '여자'
+mj.video = function(){
+ /* 선언전 함수호출(영상 값) */
+ showMV('smdmEhkIRVc');
+};
+
+let ny = {};
+
+ny.name = '노영'
+ny.year = '31살'
+ny.color = '파란색좋아(아무영상)'
+ny.gender = '여자'
+ny.video = function(){
+ /* 선언전 함수호출(영상 값) */
+ showMV('smdmEhkIRVc');
+};
+
+let yc = {};
+
+yc.name = '윤철'
+yc.year = '33살'
+yc.color = '몰라'
+yc.gender = '남자'
+yc.video = function(){
+ /* 선언전 함수호출(영상 값) */
+ showMV('8Ltpa4QmnuU');
+};
+
+let hw = {};
+
+hw.name = '현우'
+hw.year = '34살'
+hw.color = '몰라'
+hw.gender = '남자'
+hw.video = function(){
+ /* 선언전 함수호출(영상 값) */
+ showMV('fRkOWmfZjkY');
+};

@@ -45,7 +45,11 @@
             transform: scale(1.2);
          }
       </style>
-      <script>
+
+      <!-- 객체 외부 JS 불러오기 -->
+      <script src="./js/js4-1.object.js"></script>
+
+      <script>         
          // 로딩구역//////////////////////////////////////////
          // DOMContentLoaded 는 HTML태그 로딩후
          // 발생하는 이벤트임 (load 이벤트와 비교)
@@ -134,8 +138,6 @@
       };
 
       /* __TEST_target[4]__ */  
-      /* __TEST_target[5]__ */  
-      /* __TEST_target[6]__ */  
         const NY ={
             name:'노영',
             tall:'171cm',
@@ -149,18 +151,199 @@
             }, //얍 메서드
             
         }; ///NY객체
-        target[6].innerHTML =`
+        target[4].innerHTML =`
         내 이름은 ${NY.name}키는 ${NY.tall}입니다. <br> 고양이 이름은 ${NY.고양이}이고, 나이는 ${NY.미유나이}입니다.`;
-        target[6].onclick = NY.얍;
-        target[6].style.lineHeight = '40px';  
+        target[4].onclick = NY.얍;
+        target[4].style.lineHeight = '40px';  
 
 
+      /* __TEST_target[5]__ */
+      /* 빈 객체만들고 할당하기 */  
+        let cat = {};
+
+        cat.name = '미유'
+        cat.year = '7살'
+        cat.color = '하얀색'
+        cat.gender = '여자'
+        cat.video = function(){
+         /* 선언전 함수호출(영상 값) */
+         showMV('FhA37Sw4j8w');
+        };
+        console.log(cat);
+
+      //5번박스 셋팅 함수
+      const box5 = function(){
+         //내부출력
+        target[5].innerHTML = 
+        `선택버튼정보 <br> ★ 이름은:${cat.name} ★나이는:${cat.year}
+        ★색깔은:${cat.color} ★성별은:${cat.gender}`;
+
+         //툴팁,커서, 대상박스랑 객체안에있는 함수랑연결
+        target[5].title = `${cat.name}친구들을 보려면 클릭하세냥!`;
+        
+        target[5].onclick = cat.video;
+      };
+      
+      //위는 클릭후실행이고 여긴 초기설정
+      target[5].style.cursor = 'pointer';
+      target[5].style.fontSize = "20px";
+      target[5].style.fontWeight = "bold";
+      target[5].style.lineHeight = '40px';  
+              // (출력전) 출력박스 CSS조정하기
+
+
+      box5();
+
+   
+
+      /* __버튼박스 .choice__ */  
+
+      //버튼박스에 넣을 이름 배열만들기
+      let name = [
+         '민지',
+         '노영',
+         '윤철',
+         '현우',
+      ];
+      console.log(name);
+      
+      const nameNum =name.length;
+      console.log(nameNum);
+
+      //for문돌려서 배열수만큼 버튼넣기
+      for (let i = 0; i < nameNum; i++) {
+        
+
+         target[6].innerHTML +=
+         //백틱에서 1,3버튼에만 삼항연산자로 클래스넣기 
+         
+         `<button ${i==0||i==3?'class="on"':''}
+         style= margin-left:20px>${name[i]} 버튼</button>`;
+
+         if(i==1||i==3){
+            target[6].innerHTML +=`<br>`;
+         }
+
+      };/////for문////
+            target[6].style.lineHeight = '40px';
+            target[6].style.fontSize = '30px';
+
+         
+         //버튼전체, 버튼갯수 변수만듬
+         let namebtn = target[6].querySelectorAll('button');
+         console.log(namebtn);
+         let btnlang = namebtn.length;
+         console.log(btnlang);
+
+         console.log(namebtn,btnlang);
+         
+         //버튼갯수변수로 포문 돌려서 버튼이너텍스트 변수만듬
+         for (let i = 0; i < btnlang; i++) {
+            /* 각각버튼에 이벤트걸기 */
+            namebtn[i].onclick = function(){
+               
+               let btntxt = this.innerText;
+               console.log(btntxt);
+               /* 값읽어서 일치시 객체덮어 데이타다시 띄우기 */
+
+                  // 영화정보 변경전 찍어보기
+                  // 각자 자기의 변수를 찍는다!
+                  console.log('변경전 영화객체',cat);
+
+
+               switch(btntxt){
+                  case '민지 버튼':
+                     cat = mj;
+                     break;
+
+                  case '노영 버튼':
+                     cat = ny;
+                     break;
+
+                  case '윤철 버튼':
+                     cat = yc;
+                     break;
+
+                  case '현우 버튼':
+                     cat = hw;
+                     break;
+                  }
+                  
+                  // 객체값 덮어서 다시띄움
+                  box5();
+
+                  console.log('변경후 영화객체',cat);
+
+            };
+         }; ////for문////////
+         
+
+
+
+      
 
 
             
          } //////////////loadFn함수////////////////////////////
          /////////////////////////////////////////////////////
+   //위에서 showMV(값) 일케 먼저쓴 함수 이제선언
 
+//얘가 로드 fn 함수내에 있으면 전역함수가 아니라서 부를수없음
+
+   function showMV(MVvalue){
+         console.log(MVvalue);
+      document.body.innerHTML +=  /*  +=로 안쓰면 다날라감 */
+      `
+      <div id="mv">
+         <iframe class="mv" src="https://www.youtube.com/embed/${MVvalue}?autoplay=1"allow="autoplay"></iframe>
+            <button class="btn">닫기</button> 
+         </div>
+      `;
+      // 재생박스CSS설정
+      const mv = document.querySelector('#mv');
+      const mvCss = mv.style;
+      mvCss.position = 'absolute';
+      mvCss.width ='700px';
+      mvCss.height ='500px';
+      mvCss.top ='50%';
+      mvCss.left ='50%';
+      mvCss.transform = 'translate(-50%,-50%)';
+            // 아이프레임 CSS설정
+            let ifr = mv.querySelector("iframe");
+            let ifrcss = ifr.style;
+            ifrcss.border = "none";
+            ifrcss.width = "100%";
+            ifrcss.height = "100%";
+
+            //버튼설정
+            let btn = mv.querySelector(".btn");
+
+            //cssTest로 설정하면 한번에 주르륵쓰기가능. 단 다른css덮어써서 없어져버림
+            
+            btn.style.cssText = `
+               position: absolute;
+               top : 0;
+               right : -70px;
+               width : 50px;
+               height : 50px;
+               border : none;
+               color : #fff;
+               background-color : blue;
+               font-size : 15px;
+               font-weight : bold;
+               border-radius: 50%;
+               cursor : pointer;
+               line-height : 50px;
+               `;
+
+               //버튼클릭시 선택요소제거
+            btn.onclick = function() {
+               mv.remove(); 
+            };
+
+
+
+      }; //박스클릭시 익명 함수내부에서 실행되는 showMV 함수 끝
 
       </script>
    </head>
@@ -168,12 +351,16 @@
    <body>
       <h1>JS4-1. 배열변수와 객체</h1>
 
-      <div class="cont"></div>
-      <div class="cont"></div>
-      <div class="cont"></div>
-      <div class="cont"></div>
-      <div class="cont"></div>
-      <div class="cont"></div>
-      <div class="cont">TEST</div>
+      <div class="cont">0</div>
+      <div class="cont">1</div>
+      <div class="cont">2</div>
+      <div class="cont">3</div>
+      <div class="cont">4</div>
+      <div class="cont">5</div>
+      <!-- 영화초이스박스 -->
+      <div class="cont choice"></div>
+
+      <!-- 영화예고편용 박스 -->
+      <aside id="mvbox"></aside>
    </body>
 </html>
