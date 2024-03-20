@@ -530,7 +530,7 @@
 
                //예고편 메서드 호출
                target[5].onclick = nyObj.trailer;
-            }; //////// showMovieInfo 함수 ////////////
+            }; //////// showMovieInfo 함수 ///////////////////////////////
             
             // (출력전) 출력박스 CSS조정하기
             target[5].style.lineHeight = "34px";
@@ -636,6 +636,10 @@
                  
                   switch(btnTxt){
 
+                     case '나야나초이스':
+                     nyObj = myObj;
+                     break;
+
                      case '탐쌤초이스':
                      nyObj = tomObj;
                      break;
@@ -643,7 +647,57 @@
                      case '민지초이스':
                      nyObj = mjObj;
                      break;
-                  }
+
+                     case '이지영초이스':
+                     nyObj = jyObj;
+                     break;
+
+                     case '도연초이스':
+                     nyObj = dyObj;
+                     break;
+
+                     case '재윤초이스':
+                     nyObj = jaeObj;
+                     break;
+
+                     case '유지영초이스':
+                     nyObj = JYObj;
+                     break;
+
+                     case '우진초이스':
+                     nyObj = wjObj;
+                     break;
+
+                     case '영진초이스':
+                     nyObj = yjObj;
+                     break;
+
+                     case '은경초이스':
+                     nyObj = lekObj;
+                     break;
+
+                     case '지현초이스':
+                     nyObj = jjob;
+                     break;
+
+                     case '수진초이스':
+                     nyObj = suObj;
+                     break;
+
+                     case '윤철초이스':
+                     nyObj = ironObj;
+                     break;
+
+                     case '정윤초이스':
+                     nyObj = jjyObj;
+                     break;
+
+                     case '현우초이스':
+                     nyObj = koObj;
+                     break;
+
+                     
+                  }//스위치문
                   
                //   if(btnTxt=='민지초이스'){
                //      // 객체의 '내용'을 덮어쓰기로 변경함 
@@ -655,6 +709,18 @@
                   // 변경데이터 확인 후 바로위박스 
                   // 영화정보 업데이트 함수를 호출한다!
                   showMovieInfo();
+
+                  // JS클래스 내장객체 :classList 
+                  // add() / remove() 메서드사용
+
+                  //버튼에 클래스 on 모두빼기 (클릭된애가아님)
+                  for(let i=0; i < cntBtn; i++){
+                  choiceBtn[i].classList.remove('on');
+
+                  }/////for문////
+
+                  //클릭된 버튼에 클래스 on 넣기
+                  this.classList.add('on');
 
                };////click 이벤트 함수 
                

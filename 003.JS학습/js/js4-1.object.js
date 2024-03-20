@@ -3,22 +3,22 @@
 // 노영의 오브젝트!
 //-> 변경가능하게 let으로 선언한다!
 
-let nyObj = {};
+let  myObj = {};
 // 오브젝트 형만 만들고 객체의 내용은 아래에서!
 
 // 1. 영화제목
-nyObj.title = "범죄도시4";
+myObj.title = "범죄도시4";
 // 2. 감독
-nyObj.director = "허명행";
+myObj.director = "허명행";
 // 3. 배우
-nyObj.actor = "마동석,김무열";
+myObj.actor = "마동석,김무열";
 // 4. 장르
-nyObj.genre = "액션";
+myObj.genre = "액션";
 // 5. 관람가
-nyObj.ratings = "15세";
+myObj.ratings = "15세";
 
 // 6. 예고편
-nyObj.trailer = function () {
+myObj.trailer = function () {
    console.log("예고편:영화아이디");
    // 예고편 플레이 함수호출!
    playMovie("jrQ-pInzXHE");
