@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <title>JS5-1. 함수(function)</title>
+      <style>
+         body {
+            margin: 0;
+            min-height: 100vh;
+            /* 최소 높이로 보이는 화면크기만큼 지정하면
+                기본적으로 body가 보이는 화면을 유지하다가
+                컨텐츠가 많아져서 스크롤 생성시 body도 늘어남! */
+
+            /* background: url(https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564)
+               no-repeat fixed center/cover; */
+         }
+         /* 배경박스 */
+         .bgbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            /* body가 투명하므로 아래쪽에 내려가 있어도
+                배경은 보인다! -> 배경처리시 이렇게 하면됨! */
+         }
+         .bgbox ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            width: 100%;
+            height: 100%;
+         }
+         .bgbox li {
+            position: absolute;
+            /* 서로겹쳐짐 */
+            width: 100%;
+            height: 100%;
+            /* 투명하게 */
+            opacity: 0;
+            /* 트랜지션 */
+            transition: 0.5s ease-in-out;
+         }
+         .bgbox li.on {
+            /* 보이게함 */
+            opacity: 1;
+            /* 맨위로 오게함 */
+            z-index: 1;
+         }
+
+         h2 {
+            font-size: 5vh;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            text-align: center;
+         }
+
+         button {
+            font-size: 40px;
+         }
+
+         /* 불꽃놀이 박스 */
+         .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100;
+            background: url(./images/fireworks.gif) center;
+
+         display: none;
+
+            font-size: 6vw;
+            font-weight: bold;
+            color: aqua;
+            white-space: nowrap;
+            text-shadow: 0 0 5px #333;
+            text-align: center;
+            line-height: 100vh;
+         }
+      </style>
+      <script>
+
+   // 온라인상 배경이미지 주소를 배열로 셋팅
+   const scene = [
+      "https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Fsundaytimes%2Fprod%2Fweb%2Fbin%2F1ee63066-4239-11ec-b414-b1f6389ab345.jpg",
+      "https://cdn.britannica.com/57/75757-050-122EC2ED/Changgyong-Palace-background-Seoul.jpg",
+      "https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg",
+      "https://www.wallpaperflare.com/static/353/548/867/cityscape-seoul-south-korea-landscape-wallpaper-preview.jpg",
+      "https://wallpaperaccess.com/full/11675.jpg",
+      "https://wallpaperaccess.com/full/11676.jpg",
+      "https://wallpaperaccess.com/full/11678.jpg",
+      "https://wallpaperaccess.com/full/5480068.jpg",
+      "https://wallpaperaccess.com/full/11682.jpg",
+      "https://wallpaperaccess.com/full/5480079.jpg",
+   ];
+
+
+   function Korea(txt) {
+
+   } ///// Korea함수 ////////////////
+
+
+   function Ri(txt) {
+   
+   } ///// Ri함수 ////////////////
+
+
+   function Na(txt) {
+   
+   } ///// Na함수 ////////////////
+
+
+   function Ra(txt) {
+
+   } ///// Ra함수 ////////////////
+
+
+   // 인터발함수 사용!!!
+   // 구현내용: 3초 간격으로 배경이미지를 배열데이터 순서대로 변경
+
+
+   /// 일정시간 후 한번만 애국가 가사  /////////
+   /// body에 h2태그로 넣기 ///////////////////
+
+   /********************************************* 
+      함수명: myFn
+      기능: 파라미터 얼마든지 받아서 h2만들어 그안에 넣기
+   *********************************************/
+   function myFn() {}
+
+      // arguments파라미터 변수에 담긴 값을
+      // for문을 돌려서 h2 태그에 넣고 .letters박스에
+      // 출력시키기
+
+   // 윈도우 로딩 후 호출
+   window.addEventListener("load", function () {
+      //함수호출하기
+      myFn(
+         "&lt;애국가&gt;",
+         "동해물과 백두산이 마르고 닳도록",
+         "하느님이 보우하사 우리나라 만세",
+         "무궁화 삼천리 화려 강산",
+         "대한 사람 대한으로 길이 보전하세"
+      );
+   });
+
+   // 함수의 전달변수가 없어도 보내는 전달값이 있으면
+   // 함수의 arguments라는 전달변수인 [유사배열객체]에
+   // 값을 자동으로 담아준다!
+
+   // [유사배열객체란? - 배열형식으로 생겼으나 배열이
+   // 아니므로 배열 메서드를 직접 사용할 수 없다!]
+   // (1) 배열인지 여부검사 : Array.isArray(변수or값)
+   // -> 배열이면 true / 아니면 false
+   // (2) 유사배열을 배열로 변경하는 메서드는?
+   // -> Array.from(유사배열)
+   // (3) 기타유사배열 : html컬렉션
+
+   // arguments 는 익명함수에서 사용가능함!
+   // 단, 화살표함수는 사용불가!
+
+   /***********************************************
+    * 함수명: showFireworks
+    * 기능:  우리나라대한민국 프로젝트 버튼 
+      마지막 확인시 전체화면으로 불꽃놀이 보이기
+   ***********************************************/
+   function showFireworks() {
+      // 1.함수호출확인
+      console.log("퐈이어~~!");
+
+      // 2.대상선정: .fireworks
+      // querySelector >> 클래스가 여러개있어도 먼저만나는 하나만 잡음
+      let fireworks = document.querySelector(".fireworks");
+      console.log(fireworks);
+
+      // 3. 변경적용하기 : 보이게하기
+      fireworks.style.display = "block";
+
+      // 4. 3초후 다시 안보이게 처리하기
+      // setTimeout(함수,시간)
+      setTimeout(() => {
+         fireworks.style.display = "none";
+      }, 3000);
+   } ///////////////////showFireworks 함수///////////////////
+   ////////////////////////////////////////////////////////
+
+   //로딩시 호출설정 ////////////////////////
+   window.addEventListener("load", loadFn);
+
+   /****************************************
+    * 함수명 : loadFn
+    * 기능 : 페이지 로딩 후 실행함수
+    ****************************************/
+   function loadFn() {
+      // 함수호출 확인
+      console.log("로딩완료!");
+
+      // [ 배경박스에 ul>li를 넣고 배경이미지 셋팅하기 ]
+      // 1. 대상선정: .bgbox
+      const bgbox = document.querySelector(".bgbox");
+
+      // 2.html 넣기 : 기준은 scene배열 변수 만큼 넣기
+      // 2-1.배열개수구하기
+      let cntScene = scene.length;
+      console.log("배열개수:", cntScene);
+
+      // 2-2. 배열개수만큼 for문 돌려서 li만들기
+      // html 코드를 담을 변수
+      let hcode = "<ul>";
+
+      // 배열개수만큼 li 만들어서 hcode변수에 할당
+      // li에 배경 css넣기
+
+      // 첫번째 li만 클래스 on넣기
+      // -> ${ i===0? 'class="on"' : '' }
+      // -> 해석: i가 0인가?
+      // 맞으면 (true) 'class="on"'
+      // 틀리면(false) 빈 문자값
+      for (let i = 0; i < cntScene; i++) {
+         hcode += `
+      <li
+         ${i === 0 ? 'class="on"' : ""}
+         style="background:url(${scene[i]}) no-repeat center/cover"
+      ></li>
+      `;
+      } /////for/////
+
+      // 닫는 ul넣기
+      hcode += "</ul>";
+      //코드확인
+      //  console.log('hcode:',hcode);
+      // 2-3.대상에 html넣기
+      bgbox.innerHTML = hcode;
+
+      // 3. 순차적으로 li에 클래스 on넣어서 장면넘기기
+      // -> setInterval() 타이밍 내장함수 사용!
+      // 순번변수 (리스트순번)
+      let listSeq = 0;
+      // 배경 li변수에 할당
+      const bgList = bgbox.querySelectorAll("li");
+
+      // 인터발함수
+      setInterval(() => {
+         // 1. 리스트 이전순번 클래스 제거하기
+         bgList[listSeq].classList.remove("on");
+         // 2. 순번변수 1씩 증가
+         listSeq++;
+         // 3. 한계값 체크 (10이되면 처음번호 0으로 변경)
+         if (listSeq === 10) listSeq = 0;
+         // 4. 리스트 다음순번 클래스 넣기
+         bgList[listSeq].classList.add("on");
+      }, 3000);
+   } ////////////////loadFn 함수//////////////
+   /////////////////////////////////////////
+      </script>
+   </head>
+
+   <body>
+      <!-- 배경박스 -->
+      <div class="bgbox"></div>
+      <!-- 프로젝트 버튼 -->
+      <button
+         onclick="
+      alert(Korea('우'))
+      //alert실행하여 '확인'버튼 다 클릭후 아래코드 실행
+      showFireworks();
+      "
+      >
+         우리나라 대한민국 만세 프로젝트 시작!
+      </button>
+
+      <!-- 애국가 가사 타이틀 넣기 박스 -->
+      <div class="letters"></div>
+
+      <!-- 불꽃놀이 박스 -->
+      <div class="fireworks">우리나라 대한민국 만세!!!</div>
+   </body>
+</html>
