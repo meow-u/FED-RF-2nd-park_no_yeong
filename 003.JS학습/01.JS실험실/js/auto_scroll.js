@@ -24,18 +24,17 @@ let pgNum = 0;
 // 1-2. 휠 상태변수 (true는 막기/ false는 통과)
 let stsWheel = false;
 // 1-3. .page 클래스 요소
-const elePage = 
-document.querySelectorAll('.page');
-// 1-4. 전체페이지 수 
+const elePage = document.querySelectorAll(".page");
+// 1-4. 전체페이지 수
 const totalCnt = elePage.length;
-console.log('대상',elePage,totalCnt,'개');
+console.log("대상", elePage, totalCnt, "개");
 
 // 2. 이벤트 등록하기  //////////////////
 // 대상: window
 // 전체 페이지 휠 이벤트의 대상은 window다!
 
 // 휠이벤트설정
-window.addEventListener('wheel',wheelFn,{passive:false});
+window.addEventListener("wheel", wheelFn, { passive: false });
 /*
         [ window / document / body 세가지는
         기본막기 불가 설정이 되어있음 !!!! ]
@@ -48,45 +47,105 @@ window.addEventListener('wheel',wheelFn,{passive:false});
         addEventListener(이벤트명,함수,{passive: false})
  */
 
+// [새로고침시 스크롤바 위치 인덱싱이 되므로
+//맨위로 강제 이동하기 설정]
+// scrollTo(x이동,y이동)
 
+setTimeout(() => {
+   window.scrollTo(0, 0);
+}, 500);
+
+// 3. 함수 구현하기 ////////////////
 /*************************************** 
     함수명: wheelFn
     기능 : 마우스 휠 작동시 페이지이동
 ***************************************/
-function wheelFn(e){ // 이벤트전달변수(자동)
-    // 함수호출확인!
-    console.log('휠~~~!');
+function wheelFn(e) {
+   // 이벤트전달변수(자동)
+   // 함수호출확인!
+   console.log("휠~~~!");
 
-    // 광휠금지장치 ////
-    if(stsWheel) return; // 돌아가
-    stsWheel = true; // 잠금
-    setTimeout(() => {
-        stsWheel = false; // 잠금해제
-    }, 500);
+   // 1. 우리는 휠 기본기능을 막고
+   // 자동으로 스크롤을 하나씩 되게 할것이다!
+   e.preventDefault();
+   // -> passive : false설정 해야함! 왜? window라 true로 막혀있으니까!
 
-    
-    // 우리는 휠 기본기능을 막고 
-    // 자동으로 스크롤을 하나씩 되게 할것이다!
-    e.preventDefault();
-    // -> passive : false설정 해야함! 왜? window라 true로 막혀있으니까!
+   // 2. 광휠금지장치 ////
+   if (stsWheel) return; // 돌아가
+   stsWheel = true; // 잠금
+   setTimeout(() => {
+      stsWheel = false; // 잠금해제
+   }, 500);
 
-    // 1. 휠방향 알아내기 ////
-    let delta = e.wheelDelta;
-    // 휠 텔타는 이벤트 객체에서 리턴 해주는 
-    // 방향 , 이동거리등의 정보값이다!
-    console.log('델타값:',delta);
-    // -> 마이너스가 아랫방향임!
-    // 2. 방향별 분개하기 
-    if(delta<0){
-        //아랫페이지로 가야하니까 페이지번호 증가
-        pgNum++;
-    }/// if ///
-    else{
-        //반대는 윗방향이니까 페이지번호 감소
-        pgNum--;
-    }/// else ///
-    console.log('pgNum:',pgNum);
+   // 3. 휠방향 알아내기 ////
+   let delta = e.wheelDelta;
+   // 휠 텔타는 이벤트 객체에서 리턴 해주는
+   // 방향 , 이동거리등의 정보값이다!
+   console.log("델타값:", delta);
+   // -> 마이너스가 아랫방향임!
 
+   // 4. 방향별 분개하기
+   if (delta < 0) {
+      //아랫페이지로 가야하니까 페이지번호 증가
+      pgNum++;
+      if (pgNum === totalCnt) {
+         pgNum = totalCnt - 1;
+      } ////if ///
+   } /// if ///
+   else {
+      //반대는 윗방향이니까 페이지번호 감소
+      pgNum--;
+      if (pgNum < 0) {
+         pgNum = 0;
+      } /// if ///
+   } /// else ///
+   console.log("pgNum:", pgNum);
 
+   //5. 페이지 이동하기 /////////////
+   // 이동할 위치 알아내기
+   // -> .page 요소중 해당 순번페이지 위치
+   let pos = elePage[pgNum].offsetTop;
+   //offsetTop은 최상단으로 부터 거리
+   console.log("이동할위치:", pos);
+   // 5-2. 페이지 스크롤 위치 이동하기
+   // scrollTo(0,y축 이동값)
+   window.scrollTo(0, pos);
+
+   // 6. 전체 메뉴에 on빼기
+   for (let x of gnb) {
+      x.parentElement.classList.remove("on");
+   }
+
+   // 7. 해당순번에 on넣기
+   gnb[pgNum].parentElement.classList.add("on");
+   // parentElement는 선택요소의 부모 요소다!
+   // gnb[pgNum]은 해당순번의 메뉴 a 요소다!
 } /////////// wheelFn 함수 ////////////////
 ///////////////////////////////////////////
+
+/********************************* 
+     이벤트 메뉴클릭시 이벤트 처리하기 무하드해용
+    *********************************/
+// 이벤트 대상 : .gnb a
+const gnb = document.querySelectorAll(".gnb a");
+console.log("gnb:", gnb);
+
+// 이벤트설정하기 + 기능설정하기
+gnb.forEach((ele, idx) => {
+   ele.onclick = () => {
+      //클릭시 자신의 순번찍기
+      console.log("순번:", idx);
+
+      // 1. 전역페이지변수에 순번 업데이트
+      pgNum = idx;
+
+      // 2. 전체 메뉴에 on빼기
+      for (let x of gnb) {
+         x.parentElement.classList.remove("on");
+      }
+
+      // 3. 해당순번에 on넣기
+      ele.parentElement.classList.add("on");
+      // parentElement는 선택요소의 부모 요소다
+   }; //// click함수 ////
+}); //// forEach ////
