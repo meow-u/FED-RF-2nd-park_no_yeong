@@ -102,7 +102,7 @@ function loadFn() {
    //};
 
    // 광클 금지변수
-   let prot = false;
+   let 나멈춰 = false;
 
    /*****************************************
      함수명: goslide
@@ -113,10 +113,10 @@ function loadFn() {
       ///////////////////////////////////////////
       // 클릭신호를 막아서 못들어오게하고
       // 일정시간후 다시 열어준다!
-      if (prot) return; //false -> 돌아가! (함수나감!)
-      prot = true; // 잠금 (뒤에 호출막기!)
+      if (나멈춰) return; //true -> 리턴! (함수나감!)
+      나멈춰 = true; // 잠금 (뒤에 호출막기!)
       setTimeout(() => {
-         prot = false; //0.6초 후 해제
+         나멈춰 = false; //0.6초 후 해제
       }, 600);
       ///////////////////////////////////////////
 
@@ -142,8 +142,8 @@ function loadFn() {
             // (2-1) 맨앞 li 맨뒤로 이동
             slide.appendChild(slide.querySelectorAll("li")[0]);
             // 슬라이드 left값이 -100%이므로
-            // (2-2) left값을 0으로 변경
             slide.style.left = "0";
+            // (2-2) left값을 0으로 변경
             // (2-3) left 트랜지션 없애기
             slide.style.transition = "none";
          }, 600);
