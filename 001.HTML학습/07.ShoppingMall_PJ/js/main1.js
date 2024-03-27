@@ -122,6 +122,7 @@ function loadFn() {
     // 함수의 전달변수 하나를 쓸 경우 또는 여러 전달변수중 
     // 첫번째 변수는 이벤트 객체가 전달된다.
     console.log('전달변수:',evt,sts);
+    // 버튼을 직접 누르면 sts는 true 
 
     // 만약 버튼 클릭일 경우 인터발 지우기 함수 호출
     if(sts){ 
@@ -222,23 +223,26 @@ function loadFn() {
       .getAttribute('data-seq');
       console.log('블릿이 읽어올 슬라이드 순번:',seq,'데이터형:',typeof seq);
       // string > 문자형 number >숫자형
-      // 4. 블릿변경하기 /////////////////
 
-         // 모든 클래스 on지우기 + 현재 순번 클래스 넣기
-         
-         indic.forEach((ele,idx) => {
-             // 현재순번은 몇번째 슬라이더의 data-seq속성값이다!
-
-            // ele -각각의 li, idx- 각각의순번 
-            if(idx==seq){ //현재순번 on넣기 ( ==으로 비교해야 결과가 나옴. 
-                //data-seq는 문자형숫자이므로 . ===은 형까지 비교)
-                ele.classList.add('on');
-            }
-            else{ //나머지는 on빼기
-                ele.classList.remove('on');
-            } /////else ////
+     // 4. 블릿변경하기 ///////////
+     // 모든 클래스 on지우기+현재 순번 클래스 넣기
+    indic.forEach((ele,idx)=>{
+        // ele - 각각의 li, idx - 각각의 순번
+     
+        if(idx==seq){ // 현재순번 on넣기
+            // ==으로 비교해야 결과가 나옴
+            // data-seq 속성은 문자형숫자이므로!
+            // ===은 형까지 비교하기때문에 안나옴!
+            ele.classList.add('on');
+        } /// if ///
     
-           }); //// for Each ////
+        else{ // 나머지는 on빼기
+            ele.classList.remove('on');
+        } /// else ///
+
+       }); ///// forEach /////
+
+
 
 
    } /////////// goSlide함수 ///////////////////
@@ -261,10 +265,13 @@ function loadFn() {
     autoI = setInterval(() => {
         // 값을 2개 보내야 함 
         // 첫번째 전달값은 이벤트객체가 들어가는 변수임으로 
-        // false값을 쓰고
+        //  자동 호출 시 이벤트 객체가 필요하지 않기 때문에 false를 쓰고
+        // 이벤트 객체도 필요하지 않다는 것을 의미
+        
         // 두번째 전달값은 자동호출임을 알리는 변수이므로
         // false 값을 전달한다!
       goSlide(false,false);
+      console.log('autoI:',goSlide(false,false));
      }, 3000);
 
    } //// autoSlide 함수 //////////////
