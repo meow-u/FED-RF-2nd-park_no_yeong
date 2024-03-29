@@ -4,6 +4,12 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>CGV에 오신것을 환영합니다!</title>
+      <!-- 폰트어썸 아이콘  -->
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      />
+
       <link rel="stylesheet" href="./css/main.css" />
       <!-- 메인 js불러오기 defer 속성을 넣어서 html로딩후 실행함!!-->
       <script src="./js/main.js" defer></script>
@@ -28,6 +34,78 @@
          <!-- 1-1. 타이틀 -->
          <h1 class="tit">CGV 예고편 상영관</h1>
          <!--마진초기화 안하면 상단 부모박스 밀림 -->
+         <!-- 1-2.GNB -->
+         <nav class="gnb">
+            <ul>
+               <li>
+                  <a href="#">영화</a>
+                  <!-- 서브메뉴 -->
+                  <div class="smenu">
+                     <ol>
+                        <li><a href="#">무비차트</a></li>
+                        <li><a href="#">HD 트레일러</a></li>
+                        <li><a href="#">무비파인더</a></li>
+                        <li class="bd-top"><a href="#">CGV아트하우스</a></li>
+                     </ol>
+                  </div>
+               </li>
+               <li>
+                  <a href="#">예매</a>
+                  <!-- 서브메뉴 -->
+                  <div class="smenu">
+                     <ol>
+                        <li>
+                           <a href="#">빠른예매</a>
+                        </li>
+                        <li>
+                           <a href="#">상영시간표</a>
+                        </li>
+                     </ol>
+                  </div>
+               </li>
+               <li>
+                  <a href="#">극장</a>
+                  <!-- 서브메뉴 -->
+                  <div class="smenu">
+                     <ol>
+                        <li>
+                           <a href="#">CGV 극장</a>
+                        </li>
+                        <li>
+                           <a href="#">특별관</a>
+                        </li>
+                        <li class="bd-top">
+                           <a href="#">CLUB 서비스</a>
+                        </li>
+                     </ol>
+                  </div>
+               </li>
+               <li>
+                  <a href="#">이벤트&amp;컬처</a>
+                  <!-- 서브메뉴 -->
+                  <div class="smenu">
+                     <ol>
+                        <li>
+                           <a href="#">이벤트</a>
+                        </li>
+                        <li>
+                           <a href="#">기프트샵</a>
+                        </li>
+                        <li>
+                           <a href="#">매거진</a>
+                        </li>
+                     </ol>
+                  </div>
+               </li>
+            </ul>
+            <!-- 영사기 박스 -->
+            <aside class="cam">
+               <!-- 영사기 이미지 -->
+               <img src="./images/gnb.png" alt="영사기이미지" />
+               <!-- 빔박스 -->
+               <div class="beam"></div>
+            </aside>
+         </nav>
       </header>
       <!-- 2. 메인영역 -->
       <main class="main-area part">
@@ -129,6 +207,43 @@
          </nav>
       </main>
       <!-- 3. 하단영역 -->
-      <footer class="footer-area part"></footer>
+      <footer class="footer-area part">
+      <!-- 3-1. 하단로고 -->
+      <div class="logo">
+         <img src="./images/blogo.png" alt="하단로고" />
+      </div>
+      <!-- 3-2. 회사정보-->
+      <div class="co-info">
+         <address>
+            (04377)서울특별시 용산구 한강대로 23길 55, 아이파크몰 6층(한강로동)
+            <br />
+            대표이사 : 최병환사업자등록번호 : 104-81-45690통신판매업신고번호 :
+            2017-서울용산-0662 <br />
+            개인정보보호 책임자 : 정종민대표이메일 :
+            cjcgvmaster@cj.netCGV고객센터 : 1544-1122
+         </address>
+      </div>
+      <!-- 3-3. SNS -->
+      <div class="sns-box">
+         <ol>
+            <!-- 페이스북 -->
+            <li>
+               <a class="fa-brands fa-square-facebook" href="#"></a>
+            </li>
+            <!-- 트위터X -->
+            <li>
+               <a class="fa-brands fa-square-x-twitter" href="#"></a>
+            </li>
+            <!-- 인스타그램 -->
+            <li>
+               <a class="fa-brands fa-instagram" href="#"></a>
+            </li>
+            <!-- 유튜브 -->
+            <li>
+               <a class="fa-brands fa-youtube" href="#"></a>
+            </li>
+         </ol>
+      </div>
+   </footer>
    </body>
 </html>
