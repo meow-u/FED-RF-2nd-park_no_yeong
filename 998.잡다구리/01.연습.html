@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box{
+        display:inline-block;
+        width:130px;
+        height:130px;
+        border:2px solid #000;
+        margin-top: 5px;
+        overflow: auto; 
+        /* 내용이 넘칠 때의 동작을 처리하기 위한 오버플로 속성 추가 */
+    }
+  </style>
+  <script>
+    window.addEventListener("load", loadFn);
+
+    function loadFn() {
+      console.log("로딩완료!");
+
+      const body = document.querySelector("body");
+      console.log(body);
+
+      let hcode = '';
+      for (let i = 1; i <= 25; i++) {
+        if (i%5 ==0) {
+            hcode += `
+    <div class='box' style='
+    text-align:center;line-height:1.3'>${i}</div><br>
+`;
+        } 
+
+        else {
+          hcode += `
+    <div class='box' style='
+   text-align:center;line-height:1.3'>${i}</div>
+`;
+        }
+      } ///for///
+      body.innerHTML = hcode;
+
+      let Array1 =['A','B','C','D','E'];
+      let Object1 = {A:'aaa',B:'bbb',
+                     C:'ccc',D:'ddd',E:'eee'}
+      
+      let boxs = document.querySelectorAll('.box');
+      // console.log(boxs);
+
+      boxs.forEach(ele => {
+      let boxtxt = ele.innerText;
+      // console.log(boxtxt);      
+      
+      if(boxtxt ==1){
+        ele.innerText = '배열:'+Array1;
+      }
+      if(boxtxt ==2){
+        ele.innerText = '배열[2]:'+Array1[2];
+      }
+      if(boxtxt ==3){
+        ele.innerText = '배열갯수:'+Array1.length;
+      }
+      if(boxtxt ==4){
+        Array1.push('F')
+        ele.innerText = '추가[5]:'+Array1[5];
+      }
+      if(boxtxt ==5){
+        ele.innerText = '추가후갯수:'+Array1.length;
+      }
+      if(boxtxt ==6){
+        ele.innerHTML = `객체.A:<br>${Object1.A}`;
+      }
+      if(boxtxt ==7){
+        ele.innerHTML = `객체.A:<br>${Object1.key}`;
+      }
+    
+    
+    });
+
+
+    }////loadfn////////////////////////////////
+  </script>
+  <body>
+    <h1>연습</h1>
+  </body>
+</html>

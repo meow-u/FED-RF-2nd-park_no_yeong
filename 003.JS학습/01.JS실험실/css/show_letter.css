@@ -76,3 +76,15 @@ body {
     /* 투명도 0 */
     opacity: 1;    
 }
+
+.style4 span{
+    transform: translate(-1090%, -490%);
+    transition: .2s;
+    opacity: 0; 
+
+}
+.style4.on span{
+    transform: translate(0, 0); 
+    opacity: 1;   
+
+}

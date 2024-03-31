@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>02.클립애니메이션</title>
+      <style>
+         html,
+         body,
+         h1 {
+            margin: 0;
+            padding: 0;
+         }
+         
+         body{
+            background-color: lightblue;
+         }
+         .w1 {
+            /* 백드롭주는곳에 배경색주면 안먹힘 */
+          /* background-color: lightblue; */
+          filter: drop-shadow(5px 5px 5px #000);
+         }
+         .w2 {
+            background-color: lightcoral;
+         }
+         .w3 {
+            background-color: darkkhaki;
+         }
+
+         /* 타이틀 */
+         h1 {
+            position: relative;
+            top: 50%;
+            text-align: center;
+            color: #fff;
+            translate: 0 -50%;
+            font-size: 4vw;
+         }
+
+         /* 페이지공통 */
+         .pg {
+            /* 보이는 화면만큼 높이값 지정 */
+            height: 100vh;
+            /* 배경공통 */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            /* 트랜지션 */
+            transition: 2s ease-in-out;
+            /* 손가락모양 */
+            /* cursor: pointer; */
+            
+            
+         }
+
+         .pg1 {
+            clip-path: circle(10% at 90% 10%);
+
+            background-image: url(https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=2911&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+            
+         }
+
+         .pg1.on{
+            animation: circleAni 10s ease-in-out 0s forwards;
+         }
+         
+         @keyframes circleAni {
+
+            20% {
+                clip-path: circle(10% at 10% 10%);
+            }
+            40% {
+                clip-path: circle(10% at 90% 90%);
+            }
+            60% {
+                clip-path: circle(10% at 90% 10%);
+            }
+            80% {
+                clip-path: circle(10% at 10% 90%);
+            }
+            90% {
+                clip-path: circle(10% at 50% 50%);
+            }
+            100% {
+                clip-path: circle(100% at 50% 50%);
+            }
+
+         }
+
+         .pg2{
+            clip-path: polygon(56.8% 67.8%, 42.2% 67.6%, 31.6% 57.4%, 31.8% 42.6%, 42.2% 32.2%, 56.8% 32.4%, 67.4% 42.8%, 67.2% 57.4%);
+            background-image: url(https://images.unsplash.com/photo-1503424886307-b090341d25d1?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+         }
+
+         .pg2.on{
+            clip-path: polygon(3.8% -8%, 60.2% -21.6%, 110.6% 6%, 124.4% 60.4%, 95.8% 109%, 39.4% 122.4%, -10.8% 94.6%, -24.8% 40.4%);
+
+         }
+
+         .pg3 {
+            /* 한쪽 끝에서 커지는 원 클립패스 */
+            clip-path: circle(10% at 100% 0);
+            background-image: url(https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2919&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+         }  
+
+         .pg3.on{
+          clip-path: circle(150% at 100% 0);
+         }
+      </style>
+      <script>
+         // 자바스크립트 구역
+         window.addEventListener("load", () => {
+            document.querySelectorAll(".pg").forEach((ele) => {
+               ele.onclick = () => {
+                  ele.classList.toggle("on");
+               }; /// click ///
+            }); /// forEach ////
+         }); //// load 구역 ////
+      </script>
+   </head>
+   <body>
+      <div class="wrap w1">
+         <div class="pg pg1" title="여기를 클릭해보세요!">
+            <h1>여기는 어디일까요?</h1>
+         </div>
+      </div>
+      <div class="wrap w2">
+         
+         <div class="pg pg2" title="여기를 클릭해보세요!">
+            <h1>여기는 어디일까요?</h1>
+         </div>
+      </div>
+      <div class="wrap w3">
+         <div class="pg pg3" title="여기를 클릭해보세요!">
+            <h1>여기는 어디일까요?</h1>
+         </div>
+      </div>
+   </body>
+</html>
