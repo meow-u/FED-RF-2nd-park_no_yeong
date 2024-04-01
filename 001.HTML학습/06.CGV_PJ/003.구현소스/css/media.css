@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* CGV PJ 미디어쿼리 CSS- media.css */
+
+/* max-width를 사용한 미디어쿼리를 
+큰 사이즈부터 작은사이즈 순으로 셋팅함! */
+
+/***************** 1350 px 이하 미디어 쿼리 시작 *****************/
+@media screen and (max-width: 1350px) {
+   /* Gnb위치이동 */
+   .gnb {
+      right: 70px;
+   }
+}
+/***************** 1350 px 이하 미디어 쿼리 종료 *****************/
+
+/***************** 1024 px 이하 미디어 쿼리 시작 *****************/
+@media screen and (max-width: 1024px) {
+   /* Gnb메뉴 위치 밎 배치 변경하기 */
+   /* GNB메뉴 위치 및 배치 변경하기 */
+   .gnb {
+      bottom: auto;
+      /* 기존 위치기준을 auto로 초기화함 */
+      top: 82px;
+      /* 새로운 기준인 top을 사용함! */
+      right: 17px;
+   }
+   .gnb ul {
+      flex-direction: column;
+      align-items: flex-end;
+      /* 높이값을 이용한 메뉴 숨기기 */
+      height: 0;
+      overflow: hidden;
+      transition: height 0.4s ease-in-out;
+   }
+   /* gnb 오버시 ul보이기 */
+   .gnb:hover ul {
+      height: 127px;
+   }
+
+   /* 서브메뉴 오버시 숨기기 */
+   .gnb ul > li:hover .smenu {
+      display: none;
+   }
+   /* 영사기 위치변경 */
+   .cam {
+      top: -62px;
+      right: -12px;
+      /* 하단 gnb 메뉴와 오버시 연결필요 */
+      padding-bottom: 10px;
+   }
+}
+/***************** 1024 px 이하 미디어 쿼리 종료 *****************/
+
+/***************** 810 px 이하 미디어 쿼리 시작 *****************/
+@media screen and (max-width: 810px) {
+   /* 하단영역박스 */
+   .footer-area {
+      gap: 20px;
+      flex-direction: column;
+   }
+   /* SNS */
+   .sns-box {
+      margin-left: 0;
+   }
+
+   /* 포스터 리스트 */
+   .poster-menu ul {
+      flex-wrap: wrap;
+      /* 가로방향 사이갭이 가로폭의 2%로 변경 */
+      gap: 0 2%;
+   }
+   /* 상위 ul>li 리스트 */
+   .poster-menu > ul > li {
+      flex-basis: calc(100% / 3 - 1.4%);
+      /* 100%를 3등분 하고 갭값 2%에서 오른쪽의 남는 갭을 등분할한 적당한 수치인 1.4를 빼줌   */
+   }
+
+   /* 2. 메인영역-비율변경,배경조정 */
+   .main-area {
+      aspect-ratio: 1/1.25;
+      /* 극장이미지 배경 */
+      background: url(../images/bg.jpg) no-repeat center -37%/145%;
+   }
+   /* 스크린 크기,위치 조절 */
+   .screen {
+      top: 4%;
+      left: 7.7%;
+      width: 86%;
+      height: 39%;
+   }
+
+   /* 포스터 영화정보 글자크기 
+   (min 어쩌구 잡아놓은담에 아주작아졌을때만 미디어쿼리로 이렇게 처리!) */
+   .mv-info ol {
+      font-size: 3vw;
+   }
+   .mv-info ol li:first-child {
+      font-size: 3.3vw;
+   }
+}
+/***************** 810 px 이하 미디어 쿼리 종료 *****************/
+
+/***************** 810 px 이하 미디어 쿼리 시작 *****************/
+@media screen and (max-width: 810px) {
+}
+/***************** 810 px 이하 미디어 쿼리 종료 *****************/
