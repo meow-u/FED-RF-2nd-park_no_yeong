@@ -73,8 +73,11 @@ myFn.addEvt(window,'scroll',showIt);
 // 3-1. 스크롤 등장액션 함수 
 function showIt(){
     // 클래스 on넣기 함수 호출하기
-    // for of문 호출
-    for(let x of scAct) addOn(x);
+    // for of 제어문 처리방법 (forEach도가능)
+    // for(let x of scAct) addOn(x);
+  
+    // forEach메서드 처리방법
+    scAct.forEach(ele=>addOn(ele));
 
     // let pos = myFn.getBCR(scAct[0]);
     //함수호출 확인 
@@ -183,7 +186,7 @@ function showLetters() {
     // 스크롤 위치값 구하기 
     let scTop = window.scrollY;
     //호출확인!
-    console.log("타이틀이동!!(window.scrollY):",scTop);
+    // console.log("타이틀이동!!(window.scrollY):",scTop);
 
     // 1. 맨위 원위치하기 : 첫번째 기준보다 작을때
         if(scTop < posTop[0] - gap) {//화면맨위걸릴때-윈도우높이절반 =절반 /보다작을떄
@@ -220,3 +223,47 @@ function showLetters() {
    } /////////// moveTit 함수 ////////////////
 
 } //////////showLetters 함수////////////////////
+
+////////////////////////////////////////////////////
+//////////////// 떨녀 구현 /////////////////////////
+// 기본원리: 스크롤 이동에 따른 화면높이값 범위안에서 
+// 떨어지는 여자 이미지가 아래쪽으로 이동애니함!
+// 비례식을 세운다(내항곱=외항곱) !!ｓｄｓｄ가나
+// 스크롤한계값 : 윈도우 높이 = 스크롤이동값 : 이미지이동값
+// 이미지이동값 =   윈도우 높이 * 스크롤이동값 / 스크롤한계값 
+
+// 0. 변수값 셋팅하기
+// (1) 스크롤 한계값 : 전체 document높이 - 화면높이만큼은　스크롤불가니　빼줌
+// 전체 document높이
+let docH = document.body.clientHeight; 
+// 화면높이
+let winH = window.innerHeight; // 
+// 스크롤 한계값 
+let scLimit = docH - winH;
+console.log
+('문서높이:',docH,'\n화면높이:',winH,'\n한계값:',scLimit);
+
+// 1. 대상선정: 떨어지는 여자요소
+const woman = myFn.qs('#woman');
+
+// 2. 스크롤이벤트 설정하기 : window가 이벤트 대상임!
+myFn.addEvt(window,'scroll',moveWoman);
+
+// 3. 함수만들기 ///////
+function moveWoman(){
+// 1. 스크롤 위치값
+let scTop = window.scrollY;
+// 2. 떨녀 Top값
+let wTop = winH *scTop / scLimit;
+console.log('스크롤위치값:',scTop);
+
+// 이미지이동값 = 
+// 윈도우 높이（winH） * 스크롤이동값（scTop） / 스크롤한계값（scLimit） 
+
+// 3. 떨녀에게 적용하기
+woman.style.top = wTop + 'px';
+
+// 4. 맨위일때 윗쪽으로 숨기기
+if(scTop ===0) woman.style.top ='-20%';
+
+} /////////// moveWomen함수 //////////
