@@ -70,7 +70,7 @@ padding-bottom: 10px;
    <style>
       body * {
          outline: 2px solid black;
-         font-size: 1.5rem;
+         /* font-size: 1.5rem; */
       }
 
     .b0 {
@@ -112,6 +112,24 @@ padding-bottom: 10px;
       .b5 {
         display: block;
       }
+
+
+
+      
+.font1{
+   font-size: clamp(1.5rem, 3vw, 5rem);
+}
+.font2{
+   font-size: clamp(1.2rem, 2.5vw, 4rem);
+}
+.font3{ 
+   font-size: clamp(1rem, 1.5vw, 2rem);
+}
+.font4{
+   font-size: clamp(0.8rem, 1.2vw, 1.5rem); /* 최소값, 보통값, 최대값 */
+   /* 글꼴 크기를 최소값으로 12px, 최대값으로 24px, 보통값으로 viewport 너비의 2%를 사용하여 지정했습니다. 이렇게 하면 화면 크기가 변할 때 글꼴 크기가 유동적으로 조절됩니다. */
+}
+
    </style>
 
    <body>
@@ -123,5 +141,11 @@ padding-bottom: 10px;
           <div class="b4">b4</div>
           <div class="b5">b5</div>
       </div>
+
+
+      <p class="font1">타이틀</p>
+      <p class="font2">소제목</p>
+      <p class="font3">내용</p>
+      <p class="font4">작은내용</p>
    </body>
 </html>
