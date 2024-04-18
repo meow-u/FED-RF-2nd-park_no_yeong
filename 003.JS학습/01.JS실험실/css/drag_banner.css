@@ -96,6 +96,7 @@ ol {
     height: 100%;
     /* 트랜지션 */
     transition: left .4s ease-out;
+    /* 변경준비 */
     will-change: left;
 }
 
