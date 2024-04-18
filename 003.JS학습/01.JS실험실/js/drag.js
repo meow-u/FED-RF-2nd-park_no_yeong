@@ -45,32 +45,45 @@ function setDrag(clsName) {
    console.log(clsName);
 
    // 1. 받은 클래스 이름으로 요소를 수집한다!
-   let ele = mFn.qsa(clsName);
+   let ele = mFn.qsa('.'+clsName);
 
    // 2. 드래그 함수 호출
-   // HTML컬렉션 이므로 foreach메서드로 호출 !!(z쓰려면 순서맞춰야해서 y적어야함)
+   // HTML컬렉션 이므로 foreach메서드로 호출 !! (컬렉션이 1개라도 forEach가능)
    // forEach((요소,순번,전체)=>{})
-   ele.forEach((x,y,z) => goDrag(x,z));
-   // z는 전체요소집합 컬렉션 (전체요소들 z-index 초기화용도로 필요함)
+   ele.forEach((x) => goDrag(x));
+   // z는 전체요소집합 컬렉션 (전체요소들 z-index 초기화용도로 필요함)-안함!
 } /////////////// setDrag 함수 //////////////
+
+// z-index 공통관리 변수 (아래 고드래그안에 만들면 요소하나하나돌리는 지역변수라 여기서선언)
+let zNum = 0;
 
 /***************************************************************
  *  [드래그 다중적용 함수 만들기]
- * 함수명: goDrag
- * 기능: 다중 드래그 기능 적용
+ * 함수명 : goDrag
+ * 기능 : 다중 드래그 기능 적용
+ * 수정필요사항 체크
+ * 1) 드래그시 위치이동 안되는 버그
+ * (원인: top,left 초기값 셋팅안될경우)
+ * 2) z-index초기화로 인한 쌓임순서변경 어색 
  ***************************************************************/
-function goDrag(ele, coll) {
+function goDrag(ele) {
    // ele는 호출시 보내준 대상을 받는 변수
    // -> html 컬렉션으로 보낸대상만 받게한다!
-   // coll - 드래그 요소 전체 컬렉션을 받는 변수 
-   // -> 마우스 다운시 z-index대상 1로 만들때 다른요소는 0 변경시 사용 
-   console.log(ele,coll);
+   console.log(ele);
 
    // 드래그 대상 및 이벤트 설정하기 ///
 
    // 1. 대상선정 : 보내준 대상 html 컬렉션
    const dtg = ele;
    // const dtg = mFn.qs('.dtg2');
+
+   // 드래그할 대상의 CSS 기본값을 셋팅한다!
+   // 필수 셋팅요소는 position:relative / top:0 / left: 0
+   dtg.style.position = 'relative';
+   dtg.style.top = '0';
+   dtg.style.left = '0';
+
+
 
    // 2. 변수 셋팅 ///////////////////
    // (1) 드래그 상태 변수 만들기 - false는 드래그 X , true는 드래그 O
@@ -108,8 +121,18 @@ function goDrag(ele, coll) {
 
          // 1. 드래그 상태에서 움직일떄 포인터 위치값
          // - 브라우저용 포인터 위치는 PageX, PageY를 사용!
-         moveX = e.pageX;
-         moveY = e.pageY;
+         // - 모바일용 터치스크린 터치위치는 
+         // e.touches[0].screenX, e.touches[0].screenY
+         // -> 두가지를 모두 사용하는 방법은 OR문 한달법을 쓴다!
+         // -> 변수 = 할당문1 || 할당문2
+         // ->>> 두 할당문 중 값이 유효한 (true)값이 할당됨!
+         // DT용 코드와 Mobile 코드를 동시에 셋팅할 수 있다!
+
+         moveX = e.pageX || e.touches[0].screenX;
+         moveY = e.pageY || e.touches[0].screenY;
+         // console.log(e.touches[0])
+         // moveX = e.pageX;
+         // moveY = e.pageY;
 
          // 2. 움직일 위치 결과값
          // 움질일때 위치포인트 - 첫번째 위치포인트
@@ -139,8 +162,11 @@ function goDrag(ele, coll) {
 
    // (4) 첫번째 위치포인트 셋팅함수 : firstX, firstY 값 셋팅
    const firstPoint = (e) => {
-      firstX = e.pageX;
-      firstY = e.pageY;
+      // DT용값과 Mobile값을 동시에 OR문으로 할당함!
+      firstX = e.pageX || e.touches[0].screenX;
+      firstY = e.pageY || e.touches[0].screenY;
+      // firstX = e.pageX;
+      // firstY = e.pageY;
       console.log("첫포인트:", firstX, "|", firstY);
    }; ////////// firstPoint 함수 ///
 
@@ -168,10 +194,8 @@ function goDrag(ele, coll) {
       // 마우스 다운시 주먹손!
       dtg.style.cursor = "grabbing"
 
-      // z-index 0으로 초기화 (전체컬렉션 전달변수 coll)
-      coll.forEach( x => x.style.zIndex = 0 );
-      // z-index 1로 높이기 
-      dtg.style.zIndex = 1;
+      // z-index 전역변수(zNum) 숫자를 1씩 높이기 
+      dtg.style.zIndex = ++zNum;
 
       console.log("마우스다운~", dragSts);
    }); //////////// 마우스 다운 이벤 //////////
@@ -202,7 +226,6 @@ function goDrag(ele, coll) {
       // 이것을 기존 요소의 위치값으로 보정함!
       // 단 style위치값 코드는 'px' 단위가 있으므로
       // parseInt 처리!!
-      // @
       lastX = parseInt(dtg.style.left); 
       lastY = parseInt(dtg.style.top);  
     //   lastX = dtg.style.left; 
@@ -210,6 +233,42 @@ function goDrag(ele, coll) {
 
       console.log("마우스나감~", dragSts);
    }); //////////// 마우스 리브 이벤 ///////////
+
+
+
+ ////////////////모바일 이벤트 처리 구역 ///////////////////////
+
+   // (1) 터치스타트 이벤트 함수연결하기
+   mFn.addEvt(dtg, "touchstart", (e) => {
+      // 드래그 상태값 true로 변경!
+      dTrue();
+      // 터치스타트시 첫 위치포인트 셋팅!
+      firstPoint(e);
+      // addEvt에 단독 할당되지 않고 [ex. mFn.addEvt(dtg,'mousedown',firstPoint]
+      //내부 함수호출로 연결되어있으므로 이벤트 전달을 토스해줘야 한다 (e)
+
+      // z-index 전역변수(zNum) 숫자를 1씩 높이기 
+      dtg.style.zIndex = ++zNum;
+
+      console.log("터치스타트~", dragSts);
+   }); //////////// 터치스타트 이벤 //////////
+
+   // (2) 터치엔드 이벤트 함수연결하기
+   mFn.addEvt(dtg, "touchend", () => {
+      // 드래그 상태값 false로 변경!
+      dFalse();
+      // 터치엔드시 끝 위치포인트 셋팅!
+      lastPoint();
+
+      console.log("터치엔드~", dragSts);
+   }); //////////// 터치엔드 이벤 ////////////
+
+   // (3) 터치 무브 이벤트 함수연결하기
+   mFn.addEvt(dtg, "touchmove", dMove);
+   //////////// 터치 무브 이벤 //////////////
+
+
+
 } ///////////////////goDrag함수////////////////////////////////
 
 // 내보내기 셋팅
