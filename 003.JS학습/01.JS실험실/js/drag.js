@@ -121,6 +121,7 @@ function goDrag(ele) {
 
          // 1. 드래그 상태에서 움직일떄 포인터 위치값
          // - 브라우저용 포인터 위치는 PageX, PageY를 사용!
+   
          // - 모바일용 터치스크린 터치위치는 
          // e.touches[0].screenX, e.touches[0].screenY
          // -> 두가지를 모두 사용하는 방법은 OR문 한달법을 쓴다!
