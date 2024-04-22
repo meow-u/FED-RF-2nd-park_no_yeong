@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>JS5-4.생성자함수</title>
+      <script>
+         //객체만드는 생성자함수
+         function MakeObject (catInfo){
+            this.name = catInfo[0];
+            this.color = catInfo[1];
+            this.age = catInfo[2];
+            this.gender = catInfo[3];
+            let massage = catInfo[4];
+            this.massageBox = ()=>
+               `★★${massage}★★`
+            ;
+            // 화살표함수에 중괄호를 쓰면 return 적어야함
+            // this.massageBox = ()=>
+            //    { return `★${massage}★` }
+            // ;
+         }
+
+         // 원본 데이터
+         const catData = [
+            [
+            '미유','하얀색','8살','여자','그만 울어!!'
+            ],
+            [
+            '시루','회색','7살','여자','물건 떨어뜨리지마!!'
+            ],
+            [
+            '마루','치즈색','3살?','남자','애교쟁이~!'
+            ],
+            [
+            '원조마루','회색','2살','남자','털 뿜뿜 찐 애교쟁이~!'   
+            ]
+         ]
+
+      // 인스턴스 객체생성
+      const catObjects = 
+      catData.map(v=> new MakeObject(v));
+      console.log('객체생성확인:',catObjects,catObjects[2]);
+      console.log('인스턴스 메서드 구체적확인:', catObjects[1].massageBox());
+      // this 가없으면 생성자함수 밖에서 접근불가
+      // console.log(catObjects[0].massage)
+
+      // 출력
+      document.addEventListener('DOMContentLoaded',loadFn);
+
+      //한글자씩감싸서 태그로만드는 함수
+      function makeSpan(text){
+        //완성태그담을곳
+        let hcode = '';
+        // for of문으로 한글자씩 순회 //
+        for(x of text ){
+         if(x == ' ') hcode += '&nbsp;&nbsp;';
+         else hcode += `<span>${x}</span>`;
+        }
+        return hcode;
+      }
+
+      function loadFn(){
+         console.log('로딩완료!');
+         //출력박스
+         const catBox = document.querySelector('.wrap');
+         console.log(catBox);
+         
+         catBox.innerHTML = catObjects.map(v=>
+         `
+         <div>
+            <ul>
+               <h3>🐱이름이뭐야?</h3>
+               <li>이름은~ ${v.name} 이거구,</li>
+               <h3>🧡색상은?</h3>
+               <li>내 코트는!!${v.color} 이다~</li>
+               <h3>💛나이는 몇살?</h3>
+               <li>내나이는 ${v.age} 이지롱!!</li>
+               <h3>❤️여자야 남자야?</h3>
+               <li>성별은 ${v.gender} 라구!</li><br>
+               <h3>💕한마디해봐!</h3>
+               <li>집사가 맨날 나보고 이렇게말해,<br> "${makeSpan(v.massageBox())}" 이렇게!!</li>
+            </ul>
+         </div>
+
+         `
+
+      ).join('');
+
+      } //loadFn
+
+
+
+
+      </script>
+      <style>
+         ul {
+            list-style-type: none;
+            padding: 10%;
+            margin: 0;
+            background-color: #f1f1f1;
+            border: 2px dashed hotpink;
+            margin: 10px 0;
+         }
+         li{
+            display: block;
+         }
+         li:first-child{
+            margin-bottom: 10px;
+            color: hotpink;
+         }
+         li:last-child{
+            position: relative;
+            left: 50%;
+            translate: -50% 0;
+            text-align: center;
+            display: inline-block;
+            font-weight: bold;
+            border-bottom: 3px double hotpink;
+         }
+         span {
+            background-color: pink;
+            border-radius: 50%;
+            padding: 2px;
+            font-size: 20px;
+         }
+      </style>
+   </head>
+   <body>
+      <h1 style="text-align: center">생성자함수로 만든 고양이 객체 인스턴스</h1>
+      <main class="cont ibx">
+         <h2 style="text-align: center">차트</h2>
+         <!-- 정보박스 -->
+         <div class="wrap"></div>
+      </main>
+      
+    
+   </body>
+</html>
