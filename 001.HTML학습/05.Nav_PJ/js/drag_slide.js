@@ -65,8 +65,8 @@ function slideFn(selEl) {
    for (let i = 0; i < sldCnt; i++) {
       indic.innerHTML += `
             <li ${i == 0 ? 'class="on"' : ""}>
-                <img src="images/dot1.png" alt="흰색">
-                <img src="images/dot2.png" alt="회색">
+                <img src="images/img_nav06/dot1.png" alt="흰색">
+                <img src="images/img_nav06/dot2.png" alt="회색">
             </li>
         `;
    } /////// for문 ////////////
@@ -286,7 +286,7 @@ function slideFn(selEl) {
    } ///////// slideAuto 함수 //////////////
 
    // 인터발함수 최초호출!
-      slideAuto();
+      // slideAuto();
 
    /********************************************
     *  함수명: clearAuto
@@ -453,7 +453,7 @@ function slideFn(selEl) {
 
    // (6) 슬라이드 드래그 이동구현
    // -> mouseup/ touchend 이벤트 발생시 호출함!
-   const moveDragSlide = () => {
+   const moveDdragSlide = () => {
       // 중앙 li 순번 방향별 셋팅하기
       let slideSeq = 2; // 왼쪽버튼(오른쪽이동)
       // 만약 오른버튼 왼쪽이동일경우 순번은 3가 된다!
@@ -507,11 +507,12 @@ function slideFn(selEl) {
    // 4. 드래그 이벤트 설정하기 //////////
    // (1) 마우스 다운 이벤트 함수연결하기
    mFn.addEvt(dtg, "mousedown", (e) => {
-      //드래그시 버튼,인딕 마우스이벤트막기
-      abtn.forEach(x=>x.style.pointerEvents = "none");
-      mFn.qs('ol.indic').style.pointerEvents = "none";
-
-      
+            //드래그시 버튼,인딕 마우스이벤트막기 
+            // (한페이지 슬라이드 여러개면 인딕 qsa 포이치,  하나면 qs만돌리기)
+            abtn.forEach(x=>x.style.pointerEvents = "none");
+            // mFn.qs('.indic').style.pointerEvents = "none";  
+            mFn.qsa('.indic').forEach(x=>x.style.pointerEvents = "none");
+            
       // 0. 자동넘김 멈춤함수 호출하기
       // clearAuto();
       // 자동호출을 지우기만 해서 자동시작안함!
@@ -535,23 +536,25 @@ function slideFn(selEl) {
    }); ///////// mousedown //////////
 
    // (2) 마우스 업 이벤트 함수연결하기
-   mFn.addEvt(dtg, "mouseup", () => {
-      //드래그끝나면 버튼,인딕 마우스이벤트열기
-      abtn.forEach(x=>x.style.pointerEvents = "all");
-      mFn.qs('ol.indic').style.pointerEvents = "all";
+   mFn.addEvt(dtg, "mouseup", (e) => {
+                  //드래그시 버튼,인딕 마우스이벤트막기
+                   // (한페이지 슬라이드 여러개면 인딕 qsa 포이치,  하나면 qs만돌리기)
+                  abtn.forEach(x=>x.style.pointerEvents = "all");
+                  // mFn.qs('.indic').style.pointerEvents = "all";  
+                  mFn.qsa('.indic').forEach(x=>x.style.pointerEvents = "all");
       // 0. 자동넘김 멈춤함수 호출하기
       clearAuto();
 
       // 드래그 상태값 false로 변경!
       dFalse();
       // 마지막 위치포인트 셋팅!
-      lastPoint();
+      lastPoint(e);
 
       // 마우스 업시 편손!
       dtg.style.cursor = "grab";
 
       // 드래그 슬라이드 이동함수 호출!
-      moveDragSlide();
+      moveDdragSlide();
 
       // console.log("마우스 업!", lastX);
    }); ///////// mouseup //////////
@@ -607,7 +610,7 @@ function slideFn(selEl) {
       lastPoint();
 
       // 드래그 슬라이드 이동함수 호출!
-      moveDragSlide();
+      moveDdragSlide();
 
       // console.log("터치엔드!", dragSts);
    }); ///////// touchend //////////
@@ -615,22 +618,8 @@ function slideFn(selEl) {
    // (3) 터치무브 이벤트 함수연결하기
    mFn.addEvt(dtg, "touchmove", dMove);
    //////////// touchmove /////////////
-   
-   /* *****************불릿,버튼 드래그시 간섭방지******************** */
-  // (4) 버튼,블릿에 오버시 자동처리호출셋팅 ///
-//   mFn.qsa('.controls').forEach((ele) =>
-//     mFn.addEvt(ele,"mouseenter", 
-//     () => {
-//       moveDragSlide();
-//       clearAuto();
-//     }) /////// 
-//   );/////// forEach /////////
 
-
- // 포인터 이벤트로 작동하기로 함 . (클래스 controls 없어도 됨)
-/* ******************************************************************** */
-
-   // (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트함수
+   // 브라우저 크기 리사이즈시 동적 변경값 업데이트함수
    mFn.addEvt(window, "resize", () => {
       // 1. 기준 위치 값 left업데이트
       originalValue = selEl.offsetWidth * -2.2;
