@@ -74,8 +74,25 @@ ol {
     aspect-ratio: 1/0.55;
     /* border: 2px solid red; */
     box-sizing: border-box;
-    
-    outline: 5px dotted blue;
+    outline: 5px dotted rgba(0, 0, 255, 0.034);
+
+    /* 배너에서만든 드래그기능은 찐드래그 아니라 안 막힘 */
+    /* 드래그 선택영역 안잡히게하기 */
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* 배너 최상위박스각각에 막기장치 가상요소 */
+.banbx.on::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    z-index: 99;
+    transform: scaleY(1.1);
+    /* background-color: rgba(0, 0, 255, 0.356); */
 }
 
 .slide {
