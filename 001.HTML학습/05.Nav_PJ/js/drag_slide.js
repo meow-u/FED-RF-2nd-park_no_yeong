@@ -1,4 +1,5 @@
 // 드래그 기능 + 슬라이드 기능 합친 JS - drag_slide.js
+/* 옮겨서 쓸거면 이파일로쓸것!! (실험실꺼 어려움) */
 
 // DOM 모듈함수
 import mFn from "./my_function.js";
