@@ -1,6 +1,18 @@
 // 04.리액트 컴포넌트 JSX
+
+// 내함수 불러오기
+import mFn from "./my_function"
+console.log(mFn);
+
+import AvengersModules from "./avengers";
+// 리액트에서는 from뒤 파일명에 "js/jsx"를 생략해도 됨 확장자안읽음! 
+// 이름그냥 지은거임
+
+
 /************************************************* 
-    [ 리액트 컴포넌트 ]
+   대문자로 시작하고 리턴을꼭 포함!! <- 컴포넌트
+
+   [ 리액트 컴포넌트 ]
     - 컴포넌트는 HTML요소를 반환하는 함수다!
 
     [ 특징 ]
@@ -42,6 +54,12 @@ class GoghWork extends React.Component {
    // HTML 코드를 리턴한다 내부에 return구문 필요!
    render() {
       // html 코드리턴
+
+
+      // 컴포넌트는 태그형으로 < MakeImage> 호출하면서 
+      // <>태그안에서 속성에 값을할당해서 보냄  
+      // ex) <MakeImage isrc="ab1.jpg" ialt="아이언맨"/> 
+      // <> 태그안에 해당컴포넌트 속성값을 바로쓸수잇음 (개발자가편히쓰라고만듬) 
       return (
          <React.Fragment>
             <h2>안녕! 나는 고흐그림이야!</h2>
@@ -53,7 +71,7 @@ class GoghWork extends React.Component {
 } //////// GogWork 클래스 컴포넌트 /////
 
 // 전체 출력요소 선택하기
-const target = document.querySelectorAll(".root");
+const target = mFn.qsa(".root");
 
 // 첫번째 .root에 고흐출력하기
 ReactDOM.render(<GoghWork />, target[0]);
@@ -72,13 +90,24 @@ function IronMan() {
 
 
 //////////// [ 이미지 생성 공통 컴포넌트] //////////////
-function MakeImage(props){
+// -> 비구조화할당(구조분해할당)을 사용하여
+// 전달객체를 개별변수값으로 처리할 수 있다!
+
+// function MakeImage(헐){
+// function MakeImage({ialt,isrc}){
+function MakeImage({ialt:ㅎㅎ,isrc:ㅋㅋ}){
+   // 하나의 변수에는 전달된 값이 보낼때 설정된
+   // 객체로 전달된다! {속성:값,속성:값,...} //isrc , ialt는 여기서첫정의함
     return (
-    <img src={"./images/"+props.isrc} alt={props.ialt} />);
+    <img src={"./images/"+ㅋㅋ} alt={ㅎㅎ} />); 
+   //  return (
+   //  <img src={"./images/"+props.isrc} alt={props.ialt} />); 
+   //  <img src={"./images/"+ 헐} alt={헐} />); 
 } ///////////////// makeImage 컴포넌트 ///////////////
 
 // 두번쨰 .root에 아이언맨 출력하기
 ReactDOM.render(<IronMan/>,target[1]);
+
 
 /************************************************* 
     [ Props 사용하기 ] -> props라고 지은 변수명은 맘대로쓸수잇음
@@ -87,5 +116,101 @@ ReactDOM.render(<IronMan/>,target[1]);
     함수의 전달값과 같고 속성으로 컴포넌트에 보낸다!
     -> props는 05번 다음번에 자세히 다룬다!
     -> 컴포넌트에 중괄호를 사용하면 개별적인 속성변수를 
-    전달 받을 수 있다.
+    전달 받을 수 있다. (구조분해할당방식!)
+*************************************************/
+
+// 내가 좋아하는 색 표시하기 컴포넌트 ////////
+function FavoriteThings(조아){
+   return ( //<- 리턴뒤에는 붙여써야대는데 소괄호는 
+   //            아무의미없지만 묶어주고 엔터가능
+   <h2>
+      내가 좋아하는 색은 {조아.color}이야! <br/>
+      그리고 내가 좋아하는 음식은 {조아.food}야!<br/>
+      취미는 {조아.hobby}야! 알겟니???
+   </h2>
+   );
+
+} ///////// FavoriteThings 컴포넌트 ///////////
+
+// 좋아하는 색과 음식, 취미를 각각 속성명으로 생성하여
+// 컴포넌트를 호출하면 개별적으로 속성을 구분할 수 있다!
+// 출력: 세번째 .root 
+ReactDOM.render(<FavoriteThings color="민트색" food="민트초코" hobby="누워잇기"/>, target[2])
+
+// 출력: 네번째 .root  (값 다안보내도 되넹?)
+ReactDOM.render(<FavoriteThings color="하늘색" food="아샷추" />, target[3]);
+
+
+
+/***************************************************
+ * 컴포넌트 내부에서 다른 컴포넌트를 호출할 수 있다! 
+ ***************************************************/
+
+function Who(){
+   return(
+      <div>
+         <h1>김똑팔이가 누구야?</h1>
+         {<Answer/>} 
+      </div>
+   )
+} ///////// who컴포넌트 /////////// {<Answer/>} <- 이거 중괄호안써도됨
+
+// 컴포넌트 내부에서 호출할 컴포넌트 //
+function Answer(){
+   return <h2>김씨가 똑하고 팔이 부러졌대!!</h2>;
+}///// Answer 컴포넌트
+
+// 출력: 다섯번째 .root
+ReactDOM.render(<Who />,target[4]);
+
+// 출력: 여섯번째 .root
+ReactDOM.render(<AvengersModules />,target[5]);
+
+
+
+
+/*************************************************** 
+    [ 컴포넌트의 파일분리 ]
+    리액트는 코드를 재사용하는 것이므로
+    컴포넌트를 별도의 파일로 분할 하는것 일반적이다!
+
+    {분할방법}
+    1. jsx의 새파일을 생성한다.
+    2. 대문자로 시작하는 컴포넌트를 구현한다.
+    3. 분할구현된 jsx파일을 import하여 호출한다.
+
+    -> 일반적으로 js파일 상단에 import 키워드로 불러오면
+    되는데 지금 사용하는 CDN방식의 바벨모듈에서는
+    주의 사항이 있으니 참고 바란다!(아래참고)
+
+***************************************************/
+/************************************************* 
+[ 바벨을 사용할때 모듈로 파일 호출시 주의사항! ]
+  ____________________________________________
+
+  설치형이 아닌 CDN방식의 바벨은 호출셋업의 시차로
+  바로 모듈을 호출하면 에러가 발생한다!
+  따라서 모듈을 사용할 파일을 아래와 같은 형식으로
+  메인 html 상단에 호출해 줘야만 한다!!!
+
+  -> 상단에 모듈화한 JS를 먼저 불러준다!
+
+  <script src="모듈화한js" 
+  data-plugins="transform-es2015-modules-umd" 
+  type="text/babel"></script>
+
+  -> 아래쪽에 모듈을 호출하는 JS를 불러준다!
+
+  <script src="모듈을 호출하는 JS" 
+  data-plugins="transform-es2015-modules-umd" 
+  type="text/babel"></script>
+
+  ->>> 위의 호출 속성 중 기본적으로
+  type="text/babel" 은 당연히 해야하고
+
+  ->>> 여기에 더하여 하나의 속성을 추가한다!
+  data-plugins="transform-es2015-modules-umd"
+
+  이 속성과 값이 바벨에서 모듈을 사용하게 하는
+  es2015 즉 ES6버전에서의 모듈문법을 사용하게끔 해준다!
 *************************************************/
