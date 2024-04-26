@@ -1,4 +1,4 @@
-/* 드래그 슬라이드 css- drag_slide.css */
+/* 드래그 슬라이드 CSS - drag_slide.css */
 
 /* 배너전체박스 */
 .banbx {
@@ -16,6 +16,10 @@
     box-sizing: border-box;
     
     /* outline: 5px dotted blue; */
+    
+    /* 선택 및 드래그 방지 */
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* 가상요소로 드래그 막기장치 */
@@ -72,7 +76,7 @@
     /* 트랜지션 */
     transition: .4s ease-out;
 }
-/* 클래스가 on이  주인공이므로 원래밝기로 조금 크게변경! */
+/* 클래스가 on이 주인공이므로 원래밝기로 조금 크게변경! */
 .slide li.on{
     filter: brightness(100%);
     transform: scale(1.1);
@@ -84,6 +88,14 @@
     object-fit: cover;
     /* 이미지 비율유지 채우기! */
 }
+
+/* 이동버튼, 블릿 -> .controls 
+부모박스에 클래스 no가 적용될 경우 
+컨트롤스 모두 이벤트 통과!*/
+.no .controls {
+    pointer-events: none;
+}
+
 
 /*이동버튼*/
 .abtn {
@@ -101,17 +113,6 @@
     background-repeat: no-repeat;
     /* outline: 1px solid red; */
 }
-/* ************************************ */
-/* 이동버튼,블릿 -> .controls 
-부모박스에 클래스 no가 적용될 경우
-컨트롤스 모두 이벤트 통과! */
-.no.controls {
-    pointer-events: none;
-    /* 선택 및 드래그 방지 */
-    user-select: none;
-    -webkit-user-drag: none;
-}
-/* ************************************ */
 
 /*왼쪽버튼*/
 .ab1 {
@@ -134,6 +135,7 @@
 }
 
 
+/*블릿버튼*/
 .indic {
     display: flex;
     /* 플렉스박스 */
