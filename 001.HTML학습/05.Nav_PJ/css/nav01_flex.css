@@ -51,11 +51,11 @@ ul::after,ol::after,.clb::after{
 }
 
 /* GNB 메뉴 */
-/* .gnb{} */
+.gnb{
     /* ul이 플렉스 박스이므로
     정렬은 ul에서 하도록 함! */
     /* margin-left: 63px; */
-
+}
 /* GNB 메뉴 하위 a요소 */
 .gnb a{
     display: block;
