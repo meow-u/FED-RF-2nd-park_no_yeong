@@ -11,7 +11,6 @@
 /* 드래그 슬라이드 CSS불러오기 */
 /* @import url(./drag_slide.css); */
 
-
 /* 공사중 표시 */
 body * {
     /* outline: 2px dashed #ccc; */
@@ -241,9 +240,8 @@ body * {
 .clip-box li {    
     flex-basis: 25%;
     flex-shrink: 0;
-    /* 플랙스 gap속성대신 패딩으로 처리!
-    이유는? 드래그시 영역아웃 현상때문 */
-    
+    /* 플렉스 gap 속성대신 패딩으로 처리!
+    이유는? 드래그시 영역아웃현상때문! */
     padding: 0 1.1%;
     box-sizing: border-box;
 }
@@ -314,15 +312,30 @@ body * {
     color: #fff;
     border: none;
     background-color: rgba(0, 0, 0, 0.6); 
+    cursor: pointer;
 }
 /* 왼쪽버튼 */
 .btn-box button:first-child{
-    left: -35px;
-    /* 처음에 안보임 */
-    display: none;
+    left: 0;
 }
 /* 오른쪽버튼 */
 .btn-box button:last-child{
-    right: -35px;
+    right: 0;
+}
+
+/* 클래스를 추가하여 한쪽 버튼만 안보이게 처리 */
+/* 왼쪽버튼만 보이기 */
+.btn-box.left button:first-child{
+    display: inline-block;
+}
+.btn-box.left button:last-child{
+    display: none;
+}
+
+/* 오른쪽버튼만 보이기 */
+.btn-box.right button:last-child{
+    display: inline-block;
+}
+.btn-box.right button:first-child{
     display: none;
 }

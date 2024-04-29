@@ -14,9 +14,8 @@ import { startSS, setScrollPos } from "./smoothScroll23.js";
 import * as dkbData from "../data/dkb_data.js";
 // import { previewData } from '../data/dkb_data.js';
 
-
-// 드래그 슬라이드 불러오기 ////
-import setSlide from "./drag_slide.js";
+// 드래그 슬라이드 불러오기 ///////
+import setSlide from "./drag_slide_multi.js";
 
 ///////////////////////////////////////////////
 
@@ -25,7 +24,7 @@ import setSlide from "./drag_slide.js";
 
 
 // 1. 부드러운 스크롤 호출
-startSS();
+// startSS();
 
 // console.log('모듈로 메인JS호출!!!',
 // document.querySelector('.top-menu'));
@@ -212,5 +211,5 @@ introMv.onclick = () => {
 })();
 // 코드랩핑구역 종료 //////////////////////////
 
-// 드래그 슬라이드 태그 구성후 호출하기
+// 드래그 슬라이드 태그 구성후 호출하기!
 setSlide('banbx');
