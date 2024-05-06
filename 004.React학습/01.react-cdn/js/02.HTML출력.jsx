@@ -26,6 +26,7 @@ console.log("원본:", data);
 // 태그가 그대로 클린하게 출력된다!!!
 //백틱x, ${}도 ->{}로, join안써도 맵돌려서바로뿌림
 
+/* 이건 함수가아니라 변수라서 return이 없음 */
 const listCode = data.map((v) => (
    <tr>
       <td>{v.이름}</td>
@@ -35,6 +36,7 @@ const listCode = data.map((v) => (
 )); //////// map ////////
 
 console.log("map결과:", listCode);
+// 출력값:
 
 // 화면출력하기 ///////////
 // ReactDOM.render(출력할요소, 대상요소)

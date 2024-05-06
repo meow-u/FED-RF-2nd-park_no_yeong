@@ -10,9 +10,9 @@ import AvengersModules from "./avengers";
 
 
 /************************************************* 
-   대문자로 시작하고 리턴을꼭 포함!! <- 컴포넌트
-
-   [ 리액트 컴포넌트 ]
+ 
+[ 리액트 컴포넌트 ]
+대문자로 시작하고 리턴을꼭 포함!! <- 컴포넌트
     - 컴포넌트는 HTML요소를 반환하는 함수다!
 
     [ 특징 ]
@@ -20,14 +20,14 @@ import AvengersModules from "./avengers";
     2. JS함수와 비슷하지만
         HTML코드 반환이 필수라는 점이 다름!
     3. 컴포넌트는 다음 2가지로 생성가능함
-        1) 클래스형 컴포넌트
-        2) 함수형 컴포넌트
+        1) 클래스형 컴포넌트 
+        2) 함수형 컴포넌트 
         (-> 우리는 함수형 컴포넌트에 집중할 예정!)
 
-    -> 클래스형 컴포넌트는 리액트 초중기에 주로
-    사용되었으나... React 16.8버전에서 Hooks와
-    함께는 더 이상 사용되지 않는다!
-    Hooks는 함수형 컴포넌트에서만 사용가능하다!
+    -> 클래스형 컴포넌트는 리액트 초중기에 주로 
+    사용되었으나... React 16.8버전에서 Hooks와 
+    함께는 더 이상 사용되지 않는다! 
+    Hooks는 함수형 컴포넌트에서만 사용가능하다! 
 
     ____________________________________________
 
@@ -35,22 +35,40 @@ import AvengersModules from "./avengers";
     - 리액트 컴포넌트 이름은 반드시 첫글자가 대문자로 만든다!
     (안지키면 적용안됨!!!)
 
-    [ 클래스 컴포넌트 ]
+    ____________________________________________
+
+    [ 1. 클래스 컴포넌트 ]
     클래스 컴포넌트에서는 
     extends React.Component 상속문이 포함돼야함!
+    그리고 return을 쓰기전에 render()메서드를 
+      사용해야함! (return을 쓰기위해)
 
     -> 컴포넌트에서도 메서드가 필요함
     render() 메서드는 HTML을 반환함
     (함수형 컴포넌트의 return 키워드를 
         사용할 수 있는 역할을 함!)
 
+____________________________________________
+
+   [ 2. 함수형 컴포넌트 ]
+   - 함수형 컴포넌트는 render 메서드가 없어도 return을 사용할 수 있다! 
+   
+   - 함수형 컴포넌트는 클래스형 컴포넌트보다
+      선언이 간단하고 사용하기 편하다!
+
+   -> 함수형 컴포넌트는 React 16.8버전부터 Hooks를 사용하여 클래스형 컴포넌트와 동일한 기능을 사용할 수 있게 되었다!
+
+   -> React 팀에서도 새로운 컴포넌트는 함수형 컴포넌트로 작성하는 것을 권장하고 있다!
+
+   ____________________________________________
+
 *************************************************/
 
 // [클래스 형 컴포넌트 만들기] ///
-// extends는 부모클래스 상속 키워드!
+// extends는 부모클래스 상속 키워드! 
 // React.Component 컴포넌트 기능구현 부모클래스
 class GoghWork extends React.Component {
-   // 클래스형 컴포넌트에서는 render()메서드로
+   // 클래스형 컴포넌트에서는 render()메서드로 
    // HTML 코드를 리턴한다 내부에 return구문 필요!
    render() {
       // html 코드리턴
@@ -90,16 +108,25 @@ function IronMan() {
 
 
 //////////// [ 이미지 생성 공통 컴포넌트] //////////////
-// -> 비구조화할당(구조분해할당)을 사용하여
-// 전달객체를 개별변수값으로 처리할 수 있다!
 
 // function MakeImage(헐){
+   // function MakeImage(props){
 // function MakeImage({ialt,isrc}){
-function MakeImage({ialt:ㅎㅎ,isrc:ㅋㅋ}){
-   // 하나의 변수에는 전달된 값이 보낼때 설정된
-   // 객체로 전달된다! {속성:값,속성:값,...} //isrc , ialt는 여기서첫정의함
-    return (
-    <img src={"./images/"+ㅋㅋ} alt={ㅎㅎ} />); 
+
+
+   // (1). 문자열 연결 연산자 (+)를 사용하는 방법: 
+   // <img src={"./images/" + isrc} alt={ialt} />
+   // (2). 템플릿 문자열을 사용하는 방법: << 이게 더편함
+   // <img src={`./images/${isrc}`} alt={ialt} />
+
+// -> 비구조화할당(구조분해할당)을 사용하여
+// 전달객체를 개별변수값으로 처리할 수 있다!
+// ialt, isrc는 여기서 첫정의함
+function MakeImage({ialt:ㅎㅎ= "대체 텍스트",isrc:ㅋㅋ= "default.jpg"}){
+   // 하나의 변수에는 전달된 값 보낼때 설정된
+   // 객체로 전달된다! {속성:값,속성:값,...} 
+    return ( 
+   <img src={`./images/${ㅋㅋ}`} alt={ㅎㅎ} />); 
    //  return (
    //  <img src={"./images/"+props.isrc} alt={props.ialt} />); 
    //  <img src={"./images/"+ 헐} alt={헐} />); 
@@ -120,22 +147,26 @@ ReactDOM.render(<IronMan/>,target[1]);
 *************************************************/
 
 // 내가 좋아하는 색 표시하기 컴포넌트 ////////
-function FavoriteThings(조아){
+function FavoriteThings(props){
+   const { hobby = '없어' } = props;
+// const hobby = props.hobby ? props.hobby : "없어" 
    return ( //<- 리턴뒤에는 붙여써야대는데 소괄호는 
    //            아무의미없지만 묶어주고 엔터가능
    <h2>
-      내가 좋아하는 색은 {조아.color}이야! <br/>
-      그리고 내가 좋아하는 음식은 {조아.food}야!<br/>
-      취미는 {조아.hobby}야! 알겟니???
-   </h2>
+      내가 좋아하는 색은 {props.color}이야! <br/>
+      그리고 내가 좋아하는 음식은 {props.food}야!<br/>
+      취미는 {hobby}!!   </h2>
    );
 
 } ///////// FavoriteThings 컴포넌트 ///////////
+
 
 // 좋아하는 색과 음식, 취미를 각각 속성명으로 생성하여
 // 컴포넌트를 호출하면 개별적으로 속성을 구분할 수 있다!
 // 출력: 세번째 .root 
 ReactDOM.render(<FavoriteThings color="민트색" food="민트초코" hobby="누워잇기"/>, target[2])
+
+console.log(<FavoriteThings/>);
 
 // 출력: 네번째 .root  (값 다안보내도 되넹?)
 ReactDOM.render(<FavoriteThings color="하늘색" food="아샷추" />, target[3]);

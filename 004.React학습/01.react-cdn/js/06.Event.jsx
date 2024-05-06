@@ -141,7 +141,8 @@ function EventShow() {
       itit="클릭하면 시운전해요!"
       idName="fcar"
       // 함수에 값을 보낼 때는 익명함수로 처리!
-      clickFn={()=>moveCar("#fcar")}
+      // clickFn={()=>moveCar(`#${idName}`)}
+      clickFn={()=>moveCar('#'+ idName)}
     />,
     mFn.qs("#ferrari"));
     // ReactDOM.render(어쩌구,저쩌구);

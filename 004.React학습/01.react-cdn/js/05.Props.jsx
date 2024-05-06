@@ -6,19 +6,58 @@ import mFn from "./my_function";
 // 자동차 정보불러오기
 import { carInfo, carImage } from "./car_data";
 
-console.log('객체호출방법:'
+console.log('객체속성 호출방법:'
             ,'1', carInfo['기아레이'][0]
-            ,'2', carInfo.기아레이[0]
+            ,'2', carInfo.기아레이[1]
+            ,'3', carInfo['기아레이'][2].color
 );
 
 /********************************************************** 
     [ 리액트 Props ]
     1. 리액트 구성요소에 전달되는 인수다!(전달변수)
     2. HTML 속성을 통해서 구성요소에 전달된다
+    => JSX 문법에서 HTML 태그의 속성으로 props를 전달할 수 있음. <MyComponent name="John" age={30} />
+
     3. props는 속성이다.
     4. JS 함수에 셋팅되는 전달변수와 HTML속성과 동일함
     5. 컴포넌트로 보내기 위해서는 HTML속성과 동일한 구문사용
 **********************************************************/
+
+/* 
+
+[ props의 구조분해 할당 ]
+function IntroCar({ brand, modelNum }) {...}
+props는 코드에 보이지 않는데 어떻게 구조분해 할당되고 있다는거야?
+
+=> 
+리액트에서 props는 컴포넌트를 렌더링 할 때 자동으로 전달되는 객체입니다. 코드상에서 직접적으로 props를 정의하거나 할당하지 않습니다.
+예를 들어, 다음과 같이 IntroCar 컴포넌트를 렌더링 했다고 가정해봅시다.
+
+<IntroCar brand="Tesla" modelNum="Model 3" />
+
+이때 IntroCar 컴포넌트 함수가 실행되면, 리액트가 자동으로 props 객체를 생성하여 전달합니다. 
+이 props 객체는 
+
+props = { brand: "Tesla", modelNum: "Model 3" }
+
+이와 같은 형태가 됩니다.
+그리고 구조분해할당 문법 
+function IntroCar({ brand, modelNum })을 사용하면, 리액트가 자동으로 생성한 props 객체에서 brand, modelNum 프로퍼티 값을 '추출'하여 각각 brand, modelNum 변수에 할당하게 됩니다.
+
+이 경우 brand와 modelNum 변수는 props 객체 내부의 brand와 modelNum 프로퍼티 값을 가리키는 '동일한 메모리 주소'를 참조하게 됩니다. 
+예: brand = 'NewBrand' 또는 props.brand = 'NewBrand'
+
+
+따라서 brand 변수를 수정하면 props.brand도 수정되고, modelNum 변수를 수정하면 props.modelNum도 수정됩니다. 
+이는 객체의 프로퍼티 값을 직접 참조하기 때문입니다.
+
+ 구조 분해 할당 없이 props 객체 전체를 받는 경우에는 brand 변수는 존재하지 않고 props.brand만 쓸 수 있습니다.
+..
+따라서 props 객체 자체는 코드에 직접 작성하지 않고, 리액트가 자동으로 생성하여 컴포넌트 함수에 전달합니다. 개발자는 구조분해할당 문법을 통해 필요한 props 값을 쉽게 추출할 수 있습니다. 
+
+대부분의 경우 구조 분해 할당 방식이 코드의 가독성과 편의성을 높여주지만, 상황에 따라 props 객체 전체를 다룰 필요가 있을 때는 구조 분해 할당 없이 props 객체를 사용하게 됩니다
+
+*/
 
 // 자기차를 소개하는 컴포넌트 1 ///////////////////
 // function IntroCar(props){
@@ -42,7 +81,7 @@ function IntroCar({ brand, modelNum }) {
 //    console.log('연습용찍기:',carInfo[brand],setInfo);
    return (
       <React.Fragment>
-         <h2> 나의차는 {brand} 입니다!</h2>
+         <h2> 나의차는 {brand} 입니다! -IntroCar</h2>
          {/* 추가질문 컴포넌트 호출 */}
          <AskMoreInfo 
           brand={brand}
@@ -64,7 +103,7 @@ function IntroCar({ brand, modelNum }) {
 function AskMoreInfo({ brand, model, color, opt }) {
    return (
       <React.Fragment>
-         <h1>그게 뭐신디!!!</h1>
+         <h1>그게 뭐신디!!! -AskMoreInfo</h1>
          {/* 디테일 정보구성 컴포넌트 호출! */}
          <DetailCarInfo brand={brand} model={model} color={color} opt={opt} />
       </React.Fragment>
@@ -85,7 +124,7 @@ function DetailCarInfo({  brand, model, color, opt }) {
    return (
       <React.Fragment>
          <h2>
-            모델명은 {model}이고 자동차색은 {color}입니다!
+            모델명은 {model}이고 자동차색은 {color}입니다!-DetailCarInfo
          </h2>
          {/* 이미지출력 */}
          <img src={"./images/"+carImage[brand]} 
@@ -103,7 +142,7 @@ function DetailCarInfo({  brand, model, color, opt }) {
 function ShowBrandCar({ brand , modelNum }) {
    return (
       <React.Fragment>
-         <h1>당신의 차는 무슨차죠?</h1>
+         <h1>당신의 차는 무슨차죠? -ShowBrandCar 최종호출 부모컴포넌트</h1>
          <IntroCar brand={brand} modelNum={modelNum}> </IntroCar>
       </React.Fragment>
    );

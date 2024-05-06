@@ -6,6 +6,28 @@
     - 리액트에서 HTML을 쉽게 작성할 수 있다.
     - appendChild() 메서드 없이 DOM에 요소넣기가 가능함!
 *****************************************************/
+/* 
+[ 생성방법 2가지 ]
+
+=> JSX로 생성한 엘리먼트 <<< 이걸 많이 사용함!
+const myEle2 = <h1>ㅋㅋ</h1>;
+
+=> React.createElement()로 생성한 엘리먼트 <<< 잘 안씀!
+const myEle1 = React.createElement("h1", {}, "ㅋㅋ");
+
+
+
+[ 출력방식 2가지 ]
+ReactDOM.render() 메서드 사용한 방법 <<< 이걸 많이 사용함!
+ReactDOM.render(myEle1, target);
+
+
+ReactDOM.createRoot() 메서드 사용한 방법 <<< 잘 안씀!
+root1 = ReactDOM.createRoot(대상요소);
+root1.render(myEle1);
+*/
+
+
 
 // 출력할 요소 선택 ///
 const target = document.querySelectorAll("#root>div");
@@ -112,7 +134,7 @@ ReactDOM.render(myEle4, target[3]);
     2) <Fragment>태그들</Fragment>
     3) <기존태그>태그들</기존태그>
 
-    -> 1),2)번은 CDN방식에서는 지원안함!(설치형SPA지원!)
+    -> 1),2)번은 CDN방식에서는 지원안함!( React 16.2 버전 이상에서는 지원함!)
     -> 2)번 CDN에서 사용하려면 아래와 같이 사용한다!
         <React.Fragment></React.Fragment>
     -> 1),2)번을 사용하는 이유는 쓸때 없는 태그삽입을 막는데있다!
@@ -195,7 +217,7 @@ ReactDOM.render(myEle7, target[6]);
 *****************************************************/
 
 // 8. JSX외부에서 if문 사용하여 출력하기 /////////
-const x = 10000;
+const x = 15000;
 
 const showResult = money => {
   let txt = "";
