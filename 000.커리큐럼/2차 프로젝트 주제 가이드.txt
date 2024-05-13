@@ -56,18 +56,28 @@
 
 
 --------------------------------------------------------------------
-http://127.0.0.1:5500/950.%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%B0%9C%ED%91%9C/main/index2nd.html#
-참고
+https://www.penhaligons.com/uk/en/
+컨텐츠 : 펜할리곤스 향수  
+(브랜드 관련 소개&정보 , 세계관과 스토리가있는 향수 컬렉션 상품 + 일부 상품만 활용)
+
+
+(레이아웃 ,  메뉴형식 / 동적 레이아웃 , 데이터 구성 참고 )
+https://eurocave.co.kr/
+유로까브  
+https://www.sartoricheese.com/
+치즈사이트   
+https://www.brown-forman.com/brands
+위스키사이트 
+
+
+--------------------------------------------------------------------
+
 
 https://akaru.fr/
 화면전환 
-https://www.brown-forman.com/brands
-위스키사이트 브라운포맨
-https://www.penhaligons.com/uk/en/
-펜할리곤스향수
 
-https://www.sartoricheese.com/
-치즈사이트 
+https://grabandgo.pt/sobre
+그랩 사이트 동적인느낌
 
 
 전기수 굿웹
