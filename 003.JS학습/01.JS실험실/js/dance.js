@@ -108,3 +108,42 @@ function upDownFn(ele,idx) { //각요소 (이름맘대로)
 }
 
 /* 이상하니 고쳐쓰자 */
+
+//////////////////////////////////////////////////////////////
+///////// 메뉴 오버시 배경박스 따라 다니기 구현  ////////////////
+//////////////////////////////////////////////////////////////
+
+// 1. 대상선정
+// 이벤트대상 :.gnb li
+const gnbList = mFn.qsa('.gnb li');
+// 변경대상 : .mbg (움직일요소)
+const mbg = mFn.qs('.mbg');
+
+// 2. 이벤트 설정하기 /////
+// 이벤트 종류 : mouseenter / mouseleave
+gnbList.forEach(ele=>{
+   mFn.addEvt(ele,'mouseenter',overFn);
+   mFn.addEvt(ele,'mouseleave',outFn);
+}); //////////// forEach
+
+function overFn(){
+   // 1. 오버된 li의 left위치값 + width 크기
+   let posLeft = this.offsetLeft;
+   let boxWidth = this.offsetWidth;
+   console.log('오버:',this,
+   '\nthis.offsetLeft : ', posLeft,
+   '\nthis.offsetWidth : ', boxWidth);
+
+   // 2. 메뉴배경 보이기 + 위치값주기
+   mbg.style.opacity = 1;
+   mbg.style.left = posLeft+ 'px';
+   mbg.style.width = boxWidth+ 'px';
+
+} /////// overFn 함수 //////////
+
+function outFn(){
+   console.log('아웃:',this);
+   // 메뉴배경 사라지기
+   mbg.style.opacity = 0;
+
+}/////// outFn 함수 ///////////
