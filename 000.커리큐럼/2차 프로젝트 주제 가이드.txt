@@ -66,8 +66,10 @@ https://www.penhaligons.com/uk/en/
 (1) https://eurocave.co.kr/
 유로까브  
 (2) https://www.sartoricheese.com/
+
+
 치즈사이트   
-(3) https://www.brown-forman.com/brands
+(3) https://www.brown-forman.com/ 
 위스키사이트 
 
 VS
@@ -94,3 +96,32 @@ https://zdzd3643.github.io/nick-theblack-pj/#
 https://bumstop.github.io/react_xexymix_clone/
 
 https://imlimge.github.io/LKE-kairos/#intro
+
+
+-----------------------------------------------------------------
+[로딩]
+(3) https://www.brown-forman.com/ 
+위스키사이트  뚫린로고 뒤로 이미지 비침 -> 확장되며 로딩끝
+
+
+유로까브
+[메뉴] 
+[탑메뉴 -로그인 / FQA게시판/ 검색] 
+[전체 햄버거메뉴]
+1 브랜드소개 (이미지 글 반복)
+2 상품목록 (12개)
+3 컨텐츠목록  [영상 인스타 이미지] (필터)
+4 뉴스 (게시판)
+5 이벤트 (게시판 뉴스와비슷하게?)
+
+플로라
+[메뉴] 
+[탑메뉴1 -데이터 목록 + 예약]   
+[탑메뉴2 -이벤트 목록 클릭시상세 (하단슬라이드)]   
+[전체 햄버거메뉴]
+화면분활메뉴
+1. 요리 사진+글 (안에 메뉴로가는 박스)
+2. 음료 사진+글 (안에 메뉴로가는 박스)
+3. 매장 사진+글 (안에 메뉴로가는 박스)
+4. 메뉴판 목록 3개 (클릭시 pdf 열림)
+5. 탑 메뉴에 있는 이벤트 
