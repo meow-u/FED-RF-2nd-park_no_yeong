@@ -1,5 +1,15 @@
 // 가로 방향 스크롤 구현 JS
 
+// 모바일은 ??? 아래미디어쿼리만 CSS에서 주면 됨
+
+///* 휠 대용 모바일 미디어쿼리 */
+//@media screen and (max-width:800px) {
+//    html, body{
+//        overflow: auto;
+//    }
+//}
+
+
 // 1.대상요소: html,body
 const scTarget = $("html,body");
 
