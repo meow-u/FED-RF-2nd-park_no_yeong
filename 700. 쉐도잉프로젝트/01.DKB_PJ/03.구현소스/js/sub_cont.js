@@ -79,6 +79,31 @@ export default function showSubBox(){
                 console.log('돌아!');
             });
             console.log('find()검색결과',selData);
+
+
+        //****************[ (1) 상세이미지 갯수별 구현 ]***************** */
+
+        // 1. 먼저 data.js에서 liveData 각각의 데이터에
+        // imgName: ["live_photo7",4] <--- imgName[1]에 키값으로 
+        // 상세이미지갯수를 적어둔다.
+
+        // 2. 이미지의 개수를 반영한 배열을 임의로 만들고
+        // 필요한 경우 이 배열로 map을 돌려서 코드를 생성한다!
+        
+        // 우선 빈배열을 만든다
+        let iarr = [];
+        
+
+        // 현장포토일때 사용
+        if(db=="liveData"){
+            for(let i=0; i< selData.imgName[1];i++)
+            iarr[i] ='';
+            
+            console.log('이미지 map()을 돌리기위한 임의의 배열 for문돌려 만듬:\n',iarr);
+        } //// if ////
+        //**************************************************** */
+        
+        
         //     서브박스에 내용넣기
         //     제이쿼리는 innerHTML 할당 대신
         //     html()메서드를 사용한다
@@ -102,10 +127,18 @@ export default function showSubBox(){
       <div class="sub-inbox inbox">
           <h1>현장포토 : ${selData.title}</h1>
           <div class="sub-item">
-            <img 
-                src="./images/live_photo/${
-                    selData.imgName}.jpg"
-                alt="${selData.title}"/>
+          ${iarr.map((v,i)=>
+            
+    //**************[ (2) 상세이미지 갯수별 구현 ]************ */
+    `
+    <img 
+    src="./images/live_photo/${
+        selData.imgName[0]}/${i+1}.jpg"
+        alt="${selData.title}"/>
+        `
+    //**************************************************** */
+          ).join('')}
+                
           </div>
       </div>
       `:
