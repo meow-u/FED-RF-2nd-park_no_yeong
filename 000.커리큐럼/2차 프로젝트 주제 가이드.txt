@@ -128,3 +128,16 @@ https://imlimge.github.io/LKE-kairos/#intro
 ---------------------------------------------------
 https://escape.cafe/
 좋다합니다~ 커피상품파는곳
+_____________________________________________________
+
+[메뉴] 
+[탑메뉴 -로그인 / FQA게시판/ 검색] 
+[전체 햄버거메뉴]
+SHOP
+	BEST << 해야댐
+	FRAGRANCES
+	BATH & BODY
+	HOME
+	COLLECTIONS [Potions & Remedies,Trade Routes,British Tales,Portraits]
+	GIFTING
+	ALL
