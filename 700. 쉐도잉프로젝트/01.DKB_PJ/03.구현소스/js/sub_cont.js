@@ -25,6 +25,11 @@ export default function showSubBox(){
     // (1-2) 변경대상 : .sub-cont
     const subContBox = $('.sub-cont');
 
+    // 전체 휠 이벤트 막기때문에 서브 컨텐츠박스도
+    // 휠이 되지 않는다! 따라서 휠이벤트 버블링 막기
+    // 해야한다!! ->stopPropagation() // 현장포토영역임 
+    subContBox.on('wheel',e=>e.stopPropagation());
+
     // console.log(subViewBox);
     
     // 2. 이벤트 설정 및 함수구현하기 ///
@@ -115,7 +120,7 @@ export default function showSubBox(){
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
             <h1>${selData.title}</h1>
-            <div class="sub-item">
+            <div class="sub-item scbar">
                 ${selData.story}
             </div>
         </div>
@@ -126,7 +131,7 @@ export default function showSubBox(){
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
           <h1>현장포토 : ${selData.title}</h1>
-          <div class="sub-item">
+          <div class="sub-item scbar">
           ${iarr.map((v,i)=>
             
     //**************[ (2) 상세이미지 갯수별 구현 ]************ */
@@ -148,10 +153,10 @@ export default function showSubBox(){
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
           <h1>대표 포스터 : ${selData.title}</h1>
-          <div class="sub-item">
+          <div class="sub-item scbar">
             <img 
                 src="./images/poster_img/${
-                    selData.imgName}.jpg"
+                    selData.imgName}_big.jpg"
                 alt="${selData.title}"/>
           </div>
       </div>
@@ -162,7 +167,7 @@ export default function showSubBox(){
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
           <h1>클립영상 : ${selData.title}</h1>
-          <div class="sub-item">
+          <div class="sub-item scbar">
             <iframe src="https://www.youtube.com/embed/${selData.mvid}?autoplay=1" allow="autoplay"></iframe>
             <h2>${selData.subtit}</h2>
           </div>
@@ -183,8 +188,12 @@ export default function showSubBox(){
         // hide()는 display를 숨겨주는 메서드
         // toggle()는 display를 토글하는 메서드
 
-        // 닫기버튼 이벤트설정하기
-        $('.cbtn').click(()=>subContBox.hide());
+        // 닫기버튼 이벤트설정하기: 숨기기, 내용지우기  .html(``)
+        // 클릭시 다시 .html(``) 값에 태그를 넣어 다시생김.
+        $('.cbtn').click(()=>{
+            subContBox.hide().html(``);
+            
+        });
 
     //} /// if/ //// 
 
