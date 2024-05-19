@@ -90,7 +90,9 @@ function GoodsList({viewDetail, updateIdx}){ // 이름은 걍지은거임
      // 여기서는 cdn이라 안넣어도 에러안남(그대로 습관적으로 넣을것)
      // viewDetail(false) 바로실행되지않게 익명함수에 넣음
 
-     guData.map((v,i) => (
+     guData
+     .filter((v) => v.category === "woman")
+     .map((v,i) => (
          <li key={i}>
             <a href="#" onClick={(e)=>{
                // 왜 프리벤트디폴트하면 안튀지? > a요소 기본이동 막기

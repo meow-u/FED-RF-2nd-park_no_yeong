@@ -133,11 +133,20 @@ _____________________________________________________
 [메뉴] 
 [탑메뉴 -로그인 / FQA게시판/ 검색] 
 [전체 햄버거메뉴]
-SHOP
-	BEST << 해야댐
-	FRAGRANCES
-	BATH & BODY
-	HOME
-	COLLECTIONS [Potions & Remedies,Trade Routes,British Tales,Portraits]
-	GIFTING
-	ALL
+
+1. PENHALIGONS :브랜드소개 / (이미지+글 컴포넌트)
+2. SHOP : (서브메뉴有) 상품목록 (상품리스트 컴포넌트) + (상세페이지 컴포넌트)
+		BEST << 해야댐
+		FRAGRANCES
+		BATH & BODY
+		HOME
+		COLLECTIONS [Potions & Remedies,Trade Routes,British Tales,Portraits]
+		GIFTING
+		ALL
+3. OUR STORY : 컨텐츠 목록-> 클릭시 각각 [영상 / 인스타 / 게시글] (필터)
+4. 컬렉션소개 (서브메뉴有) 목록-> 클릭시 각각 (이미지+글 컴포넌트)
+		Potions & Remedies
+		Trade Routes
+		British Tales,Portraits
+
+
