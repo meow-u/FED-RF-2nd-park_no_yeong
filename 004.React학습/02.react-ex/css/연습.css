@@ -1,0 +1,126 @@
+body{
+    text-align: center;
+}
+
+.tit{
+
+}
+
+.img-box{
+    width: 95vw;
+    margin: 0 auto;
+}
+
+.img-box img{
+    width: 100%;
+}
+a{
+    color: #000;
+    font-size: 1.5em;
+    text-decoration: none;
+    
+}
+ul,li,ol{
+    list-style: none;
+}
+
+ol>li{
+    /* height: 0px; */
+    /* opacity: 0; */
+    /* pointer-events: none; */
+}
+
+ol{
+    overflow: hidden;
+    height: 0px;
+    transition: 0.15s ease-out;
+}
+
+ul{
+    
+    justify-content: center;
+    display: flex;
+}
+.menu{
+    gap:20px;
+}
+ul.menu-box >li{
+    flex:1;
+
+}
+
+
+ol.sub-menu{
+    
+    display: flex;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    width: 80%;
+    height: 0px;
+    opacity: 1;
+    
+}
+ol.sub-menu li{
+    /* flex:1; */
+    flex-basis: 25%;
+
+}
+
+a{
+    white-space: nowrap;
+    font-size: 1rem;
+}
+
+.menu{
+   
+    padding: 0;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+ul.menu img{
+    cursor: pointer;
+    width: 100%;
+}
+
+.gwrap{
+    width: 95vw;
+}
+ul.menu li {
+    display: flex;
+    flex-basis: calc(100% / 4 - 20px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+ul.menu img {
+    mix-blend-mode: darken;
+    vertical-align: middle;
+    object-fit: cover;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s ease-out;
+}
+
+li>div {
+    /* filter: drop-shadow(10px 10px 5px #2222); */
+    /* border-radius: 10px; */
+    background-color: #ffffff;
+    transition: 0.3s ease-out;
+    overflow: hidden;
+    z-index: 1;
+}
+
+li>div:hover{
+    filter: drop-shadow(-5px 10px 5px #2222);
+    background-color: #ffffff;
+rotate: 5deg;
+}
+
+ul.menu img:hover{
+    rotate: -10deg;
+    /* scale: 1.1; */
+    
+}
