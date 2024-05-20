@@ -1,5 +1,6 @@
 // 공유신발 데이터 불러오기
 import guData from "./data/gu_data.js";
+import allProducts from "./data/product_data.js";
 
 console.log(guData);
 
@@ -15,7 +16,7 @@ const rdmNum = (n)=> Math.floor(Math.random()*n);
 // Math.ceil(Math.random()*n);
 // 0~ n-1 까지의 랜덤수 
 // Math.floor(Math.random()*n);
-
+// 
 
 // 1. 기존 데이터에 새로운 속성 추가하기 
 guData.forEach((v)=>{
@@ -33,3 +34,10 @@ guData.forEach((v)=>{
     // 0부터 배열갯수-1 까지의 랜덤수
     // console.log(rdmNum(countryNum));
 });
+
+
+allProducts.forEach((v)=>{
+    v['review'] = Math.floor(Math.random()*500);
+});
+
+console.log(allProducts);
