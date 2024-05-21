@@ -4,6 +4,9 @@
 import GoodsList from "./components/goods_list";
 // 상품상세보기 서브 컴포넌트 불러오기
 import GoodsDetail from "./components/goods_detail";
+// 공통함수 불러오기// comFn은 여기서 지음
+import * as comFn from './common/com_fn';  
+
 // 주의사항!! cdn에서 import 대상은 모두 html페이지에서
 // 불러와야 사용할 수 있다.
 
@@ -62,19 +65,8 @@ function MainComponent() {
          // test 는 의존성버튼클릭시 변경
          React.useEffect(()=>{
             console.log('의존성useEffect 실행: selItem')
-            // 타이틀애니 
-            $(".tit span")
-               .css({ display: "inline-block" })
-               .animate({ scale: "200%" }, 1000)
-               .animate({ scale: "100%" }, 1000);
-             // 초이스 메인이미지 애니
-            $(".img-box img").delay(500).fadeTo(1000,1);
-            // 소제목 애니
-            $('.stit')
-            .delay(1500).fadeTo(1000,1)
-            .animate({translate:'0 100%',opacity:1},1000);
-            // fadeTo(시간,투명도) -> opacity만 조절하는 애니메서드
-           
+            // 초이스 인트로 애니함수 호출
+           comFn.choiceIntroAni();
 
          },[selItem,test]);
          // -> React.useEffect(함수,[의존성변수])
@@ -89,10 +81,8 @@ function MainComponent() {
    // [ 3. useEffect : 의존성이 있으나 빈경우 ]
          React.useEffect(()=>{
             console.log("useEffect 의존성비어서 한번만실행!");
-            // 로고 최초한번만 애니 하기
-            $('#logo')
-            .animate({rotate:'360deg'},1000)
-            .animate({rotate:'0deg'},1000)
+           // 로고애니함수 호출
+           comFn.logoAni();
          },[]);
          // -> React.useEffect(함수,[])
          // -> 최초로딩시 한번만 실행한다!
@@ -102,12 +92,11 @@ function MainComponent() {
    // -> 별도로 화면업데이트 시 특정한 경우에만 사용하기 위해 
    // -> 의존성 셋팅을 통하여 useEffect와 같은 방법을 사용한다.
    React.useLayoutEffect(()=>{
-      console.log('dom만들고 랜더링(화면업데이트) 직전 실행구역')
-      // 메인이미지 투명하게 초기화 + 소제목 투명하게 초기화
-      $('.img-box img, .stit').css({opacity:'0'});
-      window.scrollTo(0,0); 
+      console.log('useLayoutEffect 화면업데이트 직전 실행구역')
+      // (투명하게) 초기화 함수 호출
+      comFn.initFn();
       
-      // 초이스버튼누를때!
+ // 초이스버튼누를때 값바뀜!
    },[selItem]);
 
 
