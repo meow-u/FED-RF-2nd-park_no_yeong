@@ -25,6 +25,16 @@ export default function GoodsDetail({backList, gNo, selItem}) {
     selItem=='효진'? hjData
     :[]
     //************************************** */
+
+    // useEffect 구역 : 화면 업데이트 후 실행구역 
+    React.useEffect(()=>{
+      console.log('★★★나는 디테일컴포넌트')
+
+      return(()=>{
+         console.log('return 함수 :★디테일 컴포넌트 소멸')
+      });
+
+    }); /////////useEffect ///////
    
     // 코드 리턴구역
     return (
