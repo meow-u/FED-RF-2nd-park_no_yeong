@@ -2,13 +2,30 @@
 
 // 공유신발 데이터 불러오기
 import guData from "../data/gu_data";
+// 효진드레스 데이터 불러오기
+import hjData from "../data/hj_data";
 // console.log(guData);
 
-export default function GoodsList({viewDetail, updateIdx}){ // 이름은 걍지은거임
-    // viewDetail- 부모컴포넌트가 전달해준 상태변수 
-    // (viewList를 업데이트하는 setViewList 메서드임!)
+export default function GoodsList({viewDetail, updateIdx, selItem}){ // 이름은 걍지은거임
+    // (1) viewDetail- 부모컴포넌트가 전달해준 상태변수 
+    //   (viewList를 업데이트하는 setViewList 메서드임!)
  
-    // updateIdx - 부모 컴포넌트의 setIdx 상태관리변수의 메서드
+    // (2) updateIdx - 부모 컴포넌트의 setIdx 상태관리변수의 메서드
+
+    // (3) selItem은 부모컴포넌트에서 '공유'/ '효진' 선택코드값
+    //      selItem값으로 데이터를 선택해준다
+    //      '공유'는 guData, '효진'은 hjData
+
+    //************************************** */
+    // 선택코드에 따른 데이터 선택하기
+    const selData = 
+    selItem=='공유'? guData
+    :
+    selItem=='효진'? hjData
+    :[]
+    //************************************** */
+    
+    
     // 코드 리턴구역
     return (
     <ul>
@@ -19,9 +36,10 @@ export default function GoodsList({viewDetail, updateIdx}){ // 이름은 걍지�
       // node.js 개발환경에서는 안쓰면 에러남!!
       // 여기서는 cdn이라 안넣어도 에러안남(그대로 습관적으로 넣을것)
       // viewDetail(false) 바로실행되지않게 익명함수에 넣음
- 
-      guData
-      .filter((v) => v.category === "woman")
+
+ //**************** */
+      selData   //<-- 여기를 guData에서 선택코드에 따른 데이터 선택되도록 바꿈 
+    //   .filter((v) => v.category === "woman")
       .map((v,i) => (
           <li key={i}>
              <a href="#" onClick={(e)=>{
@@ -38,10 +56,17 @@ export default function GoodsList({viewDetail, updateIdx}){ // 이름은 걍지�
  
                 <ol class="glist">
                    <li>
-                      <img
-                         src={`./images/vans/vans_${v.idx}.jpg`}
-                         alt="신발"
-                      />
+                     {  selItem=='공유'? 
+                        <img
+                        src={`./images/vans/vans_${v.idx}.jpg`}
+                        alt="신발"/>
+                        :
+                        selItem=='효진'?
+                        <img src={`./images/gallery/${v.idx}.jpg`}
+                        alt="드레스"/>
+                        :[]
+                    }
+                      
                    </li>
                    <li>{v.gname}</li>
                    <li>가격 : {v.gprice}</li>
