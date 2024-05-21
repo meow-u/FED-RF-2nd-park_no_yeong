@@ -63,9 +63,12 @@ function MainComponent() {
             <div className="img-box">
                {
                     selItem =='공유'?
-                     <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />
+                     <img src="./images/vans/gongyoo.jpg" alt="멋진공유"
+                     style={{width:'100%'}}/>
+                     
                   : selItem =='효진' ? 
-                  <img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진"/>
+                  <img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진"
+                  style={{width:'100%'}}/>
                   :'없음'
                }
               
@@ -88,7 +91,7 @@ function MainComponent() {
             viewList?
              <GoodsList viewDetail={setViewList} updateIdx={setIdx} selItem={selItem}/> 
              : 
-             <GoodsDetail backList={setViewList} gNo={idx}/>
+             <GoodsDetail backList={setViewList} gNo={idx} selItem={selItem}/>
             // false이면 상품 상세리스트 보기
          }
 
