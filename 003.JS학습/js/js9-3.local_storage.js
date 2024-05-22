@@ -97,17 +97,19 @@ function localsFn(){
     } //// else if ////
     else if(btxt == "처리"){
         // 배열/객체 만들기
+        console.log('localStorage.getItem("minfo"): 만들지않은상태\n',localStorage.getItem("minfo"))
         // 1. 로컬쓰에 "minfo"키가 없으면 새로만들기
         // 만약 키가 없으면 null값을 리턴함
         // 이것은 if문에서 false처리됨!
-        // false일때 처리해야하므로 NOT(!)연산자사용
+        // false일때 처리해야하므로 NOT(!)연산자사용 
+        // (그럼 null이 true됨)
         // 또는 빈 배열값일 경우도 생성함수호출 처리
         if(!localStorage.getItem("minfo")||
         localStorage.getItem("minfo")=="[]"){
             // 최초 객체데이터 만들기 함수 호출
             makeObj();
         } /// if ///
-        console.log(localStorage.getItem("minfo"))
+        console.log('localStorage.setItem("minfo",JSON.stringify(obj)): 만들고난 뒤 \n',localStorage.getItem("minfo"))
 
         // 2. 화면에 출력하기 : 데이터 바인딩하기
         bindData();
@@ -135,10 +137,12 @@ function makeObj () {
     // 만약 배열데이터를 직접 넣으려고하면
     // 로컬쓰는 문자형만 받기때문에 데이터형이름만
     // 문자형으로 데이터를 대신 넣게된다!
+
     // 즉, 배열데이터는 못들어간다! ㅠ.ㅠ
     // 그러므로 배열데이터는 문자형으로 변환하여
     // 넣어야 로컬쓰에 들어간다!
     // -> JSON.stringify(배열/객체)
+    //localStorage.setItem("minfo",obj);// ->[object Object]이 들어감
     localStorage.setItem("minfo",JSON.stringify(obj));
 
 } ///////// makeObj //////
@@ -147,10 +151,11 @@ function makeObj () {
 function bindData(){
     // 1. 로컬쓰 데이터 읽어오기 : minfo
     let localData = localStorage.getItem("minfo");
+    console.log('파싱전:\n',localData)
     // 2. 로컬쓰 데이터 파싱하기 : JSON.parse()
     localData = JSON.parse(localData);
 
-    console.log("게시판 화면 뿌리기!",localData);
+    console.log("JSON.parse(localData): 파싱후 \n",localData);
 
 
 
@@ -171,7 +176,7 @@ function bindData(){
                     <td>${v.tit}</td>
                     <td>${v.cont}</td>
                     <td class="del-link">
-                        <a href="#" data-idx="${i}">×</a>
+                        <a href="#" data-idx=${i}>×</a>
                     </td>
                 </tr>
             `).join('')}
@@ -191,12 +196,14 @@ function bindData(){
             let localData = 
             JSON.parse(localStorage.getItem("minfo"));
             
-            console.log("지울순번:",idx,localData);
+            console.log("지울순번:",idx,'\n','지우기전:\n',localData);
 
             // 4. 메모리에 있는 배열값 지우기
             // 배열.splice(순번,개수) 
             // 1개삭제이므로 splice(순번,1)
             localData.splice(idx,1);
+
+            console.log('지운 후:\n',localData);
 
             // 5. 배열값 로컬쓰에 반영하기
             localStorage
