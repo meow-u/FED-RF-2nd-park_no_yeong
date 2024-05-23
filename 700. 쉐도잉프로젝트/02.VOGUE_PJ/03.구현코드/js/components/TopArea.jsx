@@ -1,10 +1,8 @@
-// 상단영역 컴포넌트 /////
-
-
-// [2] 상단영역 서브 컴포넌트 /////////////
-export default function(){//붙여넣고 주석>주석다시달고, className으로바꾸고.
+// 메인영역 컴포넌트 /////////////
+export default function TopArea(){//붙여넣고 주석>주석다시달고, className으로바꾸고.
     // 코드리턴구역 /////
     return(
+<div id="top-area">
     <header className="top-area ibx common-area">
         {/* <!-- 1-1.상단메뉴 --> */}
         <div className="tmenu">
@@ -102,6 +100,7 @@ export default function(){//붙여넣고 주석>주석다시달고, className으
         </ul>
         </nav>
     </header>
+</div>
     
     ); /////return
 
