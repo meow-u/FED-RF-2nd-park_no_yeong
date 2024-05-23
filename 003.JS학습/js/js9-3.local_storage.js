@@ -97,19 +97,17 @@ function localsFn(){
     } //// else if ////
     else if(btxt == "처리"){
         // 배열/객체 만들기
-        console.log('localStorage.getItem("minfo"): 만들지않은상태\n',localStorage.getItem("minfo"))
         // 1. 로컬쓰에 "minfo"키가 없으면 새로만들기
         // 만약 키가 없으면 null값을 리턴함
         // 이것은 if문에서 false처리됨!
-        // false일때 처리해야하므로 NOT(!)연산자사용 
-        // (그럼 null이 true됨)
+        // false일때 처리해야하므로 NOT(!)연산자사용
         // 또는 빈 배열값일 경우도 생성함수호출 처리
         if(!localStorage.getItem("minfo")||
         localStorage.getItem("minfo")=="[]"){
             // 최초 객체데이터 만들기 함수 호출
             makeObj();
         } /// if ///
-        console.log('localStorage.setItem("minfo",JSON.stringify(obj)): 만들고난 뒤 \n',localStorage.getItem("minfo"))
+        console.log(localStorage.getItem("minfo"))
 
         // 2. 화면에 출력하기 : 데이터 바인딩하기
         bindData();
@@ -137,12 +135,10 @@ function makeObj () {
     // 만약 배열데이터를 직접 넣으려고하면
     // 로컬쓰는 문자형만 받기때문에 데이터형이름만
     // 문자형으로 데이터를 대신 넣게된다!
-
     // 즉, 배열데이터는 못들어간다! ㅠ.ㅠ
     // 그러므로 배열데이터는 문자형으로 변환하여
     // 넣어야 로컬쓰에 들어간다!
     // -> JSON.stringify(배열/객체)
-    //localStorage.setItem("minfo",obj);// ->[object Object]이 들어감
     localStorage.setItem("minfo",JSON.stringify(obj));
 
 } ///////// makeObj //////
@@ -151,11 +147,10 @@ function makeObj () {
 function bindData(){
     // 1. 로컬쓰 데이터 읽어오기 : minfo
     let localData = localStorage.getItem("minfo");
-    console.log('파싱전:\n',localData)
     // 2. 로컬쓰 데이터 파싱하기 : JSON.parse()
     localData = JSON.parse(localData);
 
-    console.log("JSON.parse(localData): 파싱후 \n",localData);
+    console.log("게시판 화면 뿌리기!",localData);
 
 
 
@@ -176,7 +171,7 @@ function bindData(){
                     <td>${v.tit}</td>
                     <td>${v.cont}</td>
                     <td class="del-link">
-                        <a href="#" data-idx=${i}>×</a>
+                        <a href="#" data-idx="${i}">×</a>
                     </td>
                 </tr>
             `).join('')}
@@ -196,14 +191,12 @@ function bindData(){
             let localData = 
             JSON.parse(localStorage.getItem("minfo"));
             
-            console.log("지울순번:",idx,'\n','지우기전:\n',localData);
+            console.log("지울순번:",idx,localData);
 
             // 4. 메모리에 있는 배열값 지우기
             // 배열.splice(순번,개수) 
             // 1개삭제이므로 splice(순번,1)
             localData.splice(idx,1);
-
-            console.log('지운 후:\n',localData);
 
             // 5. 배열값 로컬쓰에 반영하기
             localStorage
@@ -219,8 +212,9 @@ function bindData(){
 
 } ////////////// bindData //////////////////
 
-// 게시판 최초호출
-bindData();
+// 게시판 최초호출 : 로컬쓰 minfo 존재여부에 따라 처리
+if(localStorage.getItem("minfo")) bindData();
+else makeObj();
 
 
 ///// 게시판 입력 버튼 클릭시 구현하기 //////
@@ -235,19 +229,61 @@ mFn.qs("#sbtn").onclick=()=>{
     
     console.log("입력!!!",localData);
 
-    // 2. 입력할 데이터 객체형식으로 배열에 넣기
+    // 2. 입력값이 비었으면 돌려보내기!
+    // trim() - 앞뒤공백 제거 메서드
+    if(mFn.qs("#tit").value.trim() == ""
+     || mFn.qs("#cont").value.trim() == ""){
+        alert("제목과 내용입력은 필수입니다!");
+        return;
+     } ////// if //////
+
+    console.log("idx값배열:",localData.map(v=>v.idx));
+
+    // 3. 입력할 데이터 객체형식으로 배열에 넣기
     // 배열.push({객체})
     localData.push({
-        idx: localData.length+1,
+        //******************************************** */
+        // 순번은 배열객체 idx값중 최대값을 구하여 1더한다!
+        // apply(보낼객체,배열) -> 보낼객체가 여기서는 null
+        idx: Math.max.apply(null,localData.map(v=>v.idx))+1,
+        //******************************************** */
         tit: mFn.qs("#tit").value,
         cont: mFn.qs("#cont").value
     });
 
-    // 3. 배열 데이터를 문자화하여 로컬쓰에 입력
+    // 4. 배열 데이터를 문자화하여 로컬쓰에 입력
     localStorage
     .setItem("minfo", JSON.stringify(localData));
 
-    // 4. 화면출력 함수 호출하기
+    // 5. 화면출력 함수 호출하기
     bindData();
 
 }; /////// click 함수 ///////////
+
+
+// CRUD 크루드!!!
+// Create(만들기) / Read(읽기) / Update(수정) / Delete(삭제)
+
+///////// 수정기능 구현하기 //////////////
+
+// 수정항목 선택박스 업데이트함수 호출
+updateItemList();
+
+// 수정할 항목 업데이트 함수 /////
+function updateItemList(){
+    // 대상: 수정선택박스 - #sel
+    const selBox = mFn.qs("#sel");
+
+    // 데이터의 idx를 순회하며 option만들기
+    const localData = 
+    JSON.parse(localStorage.getItem("minfo"));
+
+    selBox.innerHTML = 
+    localData.map(
+        v=>`
+            <option value="${v.idx}">
+                ${v.idx}</option>
+        `).join('');
+
+
+} //////////// updateItemList 함수 ///////////
