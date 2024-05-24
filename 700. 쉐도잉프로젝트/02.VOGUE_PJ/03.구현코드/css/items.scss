@@ -49,7 +49,10 @@
 // 믹스인의 전달변수를 값파트에 쓰는것은 문제없음 
 
 // 그러나 속성명 또는 선택자 파드 또는 복합적인 값에 변수를 쓰려면 
-// 사스용 보간법을 사용해야 한다.-> #{변수}
+// 사스용 보간법을 사용해야 한다.->  
+
+//   #{변수}
+
 @mixin make-bgi($itemName) {
    .#{$itemName} .bg1-1 {
       background-image: url(../images/#{$itemName}/cont1-1a.jpg);
