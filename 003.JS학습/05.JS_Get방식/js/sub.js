@@ -28,15 +28,30 @@ console.log("pm",pm);
 // =(이퀄) 로 잘라서 뒤엣것!
 pm = pm.split('=')[1];
 console.log("pm.split('=')[1]",pm);
+// console.log("pm.split('=')[0]",pm);
 
 
 // 인코딩 처리된 문자열 디코딩하기!
 pm = decodeURIComponent(pm);
 console.log("decodeURIComponent(pm)",pm);
 
+// 순서정리
+// 1. 링크 클릭시 innerText를 읽어서 
+// Get방식으로 정보 가공해서 넘기기 (인코딩필요) 
+// -> lotation.href='sub.html?shop='+encodeURIComponent(메뉴명);
 
+// 2. 서브페이지에서 Get방식으로 넘어온 정보 받기
+// -> let pm = location.href;
 
+// 3. 받은 정보를 재가공하기
+// -> pm = pm.split('=')[1]; (=을 기준으로 뒤에것만)
+// -> pm = decodeURIComponent(pm); (인코딩된 문자열 디코딩하기)
+// 결과는 pm변수에 메뉴명이 담김!
 
+// 4. 정보와 같은 데이터를 가진 객체를 만들어서 데이터를 매칭하기
+// -> let sdata = {메뉴명:{배경색:색상,이미지:이미지경로},...};
+// -> 사용: sdata[pm].배경색, sdata[pm].이미지 
+// 이떄의 pm은 링크클릭시 innerText값이다!
 
 /// 데이터 셋업하기! //////
 let sdata = {
