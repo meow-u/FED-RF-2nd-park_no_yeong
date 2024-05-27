@@ -23,7 +23,7 @@ function Layout(){
         {/* 1. 상단영역 컴포넌트 */}
         <TopArea/>    
         {/* 2. 메인영역 컴포넌트 */}
-        <ItemsArea catName="living"/> {/* <<--- 여기서  catName="living"이렇게  catdata의 키값을 보내줌 */}
+        <ItemsArea catName="fashion"/> {/* <<--- 여기서  catName="living"이렇게  catdata의 키값을 보내줌 */}
         {/* 3. 하단영역 컴포넌트 */}
         <FooterArea/>
     </React.Fragment>
