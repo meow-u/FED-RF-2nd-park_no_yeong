@@ -10,6 +10,8 @@ import MainArea from "./components/MainArea";
 import ItemsArea from "./components/ItemsArea";
 // 하단영역 불러오기
 import FooterArea from "./components/FooterArea";
+// 갤러리 불러오기
+import Gallery from "./components/Gallery";
 // *****************************************
 
 // 보통 모아주는 파일은js로 만들고
@@ -21,7 +23,24 @@ import FooterArea from "./components/FooterArea";
 function Layout() {
    // 상태관리 변수 설정구역 /////
    // 1.[1] 메뉴변경 상태변수
-   const [menu, setMenu] = React.useState("living");
+   const [menu, setMenu] = React.useState("home");
+
+   /* ***************************************** */
+   // 화면 랜더링 직전에 CSS로딩 변경하기 /////
+   React.useLayoutEffect(()=>{
+       // menu 상태변수에 의존시킨다!
+       // 메인 css 대상요소 : #main-css
+       document.querySelector("#main-css").href=
+       menu=="home" 
+       ? "./css/main.css" 
+       :menu=="gallery"  //추가
+       ? "./css/gallery.css" //추가
+       : "./css/items.css";
+       // menu가 'home'인 경우 메인css를 연결하고
+       // 기타메뉴일 경우 서브css 연결
+       
+    },[menu]);
+    /* ***************************************** */
 
    // 코드리턴구역 ///////
    return (
@@ -29,7 +48,11 @@ function Layout() {
          {/* 1. 상단영역 컴포넌트 */}
          <TopArea changeMenu={setMenu}/>
          {/* 2. 메인영역 컴포넌트 */}
-         {menu == "home" ? <MainArea /> : <ItemsArea catName={menu} />}
+         {menu == "home" 
+         ? <MainArea /> 
+         :menu == "gallery" //추가
+         ?  <Gallery/> //추가
+         : <ItemsArea catName={menu} />}
          {/* 3. 하단영역 컴포넌트 */}
          <FooterArea />
       </React.Fragment>

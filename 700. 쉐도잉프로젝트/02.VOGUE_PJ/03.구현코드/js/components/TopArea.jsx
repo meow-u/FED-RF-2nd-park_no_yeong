@@ -1,4 +1,7 @@
-// 메인영역 컴포넌트 /////////////
+// 상단영역 컴포넌트 /////////////
+
+// import "./@@@/@@@/.css" <cdn에서는 이렇게안씀 (상단영역css)
+
 export default function TopArea({ changeMenu }) {
    //붙여넣고 주석>주석다시달고, className으로바꾸고.
    // changeMenu는 - 부모의 setMenu() 상태관리 메서드 !!
@@ -56,7 +59,8 @@ export default function TopArea({ changeMenu }) {
                   <a href="#" className="fi fi-user-secret" title="회원가입">
                      <span className="ir">회원가입</span>
                   </a>
-                  <a href="#" className="fi fi-camera" title="갤러리">
+                  <a href="#" className="fi fi-camera" 
+                  title="갤러리" onClick={()=>chgMenuFn('gallery')}>
                      <span className="ir">갤러리</span>
                   </a>
                   <a href="#" className="fi cas" title="카카오스토리">
