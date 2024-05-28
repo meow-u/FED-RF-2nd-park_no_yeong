@@ -2,16 +2,20 @@
 // 모듈파일안에서만 확장자생략가능
 
 // *****************************************
-// 상단영역 불러오기
+// 상단영역 모듈 불러오기
 import TopArea from "./components/TopArea";
-// 메인영역 불러오기
+// 메인영역 모듈 불러오기
 import MainArea from "./components/MainArea";
-// 아이템영역 불러오기
+// 아이템영역 모듈 불러오기
 import ItemsArea from "./components/ItemsArea";
-// 하단영역 불러오기
+// 하단영역 모듈 불러오기
 import FooterArea from "./components/FooterArea";
-// 갤러리 불러오기
+// 갤러리 모듈 불러오기
 import Gallery from "./components/Gallery";
+// 로그인 모듈 불러오기
+import Login from "./components/Login";
+// 회원가입 모듈 불러오기
+import Member from "./components/Member";
 // *****************************************
 
 // 보통 모아주는 파일은js로 만들고
@@ -35,9 +39,13 @@ function Layout() {
        ? "./css/main.css" 
        :menu=="gallery"  //추가
        ? "./css/gallery.css" //추가
+       :menu=="login"  //추가
+       ? "./css/login.css" //추가
+       :menu=="member"  //추가
+       ? "./css/member.css" //추가
        : "./css/items.css";
-       // menu가 'home'인 경우 메인css를 연결하고
-       // 기타메뉴일 경우 서브css 연결
+       // menu가 'home'인 경우 메인css를 연결하고 .....
+       // 기타메뉴일 경우 items css 연결
        
     },[menu]);
     /* ***************************************** */
@@ -52,6 +60,10 @@ function Layout() {
          ? <MainArea /> 
          :menu == "gallery" //추가
          ?  <Gallery/> //추가
+         :menu == "login" //추가
+         ?  <Login/> //추가
+         :menu == "member" //추가
+         ?  <Member/> //추가
          : <ItemsArea catName={menu} />}
          {/* 3. 하단영역 컴포넌트 */}
          <FooterArea />
