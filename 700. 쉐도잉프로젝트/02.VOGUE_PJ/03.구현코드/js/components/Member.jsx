@@ -1,6 +1,16 @@
 // 보그 JS 회원가입 컴포넌트
 
+// 유효성 검사 함수 불러오기
+import validateFn from "../validation";
+
 export default function Member() {
+
+   // 페이지 랜더링 후 실행구역 ///
+   React.useEffect(validateFn 
+      //이렇게 함수구역안만들고 적으면 바로 실행됨
+   
+   ,[]); //한번만 실행
+
    // 코드리턴구역
    return (
       <div id="main-area">
