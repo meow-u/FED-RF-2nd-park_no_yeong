@@ -3,13 +3,13 @@
 // 유효성 검사 함수 불러오기
 import validateFn from "../validation";
 
-export default function Member() {
+export default function Member({changeMenu}) {
+   // changeMenu - 상태변수메서드 setMenu전달 
 
    // 페이지 랜더링 후 실행구역 ///
-   React.useEffect(validateFn 
-      //이렇게 함수구역안만들고 적으면 바로 실행됨
-   
-   ,[]); //한번만 실행
+   React.useEffect(()=>validateFn(changeMenu),[]); //한번만 실행
+   // React.useEffect(validateFn,[]); // 값안보낼꺼면 일케하면 실행 댐 
+   // 값보내려고 익명함수 만들어서 전달변수 입력한것.
 
    // 코드리턴구역
    return (

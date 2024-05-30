@@ -46,6 +46,10 @@ function Layout() {
        : "./css/items.css";
        // menu가 'home'인 경우 메인css를 연결하고 .....
        // 기타메뉴일 경우 items css 연결
+
+       // 페이지 최상단이동코드
+       window.scrollTo(0,0);
+       //메뉴가바뀔때마다 위 코드들이 실행됨 
        
     },[menu]);
     /* ***************************************** */
@@ -61,9 +65,9 @@ function Layout() {
          :menu == "gallery" //추가
          ?  <Gallery/> //추가
          :menu == "login" //추가
-         ?  <Login/> //추가
+         ?  <Login changeMenu={setMenu}/> //추가
          :menu == "member" //추가
-         ?  <Member/> //추가
+         ?  <Member changeMenu={setMenu}/> //추가
          : <ItemsArea catName={menu} />}
          {/* 3. 하단영역 컴포넌트 */}
          <FooterArea />

@@ -229,6 +229,7 @@ const 콜백 = useCallback(() => {},
 const myRef = useRef(null);
 
 
+개인메모
 ___________________________________________________________
 1. useContext 사용위한 생성메서드만들기
 -> const 프바변수명 = React.createContext();
@@ -242,3 +243,15 @@ ___________________________________________________________
 5. 값을 사용할 서브컴포넌트에서 컨텍스트를 사용하려면 서브컴포넌트 내에서 useContext() 메서드 사용!
 -> const 변수 = React.useContext(프바변수);
 6. 그럼 컴포넌트 내부에서 프바변수.속성명 처럼 다 사용가능하다
+
+___________________________________________________________
+useEffect의 의존성 배열에는 어떤 변수든 사용할 수 있습니다
+const someValue = 42; // 외부 값
+const [state, setState] = useState(0); // 상태값
+
+useEffect(() => {
+  const data = getDataFromSomeAPI(props.id, someValue, state);
+  // ...데이터를 사용하는 코드
+}, [props.id, someValue, state]); // props, 외부 값, 상태값 모두 의존성에 포함
+이렇게 하면 props.id, someValue, state 중 하나라도 변경되면 effect가 다시 실행됩니다.
+그래서 의존성 배열에는 effect 내부에서 참조하는 모든 값을 포함시켜야 합니다. 상태뿐만 아니라 props, 외부 변수/함수, 객체 등 어떤 값이든 가능합니다.
