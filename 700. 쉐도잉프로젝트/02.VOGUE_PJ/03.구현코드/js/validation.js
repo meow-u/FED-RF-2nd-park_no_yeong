@@ -249,7 +249,7 @@ export default function validateFn(changeMenu) { //이름다르게지어도 setM
    $("#email1, #email2").on("keyup", function () {
       // 1. 현재 이벤트 발생 대상 아이디 읽어오기
       let cid = $(this).attr("id");
-      // console.log("입력창id:",cid);
+      console.log("입력창id:",cid);
 
       // 2. 이메일 뒷주소 셋팅하기 (선택!)
       let backEml =
@@ -259,8 +259,19 @@ export default function validateFn(changeMenu) { //이름다르게지어도 setM
             ? seleml.val()
             : eml2.val();
       // 현재입력 아이디가 "email2"이면 직접입력창을 읽고
-      // 아니면 선택박스값이 "free"가 아닌 경우 선택박스값 읽고
-      // 아니면 직접입력창값을 뒷주소로 설정함!
+      // 아니면 선택박스값이 "free"가 '아닌' 경우 선택박스값 읽고
+      // 아니면(선택박스값이 free면) 직접입력창값을 뒷주소로 설정함!
+
+      // 이코드와 완벽히 동일함 
+      // if (cid == "email2") {
+      //    backEml = eml2.val();
+      //  } else if (seleml.val() != "free") {
+      //    backEml = seleml.val(); 
+      //  } else {
+      //    backEml = eml2.val();
+      //  }
+
+      
 
       // 이메일 전체주소 만들기
       let comp = eml1.val() + "@" + backEml;
