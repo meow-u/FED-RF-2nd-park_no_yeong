@@ -1,0 +1,86 @@
+// 메인 페이지 css
+
+// 공통 리셋불러오기 (불러올때 언더바 같이치면 경로참조됨. 확장자랑 언더바 생략가능) 
+@import './common/reset';
+
+// 사이즈변수 불러오기
+@import "./variables/size-set";
+// 색상 변수 불러오기
+@import "./variables/color-set";
+// 배경 변수 불러오기
+@import "./variables/bg-set";
+
+// 배경이미지 설정 믹스인 
+@mixin bgSet($imgSrc) { // bgSet($imgSrc:기본값)
+    background-image: url($imgSrc);
+    background-size: cover;
+    background-position: center;
+} //////// bgSet ($imgSrc는 지역변수)
+
+// body 배경넣기 
+body{
+    height: 100vh;
+    // 배경믹스인 호출
+    @include bgSet($bigbg)
+
+}
+
+// 작은박스 셋팅
+
+h1{
+    width: $box-wz;
+    height: $box-hz;
+    border: 3px dotted $bd-color1;
+
+    font-size: 40px;
+    line-height: $box-hz;
+    text-align: center;
+
+    // 배경 믹스인 호출 
+    @include bgSet($sunjae);
+
+    // 하위 b요소 : 앞글자 
+    b{
+        color:#fff;
+        -webkit-text-stroke: 1px #000; 
+
+    }
+    // 하위 span : 뒷글자
+    span{
+        text-decoration: overline;
+        text-decoration-style: wavy;
+        font-size: 20px;
+        color:red;
+        transition:.3s .4s;
+    }
+
+    //원본 트랜지션
+    transition:.4s;
+    // 마우스 오버시 
+    &:hover{
+        translate: 200px 50px;
+        scale: 1.5;
+
+        // h1오버시 하위 span요소
+        span{
+            color:blue;
+            scale: 2;
+            translate: 500px 0;
+            /* 인라인은 트렌스폼 적용안되어서 
+            디스플레이를 인라인블록으로 줘야 함  */
+            display: inline-block;
+        }
+    }
+
+
+    // 한번에 하위 모든 요소 투명도 조절
+
+    *{//h1 하위에 속한 *(전체)
+        opacity: 0;
+        transition: 0.4s;
+    }
+    &:hover *{
+        opacity: 1;
+    }
+
+}///// h1 ////
