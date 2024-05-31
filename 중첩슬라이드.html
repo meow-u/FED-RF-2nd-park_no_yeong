@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Swiper demo</title>
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+      />
+      <!-- Link Swiper's CSS -->
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+
+      <!-- Demo styles -->
+      <style>
+         html,
+         body {
+            position: relative;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+         }
+         body {
+            /* background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000; */
+         }
+
+         .swiper {
+            width: 100%;
+            height: 100%;
+         }
+
+         .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            gap: 0;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+         }
+
+         .swiper-slide img {
+            /* display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; */
+         }
+
+         .swiper-v {
+            /* background: #eee; */
+         }
+         .s1 {
+            background-color: rgb(255, 223, 223);
+         }
+         .s2 {
+            background-color: rgb(230, 255, 230);
+         }
+         .s3 {
+            background-color: rgb(255, 242, 219);
+         }
+         .s4 {
+            background-color: rgb(213, 223, 255);
+         }
+         .s5 {
+            background-color: rgb(255, 219, 225);
+         }
+         .s6 {
+            background-color: rgb(255, 225, 214);
+         }
+         .s7 {
+            background-color: rgb(255, 255, 212);
+         }
+         .s8 {
+            background-color: rgb(255, 221, 238);
+         }
+         .s9 {
+            background-color: rgb(255, 223, 255);
+         }
+      </style>
+   </head>
+
+   <body>
+      <!-- Swiper -->
+
+      <div class="swiper 가로 swiper-h">
+         <div class="swiper-wrapper">
+            <div class="swiper-slide">
+               <div class="swiper 세로 swiper-v">
+                  <div class="swiper-wrapper">
+                     <div class="swiper-slide s1">Vertical Slide 1</div>
+                     <div class="swiper-slide s2">Vertical Slide 2</div>
+                     <div class="swiper-slide s3">Vertical Slide 3</div>
+                  </div>
+                  <div class="swiper-pagination"></div>
+               </div>
+            </div>
+
+            <div class="swiper-slide">
+               <div class="swiper 세로 swiper-v">
+                  <div class="swiper-wrapper">
+                     <div class="swiper-slide s4">Vertical Slide 1</div>
+                     <div class="swiper-slide s5">Vertical Slide 2</div>
+                     <div class="swiper-slide s6">Vertical Slide 3</div>
+                  </div>
+                  <div class="swiper-pagination"></div>
+               </div>
+            </div>
+
+            <div class="swiper-slide">
+               <div class="swiper 세로 swiper-v">
+                  <div class="swiper-wrapper">
+                     <div class="swiper-slide s7">Vertical Slide 1</div>
+                     <div class="swiper-slide s8">Vertical Slide 2</div>
+                     <div class="swiper-slide s9">Vertical Slide 3</div>
+                  </div>
+                  <div class="swiper-pagination"></div>
+               </div>
+            </div>
+         </div>
+         <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- Swiper JS -->
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+      <!-- Initialize Swiper -->
+      <script>
+         var swiper = new Swiper(".가로", {
+            spaceBetween: 0,
+            /* 자동으로 페이지 넘기기 */
+            autoplay: {
+               delay: 1000,
+               disableOnInteraction: false,
+               /* 마지막페이지에 도달하면 멈추기 */
+               stopOnLastSlide: true,
+            },
+            pagination: {
+               el: ".swiper-pagination",
+               clickable: true,
+            },
+            loop: true, //무한반복
+         });
+         var swiper2 = new Swiper(".세로", {
+            direction: "vertical",
+            spaceBetween: 0,
+            pagination: {
+               el: ".swiper-pagination",
+               clickable: true,
+            },
+            loop: true, //무한반복
+         });
+      </script>
+   </body>
+</html>
