@@ -8,6 +8,7 @@
     <script>
       /*********************************************** 
         비동기 호출이란?  "나중에 끝낼께!"
+        코드를 만나는 순간 실행되지않고 나중에 실행됨
 
         다른 함수와 병렬 로 실행되는 함수를 비동기 라고 한다.
         좋은 예는 자바스크립트 내장함수인 
@@ -38,17 +39,17 @@
       }
 
       // 일정시간 후 함수실행 -> 비동기함수 호출!
-      setTimeout(() => setInterval(킬링타임, 1000), 6000);
+      setTimeout(() => setInterval(킬링타임, 1000), 6000); //이게5000보다작음에러
       setTimeout(() => {
-        // 화면뿌려(`킬링타임<div id="time" style="font-size:5vh"></div>`);
+        화면뿌려(`킬링타임<div id="time" style="font-size:5vh"></div>`);
       }, 5000);
       setTimeout(() => {
-        // 화면뿌려(
-        //   `<img src="https://images.khan.co.kr/article/2023/03/03/news-p.v1.20230303.139d5a1324fd43e9b750689a1c57af4e_P1.jpg" style="height:70vh" alt="길복순">`
-        // );
+        화면뿌려(
+          `<img src="https://images.khan.co.kr/article/2023/03/03/news-p.v1.20230303.139d5a1324fd43e9b750689a1c57af4e_P1.jpg" style="height:70vh" alt="길복순">`
+        );
       }, 4000);
       setTimeout(() => {
-        // 화면뿌려("나는 전도연이다!");
+        화면뿌려("나는 전도연이다!");
       }, 2000);
     </script>
     <style>
