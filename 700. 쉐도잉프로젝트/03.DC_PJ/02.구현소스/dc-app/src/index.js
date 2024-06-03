@@ -52,7 +52,7 @@ export default function MainComponent() {
                path설정대신 index키워드를 쓰면 첫페이지로 구성 됨
                -> MainArea 컴포넌트 <Outlet/>에 출력된다! */}
                <Route index element={<Main/>}/>
-               {/* Route path= "txt"는  URL 경로와 렌더링할 컴포넌트를 연결됨 */}
+               {/* Route path= "링크명"는 사용자가 웹브라우저에서 해당 URL 경로로 이동하면 렌더링할 컴포넌트가 연결됨 */}
                <Route path="character" element={<Character />} />
                <Route path="comics" element={<Comics/>} />
             </Route>

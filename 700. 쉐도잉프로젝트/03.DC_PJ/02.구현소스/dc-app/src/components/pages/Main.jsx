@@ -1,4 +1,4 @@
-//pages 폴더는 MainArea에서 바뀌어보이는 부분
+//pages 폴더는 MainArea에서 바뀌어보이는 각각의 페이지
 //Main은 기본페이지
 
 
