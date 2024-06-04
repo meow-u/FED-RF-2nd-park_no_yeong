@@ -4,6 +4,10 @@
 import { Link } from "react-router-dom";
 import { menu } from "../data/gnb";
 
+// 상단영역 css불러오기 
+import "../../css/top_area.scss";
+import Logo from "../modules/Logo";
+
 export default function TopArea() {
    // 코드 리턴구역
    return (
@@ -16,13 +20,35 @@ export default function TopArea() {
             <nav className="gnb">
                <ul>
                   {/* 1. 로고 컴포넌트 */}
-                  <li></li>
+                  <li>
+                     <Logo logoStyle="top"/>
+                  </li>
                   {/* 2. Gnb메뉴 데이터 배열로 만들기 */}
                   {menu.map((v,i)=>
                   <li key={i}>
-                    {/* link to -> 라우터에서 a링크대신 지원함 */}
-                        <Link to={v.link}>{v.txt}</Link>         
-                  </li>)}
+                     {
+                        //하위메뉴가 있으면 일반 a요소에 출력
+                        //없으면 link 라우팅 출력 
+                        v.sub? 
+                        <a href="#">{v.txt}</a>
+                        :
+                        <Link to={v.link}>{v.txt}</Link> 
+                        //link to -> 라우터에서 a링크대신 지원함 
+                     }
+                     { // 서브 메뉴 데이터가 있으면 하위그리기
+                        v.sub &&  (
+                        <div className="smenu">
+                           <ol>
+                              {v.sub.map((v,i)=> (
+                              <li key={i}>
+                                  <Link to={v.link}>{v.txt}</Link> 
+                              </li>
+                              ))}
+                           </ol>
+                        </div>
+                     )}
+                  </li>
+                  )}
                </ul>
             </nav>
          </header>

@@ -5,9 +5,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 /* 2. 레이아웃 불러오기 */
 import Layout from "./components/layout/Layout";
 /* 4. 하위라우터 불러오기 */
-import Character from "./components/pages/Character";
 import Main from "./components/pages/Main";
 import Comics from "./components/pages/Comics";
+import Character from "./components/pages/Character";
+
+// 전체 공통 css불러오기
+import "../src/css/index.scss";
+
 
 /********************************************* 
     [ 리액트 라우터 ]
