@@ -1,7 +1,8 @@
 // 상단영역 컴포넌트
 
-//gnb 데이터 불러오기
+/* 3 */
 import { Link } from "react-router-dom";
+//gnb 데이터 불러오기
 import { menu } from "../data/gnb";
 
 // 상단영역 css불러오기 

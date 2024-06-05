@@ -1,16 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 /* 0. 라우터추가 (BrowserRouter만 넣어서안대면 나머지추가) */
+/* 1 */
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 /* 2. 레이아웃 불러오기 */
 import Layout from "./components/layout/Layout";
+
+// 전체 공통 css불러오기
+import "../src/css/index.scss";
+
 /* 4. 하위라우터 불러오기 */
 import Main from "./components/pages/Main";
 import Comics from "./components/pages/Comics";
 import Character from "./components/pages/Character";
 
-// 전체 공통 css불러오기
-import "../src/css/index.scss";
+import Movies from "./components/pages/Movies";
+import Games from "./components/pages/Games";
 
 
 /********************************************* 
@@ -40,6 +45,12 @@ import "../src/css/index.scss";
     2. Layout.jsx 레이아웃 컴포넌트를 루트로 선택
     3. 상단영역 GNB에 <Link to> 셋팅
     4. 메인영역에 <Outlet /> 셋팅
+    5. ★★라우터 연결 흐름 :
+      (1) Route의 path 정보셋팅  //index.js
+      (2) link to 정보 클릭시 1번정보와 대조 //TopArea.jsx
+      (3) 1번 정보 일치시 element에 등록된 컴포넌트 로딩 //index.js
+      (4) Outlet 표시 컴포넌트에 삽입  //MainArea.jsx
+
     
 *********************************************/
 
@@ -56,9 +67,11 @@ export default function MainComponent() {
                path설정대신 index키워드를 쓰면 첫페이지로 구성 됨
                -> MainArea 컴포넌트 <Outlet/>에 출력된다! */}
                <Route index element={<Main/>}/>
-               {/* Route path= "링크명"는 사용자가 웹브라우저에서 해당 URL 경로로 이동하면 렌더링할 컴포넌트가 연결됨 */}
+               {/* Route path= "링크명"는 사용자가 웹브라우저에서 해당 URL 경로로 이동하면 렌더링할 컴포넌트가 연결됨(대소문자구분 안함) */}
                <Route path="character" element={<Character />} />
                <Route path="comics" element={<Comics/>} />
+               <Route path="movies/series" element={<Movies/>} />
+               <Route path="games" element={<Games/>} />
             </Route>
             {/* Layout 루트 Route는 홀로닫지 말고 반드시 다른 하위 라우트를 감싸도록 한다!! */}
          </Routes>
