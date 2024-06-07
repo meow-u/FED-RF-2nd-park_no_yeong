@@ -11,12 +11,12 @@ import "../src/css/index.scss";
 
 /* 4. 하위라우터 불러오기 */
 import Main from "./components/pages/Main";
-import Comics from "./components/pages/Comics";
 import Character from "./components/pages/Character";
-
+import Comics from "./components/pages/Comics";
 import Movies from "./components/pages/Movies";
+import Series from "./components/pages/Series";
 import Games from "./components/pages/Games";
-
+import News from "./components/pages/News";
 
 /********************************************* 
     [ 리액트 라우터 ]
@@ -70,8 +70,10 @@ export default function MainComponent() {
                {/* Route path= "링크명"는 사용자가 웹브라우저에서 해당 URL 경로로 이동하면 렌더링할 컴포넌트가 연결됨(대소문자구분 안함) */}
                <Route path="character" element={<Character />} />
                <Route path="comics" element={<Comics/>} />
-               <Route path="movies/series" element={<Movies/>} />
+               <Route path="movies" element={<Movies/>} />
+               <Route path="movies/series" element={<Series/>} />
                <Route path="games" element={<Games/>} />
+               <Route path="news" element={<News />} />
             </Route>
             {/* Layout 루트 Route는 홀로닫지 말고 반드시 다른 하위 라우트를 감싸도록 한다!! */}
          </Routes>
