@@ -16,6 +16,8 @@ import Gallery from "./components/Gallery";
 import Login from "./components/Login";
 // 회원가입 모듈 불러오기
 import Member from "./components/Member";
+// 부드러운 스크롤 불러오기
+import {scrolled, setPos}from "./smoothScroll24";
 // *****************************************
 
 // 보통 모아주는 파일은js로 만들고
@@ -50,6 +52,17 @@ function Layout() {
        // 페이지 최상단이동코드
        window.scrollTo(0,0);
        //메뉴가바뀔때마다 위 코드들이 실행됨 
+
+
+       //*************************************************************
+       // 부드러운 스크롤 은 홈에서만 적용함!
+       if(menu=='home')
+       document.addEventListener('wheel',scrolled,{passive:false})
+       // 'home'이 아닌경우 모두 이벤트를 해제한다!
+       else
+       document.removeEventListener('wheel',scrolled,{passive:false})
+       
+       //*************************************************************
        
     },[menu]);
     /* ***************************************** */
