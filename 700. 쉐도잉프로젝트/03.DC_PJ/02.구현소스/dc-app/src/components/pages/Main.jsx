@@ -1,8 +1,10 @@
 //pages 폴더는 MainArea에서 바뀌어보이는 각각의 페이지
 //Main은 기본페이지
 
+
 import Banner from "../modules/Banner";
 import SecIntro from "../modules/SecIntro";
+import VidSwipe from "../modules/VidSwipe";
 import VidIntro from "../modules/Vidintro";
 
 export default function Main() {
@@ -18,6 +20,8 @@ export default function Main() {
          {/* 3. 비디오 소개 컴포넌트 
          catName 카테고리명, clsName 배경색넣을 클래스 (on/off) */}
          <VidIntro catName= "main" clsName="off"/>
+         {/* 4.비디오 스와이프 컴포넌트 */}
+         <VidSwipe catName="main" />
 
       </>
    );
