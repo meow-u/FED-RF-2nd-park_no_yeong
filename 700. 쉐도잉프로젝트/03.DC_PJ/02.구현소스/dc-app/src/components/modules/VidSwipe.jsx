@@ -13,6 +13,7 @@ section.vidswbox >
 import React from "react";
 // 데이터불러오기
 import {catTit} from "../data/vid_swipe";
+// 스와이퍼 플러그인 컴포넌트 불러오기
 import { SwiperVid } from "../plugin/SwiperVid";
 
 // css불러오기
