@@ -72,12 +72,27 @@ const showVideo = (src,tit)=>{
    return (
       <>
          <Swiper
-            slidesPerView={4} // 3개보여라
+            // slidesPerView={4} // 3개보여라
             spaceBetween={20} // 사이간격
             navigation={true} //네비
             /* 사용할 모듈을 여기에 적용시킨다 */
             modules={[Navigation]}
+            breakpoints={{
+               200: {
+                   slidesPerView: 1,
+               },
+               500: {
+                   slidesPerView: 2,
+               },
+               1000: {
+                   slidesPerView: 3,
+               },
+               1200: {
+                   slidesPerView: 4,
+               },
+             }}
             className="mySwiper"
+            
          >
             {selData.map((v, i) => (
                <SwiperSlide key={i}>
