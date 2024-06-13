@@ -6,6 +6,7 @@ import Banner from "../modules/Banner";
 import SecIntro from "../modules/SecIntro";
 import VidSwipe from "../modules/VidSwipe";
 import VidIntro from "../modules/Vidintro";
+import CatList from "../modules/CatList";
 
 export default function Main() {
    // 코드 리턴구역
@@ -22,7 +23,8 @@ export default function Main() {
          <VidIntro catName= "main" clsName="off"/>
          {/* 4.비디오 스와이프 컴포넌트 */}
          <VidSwipe catName="main" />
-
+         {/* 5. 캐릭터 리스트 컴포넌트 */}
+         <CatList/>
       </>
    );
 } //////////// Main ////////////////////////
