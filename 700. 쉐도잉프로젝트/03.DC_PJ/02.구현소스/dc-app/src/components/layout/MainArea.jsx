@@ -9,7 +9,7 @@ export default function MainArea(){
     // 코드 리턴구역
     return(
         <main className="cont">
-            <Outlet/>
+            <Outlet/> {/* 라우터 path연결시 여기서 바뀜 */}
         </main>
     );
 }//////////// MainArea ////////////////////////
