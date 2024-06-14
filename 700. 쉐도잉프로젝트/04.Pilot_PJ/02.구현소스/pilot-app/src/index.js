@@ -6,7 +6,7 @@ import FooterArea from './components/layout/FooterArea';
 
 // 전체 공통  css
 import "./css/index.scss"
-
+//라우터없이 구현: layout컴포넌트없이 여기가 루트역할
 function MainComponent(props) {
   return (
     <>

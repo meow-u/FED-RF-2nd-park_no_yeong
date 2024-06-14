@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // 배너모듈 css
 import "../../css/banner.scss";
+import { dragBanner } from "../../js/func/drag_banner";
 
 function Banner(props) {
-    // 배너리스트 개수
-    const BAN_CNT = 6;
-   // 리스트를 만드는 함수 ////
+   // 배너리스트 개수
+   const BAN_CNT = 6;
+   // 리스트를 만드는 함수 /////////////////////////
    const makeList = (gubun) => {
       // gubun : true - 배너 / false - 블릿
 
@@ -22,6 +23,7 @@ function Banner(props) {
 
       for (let i = 0; i < BAN_CNT; i++) {
          if (gubun) {
+            // true
             // 배너코드
             hcode[i] = (
                <li className={"ban" + (i == 0 ? "6" : i)} key={i}>
@@ -29,6 +31,7 @@ function Banner(props) {
                </li>
             );
          } else {
+            // false
             // 블릿코드
             hcode[i] = (
                <li className={i == 0 ? "on" : ""} key={i}>
@@ -44,8 +47,16 @@ function Banner(props) {
 
       // 코드리턴
       return hcode;
-   }; ///////// makeList 함수 /////////
-   // 코드 리턴구역
+   }; ///////// makeList 함수 //////////////////////
+
+   // 화면랜더링 실행구역
+   useEffect(() => {
+      //배너기능함수호출
+      dragBanner();
+   }, []);
+
+   // 코드 리턴구역 /////////////////////////////////////////
+   /////////////////////////////////////////////////////////
    return (
       <>
          <ul className="slide">{makeList(true)}</ul>
