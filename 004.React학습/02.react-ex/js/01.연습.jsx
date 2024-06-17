@@ -94,9 +94,9 @@ console.log('isSub:',isSub);
 
 ///////////////////
 React.useEffect(()=>{
-
-   /* menuTxt는 왜안찍힘???????????? */
-   let result=   allProducts.filter((v)=>(v.collection === "British Tales"))
+   console.log('useEffect - menuTxt:', menuTxt); // useEffect 내에서 menuTxt 값을 확인
+   /* menuTxt는 왜안찍힘??menuTxt값은 클릭해야 찍히도록 되어있음  */
+   let result=   allProducts.filter((v)=>(v.collection === menuTxt))
    console.log('result:',result);
 
 });
@@ -105,6 +105,7 @@ React.useEffect(()=>{
    return(
       <ul className="menu">
          {isSub?//true일시 서브메뉴
+         /* filter(v=>v.어쩌구===어쩌구)  :검색후 모든 일치값을 리턴  */
          allProducts.filter((v)=>v.collection === menuTxt) //txt는 전달받은 이너텍스트
          .map((v,i)=>(
             <li key={i}>
