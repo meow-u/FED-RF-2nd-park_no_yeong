@@ -18,7 +18,7 @@ function SearchPage() {
         <>
          <h1 className='tit'>
             Search Result</h1>   
-            <Searching/>
+            <Searching kword={keyword}/>
         </>
     );
 }

@@ -6,9 +6,13 @@ import "../../css/searching_cat.scss";
 import { Link } from "react-router-dom";
 import React from "react";
 
-function SearchingCat({ dt, total }) {
+function SearchingCat({dt}) {
    //dt - 검색된 배열데이터
+   
    //total - 검색된 배열데이터 개수
+   const total = dt.length;
+   console.log('데이터수:',total)
+
    return (
       <>
          {
