@@ -21,8 +21,14 @@ function Searching({ kword }) {
    //////////////////////////////////////////////
    // 키워드에 따라 검색결과가 달라지므로
    // 핵심데이터인 검색어를 상태관리변수로 만든다!!
+   // ((상태관리변수)) ///////////////////////////
+   // [1] 검색어 상태관리 변수
    const [kw, setKw] = useState(kword);
    // 초기값으로  전달받은 검색어변수를 넣어준다
+   // [2] 정렬기준 상태관리 변수
+   const [sort, setSort] = useState("asc");
+   // 값: 오름차순 -asc  ascending / 내림차순 -desc descending
+
    /////////////////////////////////////////////
 
    // 검색어가 있는 데이터 필터하기
@@ -46,6 +52,21 @@ function Searching({ kword }) {
       // 그래서 -1가 아닐경우 true를 리턴하면
       // filter에서 변수에 저장할 배열로 한번에수집된다!
    }); ///////// filter /////////////////
+
+   // [정렬기능 추가하기] /////////
+   // (1) 오름차순일 경우
+   if (sort == "asc") {
+      newList.sort((a, b) =>
+      // a가 크면 일단바꿔 (그래야오름차순)  a가 작으면 (오름차순이니) 마 놔둬!
+         a.cname > b.cname ? 1 : a.cname < b.cname ? -1 : 0
+      );
+   } /// if //////////////////////
+   else if (sort == "desc") {
+      newList.sort((a, b) =>
+      a.cname > b.cname ? -1 : a.cname < b.cname ? 1 : 0
+      )
+   } /// else if /////////////////
+
    console.log("newList", newList);
 
    /* 
@@ -88,7 +109,7 @@ function Searching({ kword }) {
                      defaultValue={kword}
                      // 엔터키를 눌렀을때 검색실행
                      onKeyUp={(e) => {
-                        if (e.key === "Enter")setKw(e.target.value); //input에 입력된 값
+                        if (e.key === "Enter") setKw(e.target.value); //input에 입력된 값
                      }}
                   />
                </div>
@@ -150,9 +171,19 @@ function Searching({ kword }) {
                <h2 className="restit">BROWSE CHARACTERS</h2>
                {/* 2-2. 정렬선택박스 */}
                <aside className="sortbx">
-                  <select name="sel" id="sel" className="sel">
-                     <option value="0">A-Z</option>
-                     <option value="1">Z-A</option>
+                  <select 
+                  name="sel" 
+                  id="sel" 
+                  className="sel"
+                  //값변경시 이벤트발생
+                  onChange={(e)=>{
+                     console.log(e.target.value);
+                     setSort(e.target.value);
+                  }}
+                  >
+                     {/* 이 value를 setSort에 할당!!!! */}
+                     <option value="asc">A-Z</option>
+                     <option value="desc">Z-A</option>
                   </select>
                </aside>
                {/* 2-3. 캐릭터 리스트 컴포넌트 : 
