@@ -109,7 +109,15 @@ function Searching({ kword }) {
                      defaultValue={kword}
                      // 엔터키를 눌렀을때 검색실행
                      onKeyUp={(e) => {
-                        if (e.key === "Enter") setKw(e.target.value); //input에 입력된 값
+                        if (e.key === "Enter"){
+                           // [1] 검색어 상태값 변경 
+                           setKw(e.target.value);//input에 입력된 값
+                           // [2] 처음 검색시 정렬 초기화하기(오름차순)
+                            setSort('asc')
+                           document.querySelector('#sel').value = 'asc';
+                           // 재검색시 정렬선택박스 선택값 asc로 변경
+                           // (Dom에서 보이기 변경 이미 데이터 뿌려서 setSort는 따로해줘야함)
+                           } 
                      }}
                   />
                </div>
