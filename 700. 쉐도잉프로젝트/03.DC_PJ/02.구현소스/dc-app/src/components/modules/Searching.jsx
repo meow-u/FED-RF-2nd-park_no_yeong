@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState } from "react";
 
 // 폰트어썸
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -14,31 +13,42 @@ import { catListData } from "../data/swiper_cat";
 // 캐릭터 리스트 결과 컴포넌트
 import SearchingCat from "./SearchingCat";
 
-function Searching({kword}) {
-    // kword - 전달받은 키워드
-    console.log('kword전달받은키워드:',kword);
-    console.log('catListData사용데이터:',catListData);
+function Searching({ kword }) {
+   // kword - 전달받은 키워드
+   console.log("kword전달받은키워드:", kword);
+   console.log("catListData사용데이터:", catListData);
 
-    // 검색어가 있는 데이터 필터하기 
-    const newList = catListData.filter(v=>{
-        // 속성중 캐릭터 이름 중 검색 (v.cname)
-        // 검색어는 모두 영어일 경우 소문자 처리함 
-        let newVal = v.cname.toLocaleLowerCase();
+   //////////////////////////////////////////////
+   // 키워드에 따라 검색결과가 달라지므로
+   // 핵심데이터인 검색어를 상태관리변수로 만든다!!
+   const [kw, setKw] = useState(kword);
+   // 초기값으로  전달받은 검색어변수를 넣어준다
+   /////////////////////////////////////////////
 
-        // 전달받은 키워드(검색한텍스트)도 소문자 처리
-        let key = kword.toLocaleLowerCase();
+   // 검색어가 있는 데이터 필터하기
+   // filter()는 검색결과가 항상 배열로 나옴
+   const newList = catListData.filter((v) => {
+      // 속성중 캐릭터 이름 중 검색 (v.cname)
+      // 검색어는 모두 영어일 경우 소문자 처리함
+      let newVal = v.cname.toLocaleLowerCase();
 
-        if(newVal.indexOf(key) !== -1) return true;
-        
-        // 문자열.indexOf(문자) 문자열 위치번호 리턴함 
-        // 그런데 결과가 없으면 -1을 리턴함  
-        // 그래서 -1가 아닐경우 true를 리턴하면 
-        // filter에서 변수에 저장할 배열로 수집된다!
+      //////////////////////////////////////////////
+      // 상태변수인 kw로 대체한다!!!
+      // let key = kword.toLocaleLowerCase();
+      let key = kw.toLocaleLowerCase();
+      // 전달받은 키워드(검색한텍스트)도 소문자 처리
+      //////////////////////////////////////////////
 
-    }); ///////// filter /////////////////
-    console.log('newList',newList);
+      if (newVal.indexOf(key) !== -1) return true;
 
-    /* 
+      // 문자열.indexOf(문자) 문자열 위치번호 리턴함
+      // 그런데 결과가 없으면 -1을 리턴함
+      // 그래서 -1가 아닐경우 true를 리턴하면
+      // filter에서 변수에 저장할 배열로 한번에수집된다!
+   }); ///////// filter /////////////////
+   console.log("newList", newList);
+
+   /* 
     변수 = 배열.filter((v)=>{
         if(v.속성명.indexOf(검색어) != -1) return true
     })
@@ -76,6 +86,10 @@ function Searching({kword}) {
                      placeholder="Filter by Keyword"
                      /* 초기에 값집어넣기 */
                      defaultValue={kword}
+                     // 엔터키를 눌렀을때 검색실행
+                     onKeyUp={(e) => {
+                        if (e.key === "Enter")setKw(e.target.value); //input에 입력된 값
+                     }}
                   />
                </div>
                {/* 1-2. 체크박스구역 */}
@@ -143,7 +157,7 @@ function Searching({kword}) {
                </aside>
                {/* 2-3. 캐릭터 리스트 컴포넌트 : 
             데이터 상태변수 중 첫번째값만 보냄 */}
-            <SearchingCat dt={newList}/>
+               <SearchingCat dt={newList} />
             </div>
          </section>
       </>
