@@ -66,6 +66,7 @@ export default function TopArea() {
       // 네비게이트메서드 ( 라우터주소,{state:{보낼객체}} )
       // 서칭페이지로이동
       /////////////////////////////////////////
+      //키워드에 txt담아 page로보냄
       goNav('/search',{state:{keyword:txt}})
       ////////////////////////////////////////
    }; ////////// goSearch
