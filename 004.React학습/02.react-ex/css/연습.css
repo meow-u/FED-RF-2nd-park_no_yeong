@@ -2,9 +2,6 @@ body{
     text-align: center;
 }
 
-.tit{
-
-}
 
 .img-box{
     width: 95vw;
@@ -36,14 +33,7 @@ ol{
     transition: 0.15s ease-out;
 }
 
-ul{
-    
-    justify-content: center;
-    display: flex;
-}
-.menu{
-    gap:20px;
-}
+
 ul.menu-box >li{
     flex:1;
 
@@ -73,10 +63,13 @@ a{
 }
 
 .menu{
-   
+    gap:20px;
     padding: 0;
     margin: 50px auto;
     flex-wrap: wrap;
+     
+    justify-content: center;
+    display: flex;
 }
 
 ul.menu img{

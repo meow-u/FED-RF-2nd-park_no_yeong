@@ -78,6 +78,9 @@ export function SwiperBan({ cat }) {
                 // swp는 내부로 전달되는 스와이퍼 자신객체
                 // activeIndex는 loop시 오류있음
                 // realIndex는 loop에도 잘 나옴!
+
+                // style에는 없으므로 여기서 리턴<-- 햄버거 스타일클릭햇을떄 오류나서 설정
+                if(cat =="style")return;
     
                 // 현재 진짜순번
                 let idx = swp.realIndex;
