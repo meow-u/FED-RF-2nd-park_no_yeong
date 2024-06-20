@@ -53,6 +53,8 @@ function Searching({ kword }) {
       // filter에서 변수에 저장할 배열로 한번에수집된다!
    }); ///////// filter /////////////////
 
+   // [ 결과내 재검색 : 데이터 항목중 alignment값으로 검색함!! ] 
+
    // [정렬기능 추가하기] /////////
    // (1) 오름차순일 경우
    if (sort == "asc") {
@@ -139,6 +141,12 @@ function Searching({ kword }) {
                                  type="checkbox"
                                  id="hero"
                                  className="chkhdn"
+                                 // 체크변경시change 이벤트발생
+                                 onChange={(e)=>{
+                                    // 체크박스의 checked 속성은
+                                    // 체크시 true 언체크시 false를 반환암
+                                    console.log(e.target.checked)
+                                 }}
                               />
                               {/* 디자인노출 라벨 */}
                               <label htmlFor="hero" className="chklb"></label>
