@@ -26,8 +26,13 @@ function Searching({ kword }) {
    const [kw, setKw] = useState(kword);
    // 초기값으로  전달받은 검색어변수를 넣어준다
    // [2] 정렬기준 상태관리 변수
-   const [sort, setSort] = useState("asc");
    // 값: 오름차순 -asc  ascending / 내림차순 -desc descending
+   const [sort, setSort] = useState("asc");
+   // [3] 체크박스 체크 여부 상태관리변수
+   const [chk, setChk] = useState([true,true,true]);
+   // 배열로 만들고 체크박스 상태를 묶어서 관리한다! (체크박스 3개임)
+   console.log( '리랜더링~ 체크훅배열:',chk);
+
 
    /////////////////////////////////////////////
 
@@ -39,13 +44,32 @@ function Searching({ kword }) {
       let newVal = v.cname.toLocaleLowerCase();
 
       //////////////////////////////////////////////
-      // 상태변수인 kw로 대체한다!!!
+      // ((중요!!!)) 상태변수인 kw로 대체한다!!!
       // let key = kword.toLocaleLowerCase();
       let key = kw.toLocaleLowerCase();
       // 전달받은 키워드(검색한텍스트)도 소문자 처리
       //////////////////////////////////////////////
 
-      if (newVal.indexOf(key) !== -1) return true;
+      if (
+         // 1과 2의 조건이 모두 true여야 함 
+         // 1. 검색어 조건(cname속성)
+         (newVal.indexOf(key) !== -1) &&
+         // 2. 체크박스 항목 조건 (데이터.alignment속성)
+         // 주의: 조건문내의 삼항연산자는 반드시 소괄호로 묶어서 
+         // 논리연산자( &&, ||, ! ) 와 충돌나지않도록해야함 
+         // OR문의 결과가 false이려면 모두 false 여야 함! ( 체크박스 모두 불체크시 false처리)
+
+         ( // 검색어키값에 해당되면서 해당조건 셋중하나 통과면 됨
+
+            chk[0]?v.alignment=='hero' : false || //일단 아니면 false로 넘기기 다음조건검색
+            chk[1]?v.alignment=='comp' : false || //일단 아니면 false로 넘기기 
+            chk[2]?v.alignment=='villain' : false 
+         )
+            //  정리하면 요런느낌 true && (true||false||false) ->셋중하나일치로 통과
+            // -> &&문은 모두 true여야 true
+            // -> ||문은 하나만 true면 true 
+
+         ) return true;
 
       // 문자열.indexOf(문자) 문자열 위치번호 리턴함
       // 그런데 결과가 없으면 -1을 리턴함
@@ -101,7 +125,7 @@ function Searching({ kword }) {
                      className="schbtn"
                      title="Open search"
                   />
-                  {/* 입력창 */}
+                  {/* 입력창//////////////////////////////////// */}
                   <input
                      id="schin"
                      type="text"
@@ -116,6 +140,8 @@ function Searching({ kword }) {
                            setKw(e.target.value);//input에 입력된 값
                            // [2] 처음 검색시 정렬 초기화하기(오름차순)
                             setSort('asc')
+                           // [3] 처음 검색시 모두 체크 
+                           setChk([true,true,true]);
                            document.querySelector('#sel').value = 'asc';
                            // 재검색시 정렬선택박스 선택값 asc로 변경
                            // (Dom에서 보이기 변경 이미 데이터 뿌려서 setSort는 따로해줘야함)
@@ -141,11 +167,21 @@ function Searching({ kword }) {
                                  type="checkbox"
                                  id="hero"
                                  className="chkhdn"
+                                 ////////////////////////////////
+                                 //  체크박스 체크상태 속성값을 훅 연결
+                                 checked={chk[0]}
                                  // 체크변경시change 이벤트발생
                                  onChange={(e)=>{
                                     // 체크박스의 checked 속성은
                                     // 체크시 true 언체크시 false를 반환암
                                     console.log(e.target.checked)
+                                    // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
+                                    setChk([
+                                       e.target.checked, // true false 왔다갔다
+                                       chk[1], //나머지 고정
+                                       chk[2], //나머지 고정
+                                    ]);
+                                  //////////////////////////////////
                                  }}
                               />
                               {/* 디자인노출 라벨 */}
@@ -158,6 +194,21 @@ function Searching({ kword }) {
                                  type="checkbox"
                                  id="comp"
                                  className="chkhdn"
+                                  //  체크박스 체크상태 속성값을 훅 연결
+                                  checked={chk[1]}
+                                   // 체크변경시change 이벤트발생
+                                 onChange={(e)=>{
+                                    // 체크박스의 checked 속성은
+                                    // 체크시 true 언체크시 false를 반환암
+                                    console.log(e.target.checked)
+                                    // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
+                                    setChk([
+                                       chk[0], //나머지 고정
+                                       e.target.checked, // true false 왔다갔다
+                                       chk[2], //나머지 고정
+                                    ]);
+                                  //////////////////////////////////
+                                 }}
                               />
                               {/* 디자인노출 라벨 */}
                               <label htmlFor="comp" className="chklb"></label>
@@ -169,6 +220,21 @@ function Searching({ kword }) {
                                  type="checkbox"
                                  id="villain"
                                  className="chkhdn"
+                                  //  체크박스 체크상태 속성값을 훅 연결
+                                  checked={chk[2]}
+                                  // 체크변경시change 이벤트발생
+                                onChange={(e)=>{
+                                   // 체크박스의 checked 속성은
+                                   // 체크시 true 언체크시 false를 반환암
+                                   console.log(e.target.checked)
+                                   // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
+                                   setChk([
+                                      chk[0], //나머지 고정
+                                      chk[1], //나머지 고정
+                                      e.target.checked, // true false 왔다갔다
+                                   ]);
+                                 //////////////////////////////////
+                                }}
                               />
                               {/* 디자인노출 라벨 */}
                               <label
