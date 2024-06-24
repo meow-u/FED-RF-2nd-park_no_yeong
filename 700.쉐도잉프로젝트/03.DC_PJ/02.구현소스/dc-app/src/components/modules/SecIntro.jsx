@@ -21,7 +21,7 @@ function SecIntro(props) {
                      {/* 1. 이미지박스  */}
                      <div className="imbx">
                         <img
-                           src={v.isrc}
+                           src={process.env.PUBLIC_URL+v.isrc}
                            /* split으로 자르는순간  기준문자 앞뒤로 잘려 배열이 됨
                        앞뒤로 0,1인덱스 */
                            alt={v.tit.split("^")[0]}
