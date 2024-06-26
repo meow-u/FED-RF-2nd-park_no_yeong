@@ -44,30 +44,29 @@ export default function TopArea() {
    // e.keyCode는 숫자, e.key문자로 리턴함
    const enterKey = (e) => {
       // console.log(e.key, e.keyCode);
-      if(e.key == 'Enter'){
-         // 입력창의 입력값 읽어오기 :val() 사용 
+      if (e.key == "Enter") {
+         // 입력창의 입력값 읽어오기 :val() 사용
          let txt = $(e.target).val().trim();
          console.log(txt);
          // 빈값이 아니면 검색함수 호출 (검색어전달)
-         if(txt != ''){
-            // 입력창 비우고 부모박스 닫기 
+         if (txt != "") {
+            // 입력창 비우고 부모박스 닫기
             $(e.target).val("").parent().hide();
-            // 검색 보내기 
-            goSearch(txt); 
-         }///if///
-      }//// if ///
-
+            // 검색 보내기
+            goSearch(txt);
+         } ///if///
+      } //// if ///
    };
 
    // 3. 검색페이지로 검색어와 함께 이동하기 함수
    const goSearch = (txt) => {
-      console.log('나는검색하러 간댜구~')
-      // 라우터 이동함수로 이동하기 
+      console.log("나는검색하러 간댜구~");
+      // 라우터 이동함수로 이동하기
       // 네비게이트메서드 ( 라우터주소,{state:{보낼객체}} )
       // 서칭페이지로이동
       /////////////////////////////////////////
       //키워드에 txt담아 page로보냄
-      goNav('/search',{state:{keyword:txt}})
+      goNav("/search", { state: { keyword: txt } });
       ////////////////////////////////////////
    }; ////////// goSearch
 
@@ -139,6 +138,16 @@ export default function TopArea() {
                            icon={faSearch}
                            className="schbtnGnb"
                            title="open search"
+                           onClick={(e) => {
+                              let stxt =
+                                 e.currentTarget.nextElementSibling.value;
+                              if (stxt.trim() != "") {
+                                 goSearch(stxt);
+                              } else {
+                                 // 검색이 비었을떄 메세지 
+                                 alert("Please enter a search term!");
+                              }
+                           }}
                         />
                         {/* 입력창 */}
                         <input

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // 폰트어썸
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import $ from "jquery";
 
 // css불러오기
 import "../../css/searching.scss";
@@ -29,12 +31,32 @@ function Searching({ kword }) {
    // 값: 오름차순 -asc  ascending / 내림차순 -desc descending
    const [sort, setSort] = useState("asc");
    // [3] 체크박스 체크 여부 상태관리변수
-   const [chk, setChk] = useState([true,true,true]);
+   const [chk, setChk] = useState([true, true, true]);
    // 배열로 만들고 체크박스 상태를 묶어서 관리한다! (체크박스 3개임)
-   console.log( '리랜더링~ 체크훅배열:',chk);
+   console.log("리랜더링~ 체크훅배열:", chk);
 
+   // 상단메뉴 검색창에서 재검색할경우
+   // 검색 가능하도록 검색어비교를 위한 검색어를 저장한다
+   // 리랜더링 없이 값만 저장하는 후크는 useEef? 참조변수사용!
+   // (컴포 탄생시에만 읽고 메모리에 저장.  리랜더링시 읽지않음.)
+   const beforeKword = useRef(kword);
+   // 참조변수는 객체이다! 그래서 하위속성중
+   // current 속성으로 값을 읽거나 업데이트 한다!
+   console.log('직전값 참조변수객체:',beforeKword);
+   // 만약 조금전 저장된 검색어와 지금 검색어가 다르다면?
+   // 검색어 상태변수를 업데이트한다!
+   if(beforeKword.current != kword){
+      console.log("●●●●●",beforeKword.current,'==?',kword);
+      // [1] 컴포넌트 리랜더링 (검색결과 변경!)
+      setKw(kword);
+      // [2] 다음검색을 위해 다시 현재 검색어를 참조변수에 저장한다
+      beforeKword.current= kword;
+      // [3] 상단검색어를 현재 검색창에 넣기
+      document.querySelector('#schin').value= kword;
+   }////// if //////////
 
    /////////////////////////////////////////////
+
 
    // 검색어가 있는 데이터 필터하기
    // filter()는 검색결과가 항상 배열로 나옴
@@ -51,25 +73,28 @@ function Searching({ kword }) {
       //////////////////////////////////////////////
 
       if (
-         // 1과 2의 조건이 모두 true여야 함 
+         // 1과 2의 조건이 모두 true여야 함
          // 1. 검색어 조건(cname속성)
-         (newVal.indexOf(key) !== -1) &&
+         newVal.indexOf(key) !== -1 && // 검색어키값에 해당되면서 해당조건 셋중하나 통과면 됨
          // 2. 체크박스 항목 조건 (데이터.alignment속성)
-         // 주의: 조건문내의 삼항연산자는 반드시 소괄호로 묶어서 
-         // 논리연산자( &&, ||, ! ) 와 충돌나지않도록해야함 
+         // 주의: 조건문내의 삼항연산자는 반드시 소괄호로 묶어서
+         // 논리연산자( &&, ||, ! ) 와 충돌나지않도록해야함
          // OR문의 결과가 false이려면 모두 false 여야 함! ( 체크박스 모두 불체크시 false처리)
 
-         ( // 검색어키값에 해당되면서 해당조건 셋중하나 통과면 됨
-
-            chk[0]?v.alignment=='hero' : false || //일단 아니면 false로 넘기기 다음조건검색
-            chk[1]?v.alignment=='comp' : false || //일단 아니면 false로 넘기기 
-            chk[2]?v.alignment=='villain' : false 
-         )
-            //  정리하면 요런느낌 true && (true||false||false) ->셋중하나일치로 통과
-            // -> &&문은 모두 true여야 true
-            // -> ||문은 하나만 true면 true 
-
-         ) return true;
+         (chk[0]
+            ? v.alignment == "hero"
+            : false || //일단 아니면 false로 넘기기 다음조건검색
+              chk[1]
+            ? v.alignment == "comp"
+            : false || //일단 아니면 false로 넘기기
+              chk[2]
+            ? v.alignment == "villain"
+            : false)
+         //  정리하면 요런느낌 true && (true||false||false) ->셋중하나일치로 통과
+         // -> &&문은 모두 true여야 true
+         // -> ||문은 하나만 true면 true
+      )
+         return true;
 
       // 문자열.indexOf(문자) 문자열 위치번호 리턴함
       // 그런데 결과가 없으면 -1을 리턴함
@@ -77,20 +102,20 @@ function Searching({ kword }) {
       // filter에서 변수에 저장할 배열로 한번에수집된다!
    }); ///////// filter /////////////////
 
-   // [ 결과내 재검색 : 데이터 항목중 alignment값으로 검색함!! ] 
+   // [ 결과내 재검색 : 데이터 항목중 alignment값으로 검색함!! ]
 
    // [정렬기능 추가하기] /////////
    // (1) 오름차순일 경우
    if (sort == "asc") {
       newList.sort((a, b) =>
-      // a가 크면 일단바꿔 (그래야오름차순)  a가 작으면 (오름차순이니) 마 놔둬!
+         // a가 크면 일단바꿔 (그래야오름차순)  a가 작으면 (오름차순이니) 마 놔둬!
          a.cname > b.cname ? 1 : a.cname < b.cname ? -1 : 0
       );
    } /// if //////////////////////
    else if (sort == "desc") {
       newList.sort((a, b) =>
-      a.cname > b.cname ? -1 : a.cname < b.cname ? 1 : 0
-      )
+         a.cname > b.cname ? -1 : a.cname < b.cname ? 1 : 0
+      );
    } /// else if /////////////////
 
    console.log("newList", newList);
@@ -135,17 +160,17 @@ function Searching({ kword }) {
                      defaultValue={kword}
                      // 엔터키를 눌렀을때 검색실행
                      onKeyUp={(e) => {
-                        if (e.key === "Enter"){
-                           // [1] 검색어 상태값 변경 
-                           setKw(e.target.value);//input에 입력된 값
+                        if (e.key === "Enter") {
+                           // [1] 검색어 상태값 변경
+                           setKw(e.target.value); //input에 입력된 값
                            // [2] 처음 검색시 정렬 초기화하기(오름차순)
-                            setSort('asc')
-                           // [3] 처음 검색시 모두 체크 
-                           setChk([true,true,true]);
-                           document.querySelector('#sel').value = 'asc';
+                           setSort("asc");
+                           // [3] 처음 검색시 모두 체크
+                           setChk([true, true, true]);
+                           document.querySelector("#sel").value = "asc";
                            // 재검색시 정렬선택박스 선택값 asc로 변경
                            // (Dom에서 보이기 변경 이미 데이터 뿌려서 setSort는 따로해줘야함)
-                           } 
+                        }
                      }}
                   />
                </div>
@@ -171,17 +196,17 @@ function Searching({ kword }) {
                                  //  체크박스 체크상태 속성값을 훅 연결
                                  checked={chk[0]}
                                  // 체크변경시change 이벤트발생
-                                 onChange={(e)=>{
+                                 onChange={(e) => {
                                     // 체크박스의 checked 속성은
                                     // 체크시 true 언체크시 false를 반환암
-                                    console.log(e.target.checked)
+                                    console.log(e.target.checked);
                                     // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
                                     setChk([
                                        e.target.checked, // true false 왔다갔다
                                        chk[1], //나머지 고정
                                        chk[2], //나머지 고정
                                     ]);
-                                  //////////////////////////////////
+                                    //////////////////////////////////
                                  }}
                               />
                               {/* 디자인노출 라벨 */}
@@ -194,20 +219,20 @@ function Searching({ kword }) {
                                  type="checkbox"
                                  id="comp"
                                  className="chkhdn"
-                                  //  체크박스 체크상태 속성값을 훅 연결
-                                  checked={chk[1]}
-                                   // 체크변경시change 이벤트발생
-                                 onChange={(e)=>{
+                                 //  체크박스 체크상태 속성값을 훅 연결
+                                 checked={chk[1]}
+                                 // 체크변경시change 이벤트발생
+                                 onChange={(e) => {
                                     // 체크박스의 checked 속성은
                                     // 체크시 true 언체크시 false를 반환암
-                                    console.log(e.target.checked)
+                                    console.log(e.target.checked);
                                     // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
                                     setChk([
                                        chk[0], //나머지 고정
                                        e.target.checked, // true false 왔다갔다
                                        chk[2], //나머지 고정
                                     ]);
-                                  //////////////////////////////////
+                                    //////////////////////////////////
                                  }}
                               />
                               {/* 디자인노출 라벨 */}
@@ -220,21 +245,21 @@ function Searching({ kword }) {
                                  type="checkbox"
                                  id="villain"
                                  className="chkhdn"
-                                  //  체크박스 체크상태 속성값을 훅 연결
-                                  checked={chk[2]}
-                                  // 체크변경시change 이벤트발생
-                                onChange={(e)=>{
-                                   // 체크박스의 checked 속성은
-                                   // 체크시 true 언체크시 false를 반환암
-                                   console.log(e.target.checked)
-                                   // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
-                                   setChk([
-                                      chk[0], //나머지 고정
-                                      chk[1], //나머지 고정
-                                      e.target.checked, // true false 왔다갔다
-                                   ]);
-                                 //////////////////////////////////
-                                }}
+                                 //  체크박스 체크상태 속성값을 훅 연결
+                                 checked={chk[2]}
+                                 // 체크변경시change 이벤트발생
+                                 onChange={(e) => {
+                                    // 체크박스의 checked 속성은
+                                    // 체크시 true 언체크시 false를 반환암
+                                    console.log(e.target.checked);
+                                    // 훅 값 업데이트  (안하면 눌러도 체크 고정되어 안풀림 )
+                                    setChk([
+                                       chk[0], //나머지 고정
+                                       chk[1], //나머지 고정
+                                       e.target.checked, // true false 왔다갔다
+                                    ]);
+                                    //////////////////////////////////
+                                 }}
                               />
                               {/* 디자인노출 라벨 */}
                               <label
@@ -250,18 +275,18 @@ function Searching({ kword }) {
             {/* 2. 결과리스트박스 */}
             <div className="listbx">
                {/* 2-1. 결과 타이틀 */}
-               <h2 className="restit">BROWSE CHARACTERS</h2>
+               <h2 className="restit">BROWSE CHARACTERS ({newList.length})</h2>
                {/* 2-2. 정렬선택박스 */}
                <aside className="sortbx">
-                  <select 
-                  name="sel" 
-                  id="sel" 
-                  className="sel"
-                  //값변경시 이벤트발생
-                  onChange={(e)=>{
-                     console.log(e.target.value);
-                     setSort(e.target.value);
-                  }}
+                  <select
+                     name="sel"
+                     id="sel"
+                     className="sel"
+                     //값변경시 이벤트발생
+                     onChange={(e) => {
+                        console.log(e.target.value);
+                        setSort(e.target.value);
+                     }}
                   >
                      {/* 이 value를 setSort에 할당!!!! */}
                      <option value="asc">A-Z</option>
