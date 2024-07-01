@@ -21,6 +21,7 @@ import Video from "./components/pages/Video";
 import Board from "./components/pages/Board";
 import CatDetail from "./components/pages/CatDetail";
 import SearchPage from "./components/pages/SearchPage";
+import Member from "./components/pages/Member";
 
 /********************************************* 
     [ 리액트 라우터 ]
@@ -86,6 +87,7 @@ export default function MainComponent() {
                <Route path="board" element={<Board />} />
                <Route path="detail" element={<CatDetail />} />
                <Route path="search" element={<SearchPage />} />
+               <Route path="member" element={<Member />} />
 
             </Route>
             {/* Layout 루트 Route는 홀로닫지 말고 반드시 다른 하위 라우트를 감싸도록 한다!! */}
