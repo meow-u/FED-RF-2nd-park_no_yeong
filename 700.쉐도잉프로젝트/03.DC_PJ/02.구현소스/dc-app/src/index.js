@@ -22,6 +22,7 @@ import Board from "./components/pages/Board";
 import CatDetail from "./components/pages/CatDetail";
 import SearchPage from "./components/pages/SearchPage";
 import Member from "./components/pages/Member";
+import Login from "./components/pages/Login";
 
 /********************************************* 
     [ 리액트 라우터 ]
@@ -88,6 +89,7 @@ export default function MainComponent() {
                <Route path="detail" element={<CatDetail />} />
                <Route path="search" element={<SearchPage />} />
                <Route path="member" element={<Member />} />
+               <Route path="login" element={<Login />} />
 
             </Route>
             {/* Layout 루트 Route는 홀로닫지 말고 반드시 다른 하위 라우트를 감싸도록 한다!! */}
@@ -111,7 +113,7 @@ const ScrollTop = () => {
       // 스크롤 최상단 이동
       window.scrollTo(0,0);
       // 변경된 라우터 경로값 확인
-      console.log('라우터경로:',pathname);
+      // console.log('라우터경로:',pathname);
    },[pathname]); //의존성을 라우터 경로 변수로 설정. pathname 이 바뀔떄만 실행
 
    // 컴포넌트 리턴이 필요하나, 소스리턴이 아니므로 null을 쓴다.

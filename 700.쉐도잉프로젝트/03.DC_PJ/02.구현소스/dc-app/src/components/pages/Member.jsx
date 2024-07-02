@@ -1,5 +1,7 @@
+// 회원가입 페이지 컴포넌트  - Member.jsx
+
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // 로컬스토리지 생성함수 불러오기
 import { initData } from "../func/mem_fn";
@@ -7,7 +9,12 @@ import { initData } from "../func/mem_fn";
 // 회원가입 css 불러오기
 import "../../css/member.scss";
 
-function Member(props) {
+function Member() {
+   // 라우터 이동 네비게이트
+   const goNav = useNavigate();
+   // goNav(라우터 주소, state변수(선택))
+
+
    // [ 회원가입 페이지 요구사항 ]
    // 1. 각 입력 항목별로 유효성 검사를 실행함
    // 2. 상태체크를 통하여 적절한 유효성검사시
@@ -246,11 +253,11 @@ function Member(props) {
 
    // [ 서브밋 기능함수 ] =================================
    const onSubmit = (e) => {
-      // 1. 기본 서브밋 기능막기 (안막음 process.php로 날라감)
+      // [1]. 기본 서브밋 기능막기 (안막음 process.php로 날라감)
       e.preventDefault();
 
       console.log("최종검사:", totalValid());
-      // 2. 유효성 검사 전체 통과시
+      // [2]. 유효성 검사 전체 통과시
       if (totalValid()) {
          console.log("모두통과! 저장!");
 
@@ -285,9 +292,21 @@ function Member(props) {
          localStorage.setItem(
             'mem-data',JSON.stringify(memData));
 
+         // 7. 회원가입 환영 메세지 + 로그인페이지 이동 
+         // 버튼 텍스트에 환영 메시지 
+         document.querySelector('.sbtn').innerText = "Thank you for join Us!";
+         
+         // 1호 후 페이지 이동 : 라우터 Navigate =======================
+
+         setTimeout(() => {
+            goNav('/login');
+            // 주의: 경로앞에 슬래쉬(/) 안쓰면 
+            // 현재 Member 경로 하위 경로를 불러옴 
+         }, 1000);
+
       } ///// if //////
 
-      // 3. 불퉁과시
+      // [3]. 불퉁과시
       else {
          alert("Change your input!");
       } /// else ////
@@ -334,10 +353,8 @@ function Member(props) {
                      {
                         // [에러일경우(true) 메세지 출력]
                         // 조건문 && 출력요소
-                        // 조건추가 : userId가 입력전일때 안보임처리
-                        // userId가 입력전엔 false로 리턴됨!
-                        userIdError &&
-                           userId && ( // 에러상태변수가 true일경우
+
+                        userIdError && ( // 에러상태변수가 true일경우
                               <div className="msg">
                                  <small
                                     style={{
@@ -384,10 +401,8 @@ function Member(props) {
                      {
                         // [에러일경우(true) 메세지 출력]
                         // 조건문 && 출력요소
-                        // 조건추가 : pwd가 입력전일때 안보임처리
-                        // pwd가 입력전엔 false로 리턴됨!
-                        pwdError &&
-                           pwd && ( // 에러상태변수가 true일경우
+                
+                        pwdError && ( // 에러상태변수가 true일경우
                               <div className="msg">
                                  <small
                                     style={{
@@ -413,10 +428,8 @@ function Member(props) {
                      {
                         // [에러일경우(true) 메세지 출력]
                         // 조건문 && 출력요소
-                        // 조건추가 : chkPwd가 입력전일때 안보임처리
-                        // chkPwd가 입력전엔 false로 리턴됨!
-                        chkPwdError &&
-                           chkPwd && ( // 에러상태변수가 true일경우
+                  
+                        chkPwdError && ( // 에러상태변수가 true일경우
                               <div className="msg">
                                  <small
                                     style={{
@@ -442,10 +455,8 @@ function Member(props) {
                      {
                         // [에러일경우(true) 메세지 출력]
                         // 조건문 && 출력요소
-                        // 조건추가 : userName 입력전일때 안보임처리
-                        // userName 입력전엔 false로 리턴됨!
-                        userNameError &&
-                           userName && ( // 에러상태변수가 true일경우
+                     
+                        userNameError && ( // 에러상태변수가 true일경우
                               <div className="msg">
                                  <small
                                     style={{
@@ -471,10 +482,8 @@ function Member(props) {
                      {
                         // [에러일경우(true) 메세지 출력]
                         // 조건문 && 출력요소
-                        // 조건추가 : email 입력전일때 안보임처리
-                        // email 입력전엔 false로 리턴됨!
-                        emailError &&
-                           email && ( // 에러상태변수가 true일경우
+                      
+                        emailError && ( // 에러상태변수가 true일경우
                               <div className="msg">
                                  <small
                                     style={{
