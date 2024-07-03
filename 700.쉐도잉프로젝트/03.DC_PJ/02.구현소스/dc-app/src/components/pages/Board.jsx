@@ -37,7 +37,7 @@ export default function Board() {
     * 기능: 페이지별 리스트를 생성하여 바인딩 함
     *******************************************/
    const bindList = () => {
-      // console.log(baseData);
+      console.log(baseData);
 
       // 1. 전체 데이터 선택
       let orgData = baseData;
@@ -67,7 +67,7 @@ export default function Board() {
 
       // for문으로 배열만들기
       for (let i = sNum; i < eNum; i++) {
-        console.log(i);
+        console.log('i:',i);
         // 끝번호가 전체 갯수보다 크면 나가라!
         if(i >= totalCount.current)break;
         // 대상배열값 추가 
@@ -103,7 +103,10 @@ export default function Board() {
       // 1. 페이징 개수
       let pagingCount = Math.floor(totalCount.current / unitSize);
 
-      // 나머지가 0이 아니면 1 더하기 : 나머지 발생시 한페이지 더 필요
+      console.log('>>>>',pagingCount,'/',totalCount.current / unitSize)
+
+      // 전체갯수를 페이지수로 나누었을때 0보다 크면 1더하기
+      // : 나머지 발생시 한페이지 더 필요
       if (totalCount.current % unitSize > 0) {
          pagingCount++;
       }
@@ -111,8 +114,10 @@ export default function Board() {
       console.log(
          "페이징개수pagingCount:",
          pagingCount,
-         "나머지개수:",
-         totalCount.current % unitSize
+         "전체를 페이지수로 나눴을때 나머지 개수:",
+         totalCount.current % unitSize,
+         '전체를 페이지수로 나눈 결과',
+         totalCount.current / unitSize
       );
 
       /// 링크코드 만들기 ///
