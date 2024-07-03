@@ -6,7 +6,7 @@ import "../../css/member.scss";
 import { initData } from "../func/mem_fn";
 import { dCon } from "../modules/dCon";
 
-function Login(props) {
+function Login() {
     // ====== layout에서 불러온  컨텍스트 사용 =======
     const myCon = useContext(dCon);
     console.log(myCon.loginSts);

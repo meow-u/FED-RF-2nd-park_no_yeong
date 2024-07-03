@@ -15,8 +15,9 @@ import Logo from "../modules/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-import { memo, useContext } from "react";
-import { dCon } from "../modules/dCon";
+import { memo } from "react";
+// import { useContext } from "react";
+// import { dCon } from "../modules/dCon";
 
 // 메모이제이션 적용하기! /////
 // -> 그.러.나... 단순히 적용하면 효과가 없음!
@@ -29,14 +30,27 @@ import { dCon } from "../modules/dCon";
 // 메모이제이션 기능를 제공하기 때문이다!
 // -> 전달되는 함수가 반드시 useCallback() 처리가 되어야 한다!!!
 
+// --> 객체,배열,함수는 모두 값저장이 아니고 주소저장임!
+// 그래서 이 주소를 고정해줘야 같은값으로 인식하여 
+// 메모이제이션 된다!
+
 // export default function TopArea() {
-export const TopArea = memo(()=> {
+export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage})=> {
+   // 전달값
+   // 1. loginMsg - 로그인메세지변수
+   // 2. loginSts - 로그인 상태변수
+   // 3. logoutFn - 로그아웃함수 !!! 
+   
    console.log('상단영역 랜더링!')
    // context 사용하기 (이거쓰면 memo써도 리랜더링 무조건 된다함)
-   const myCon = useContext(dCon);
+   // -> 메모이제이션을위해 사용안함
+   // const myCon= useContext(dCon);
+
+
 
    // 이동함수
-   const goNav = useNavigate();
+   // const goNav = useNavigate();
+   
    // 사용시 goNav(라우터주소, {전달객체})
    // 전달객체 없으면 비워놓음!
    // 사용법: 반드시 useNavigate()메서드를 변수에 담아
@@ -85,7 +99,7 @@ export const TopArea = memo(()=> {
       // 서칭페이지로이동
       /////////////////////////////////////////
       //키워드에 txt담아 page로보냄
-      goNav("/search", { state: { keyword: txt } });
+      goPage("/search", { state: { keyword: txt } });
       ////////////////////////////////////////
    }; ////////// goSearch
 
@@ -95,7 +109,7 @@ export const TopArea = memo(()=> {
          {/* 1.상단영역 */}
          <header className="top-area">
             {/* 로그인 환영메시지 박스 */}
-            <div className="logmsg">{myCon.loginMsg}</div>
+            <div className="logmsg">{loginMsg}</div>
 
             {/* 네비게이션 GNB파트 */}
             <nav className="gnb">
@@ -106,7 +120,7 @@ export const TopArea = memo(()=> {
                         href="#"
                         onClick={(e) => {
                            e.preventDefault(); /* #출력안되게 기본기능막 */
-                           goNav(""); /* 슬래쉬없어도 루트로인식 */
+                           goPage(""); /* 슬래쉬없어도 루트로인식 */
                         }}
                      >
                         <Logo logoStyle="top" />
@@ -186,7 +200,7 @@ export const TopArea = memo(()=> {
                   {
                      /* 회원가입, 로그인 버튼은
                      로그인 상태가 null일때 나옴 */
-                     myCon.loginSts === null && (
+                     loginSts === null && (
                         <>
                            <li>
                               <Link to="/member">JOIN US</Link>
@@ -199,7 +213,7 @@ export const TopArea = memo(()=> {
                   }
                   {
                      /* 로그인 상태이면 로그아웃 버튼보이기 */
-                     myCon.loginSts !== null && (
+                     loginSts !== null && (
                         <>
                            <li>
                               <a
@@ -208,7 +222,7 @@ export const TopArea = memo(()=> {
                                     // 기본이동막기
                                     e.preventDefault();
                                     // 로그아웃 처리함수 호출
-                                    myCon.logoutFn();
+                                    logoutFn();
                                  }}
                               >
                                  LOG OUT
