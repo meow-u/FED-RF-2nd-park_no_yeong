@@ -14,6 +14,8 @@ export function TotalMenu() {
 
       // 2. 이동할 서브페이지 명 : a요소의 글자를 소문자로!!
       let pgName = e.target.innerText.toLowerCase();
+      // -> 아이템 리스트 페이지는 중간 공백을 데쉬로 변경
+      pgName = pgName.replace("","-");
 
       // 3. 서브페이지 이동위해  상태변수 업데이트
       myCon.setPgName(pgName); // 이부분을 하나하나 하면비효율적이라 함수만듬 
@@ -86,6 +88,14 @@ export function TotalMenu() {
                   <dd>
                      <a href="#">MAIN ITEM</a>
                   </dd>
+               </dl>
+               <dl>
+                  <dt>
+                     <a href="#" 
+                     onClick={goSub}
+                     >ITEM LIST</a>
+                  </dt>
+                  <dd></dd>   
                </dl>
             </nav>
          </div>
