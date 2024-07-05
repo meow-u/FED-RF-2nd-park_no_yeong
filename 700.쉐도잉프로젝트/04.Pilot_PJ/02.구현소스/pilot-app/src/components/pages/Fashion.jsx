@@ -11,16 +11,17 @@ import $ from "jquery";
 
 // CSS불러오기
 import "../../css/fashion.scss";
-import { SwiperBan } from "../plugin/swiperBan";
+import { SwiperBan } from "../plugin/SwiperBan";
 import SinSang from "../modules/SinSang";
 
 function Fashion({subCat}) {
-  // subCat - 서브 카테고리명 
-  // 값: men / women / style
+    // subCat - 서브 카테고리명
+    // 값: men / women / style
+
   // 컨텍스트 API사용하기
   const myCon = useContext(pCon);
 
-  // (( 화면랜더링 실행구역 :useLayoutEffect ))
+  // (( 화면랜더링 실행구역 : useLayoutEffect ))
   // 실제DOM이 화면출력전 가상 DOM에서 태그가
   // 모두 만들어진 후가 useLayoutEffect임!
   // 뭔가 미리 DOM셋팅이 필요한 코드는 여기서작성!
@@ -63,8 +64,7 @@ function Fashion({subCat}) {
     };
   }, []);
 
- 
-  // (( 화면랜더링 실행구역 :useEffect ))
+  // (( 화면랜더링 실행구역 : useEffect ))
   // -> 화면에 요소가 실제로 출력된후 ////
   // DOM이벤트 설정시 여기서 코딩해야 적용됨!
   useEffect(() => {
@@ -75,9 +75,10 @@ function Fashion({subCat}) {
     }); ////////// click ////////////
   }, []);
 
+  
 
-    // 후크 상태변수
-    const [item, setItem] = useState("m1");
+  // 후크 상태변수
+  const [item, setItem] = useState("m1");
 
   // 신상컴포넌트에서 상세컴포넌트로 값을 전하기 위한
   // 상태변수를 셋팅하여 함수로 이것을 변경하게 해준다!
@@ -89,18 +90,17 @@ function Fashion({subCat}) {
     // 상세박스 슬라이드 애니로 보이기
     $(".bgbx").slideDown(400);
   }; /////////// chgItem 함수 //////
-  
+
   // 코드리턴구역 //////////////////
   return (
     <>
       {/* 1. 배너영역 */}
       <section id="ban" className="page">
-        <SwiperBan cat={subCat}/>
+        <SwiperBan cat={subCat} />
       </section>
       {/* 2. 신상품영역 */}
       <section id="c1" className="cont sc-ani c1">
-        {/*   subCat - 서브 카테고리명  */}
-        <SinSang cat={subCat} chgItemFn={chgItem}/>
+        <SinSang cat={subCat} chgItemFn={chgItem} setPos={setPos} />
       </section>
       {/* 2.5. 상세보기박스 */}
       <div className="bgbx"></div>

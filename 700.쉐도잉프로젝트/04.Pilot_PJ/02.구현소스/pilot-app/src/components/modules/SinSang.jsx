@@ -8,8 +8,8 @@ import { showInfo, removeInfo, flowList } from "../../js/func/sinsang_fn";
 
 // 신상 데이터 불러오기 /////
 import { sinsangData } from "../../js/data/sinsang";
-  // 전역컨텍스트 사용하기
 import { pCon } from "./pCon";
+import { setPos } from "../../js/func/smoothScroll24";
 
 function SinSang({ cat, chgItemFn }) {
   // cat - 카테고리 분류명 (men/women/style)
@@ -22,15 +22,22 @@ function SinSang({ cat, chgItemFn }) {
   // 위치값변수(left값) -> 리랜더링시 기존값을 유지하도록
   // ->  useRef를 사용한다!! -> 변수명.current로 사용!
   const lpos = useRef(0);
-  // 재귀호출 상태값(1-호출,0-멈춤)
-  const callSts = useRef(1);
+  // 재귀호출 상태값(true-호출,false-멈춤)
+  const callSts = useRef(true);
 
   // 전달변수 cat 카테고리명이 다를 경우에만 업데이트!
-  useLayoutEffect(()=>{
+  useLayoutEffect(()=>{    
+    console.log("초기화실행!!");
     // 신상 흘러가기 변수 초기화
     lpos.current = 0;
     // 신상 멈춤/가기 상태변수 초기화
-    callSts.current = 1;
+    callSts.current = false;
+    // 다시호출하여 초기화적용!
+    flowList($(".flist"), lpos, callSts)
+    // 윈도우최상
+    window.scrollTo(0,0);
+    // 부드러운 스크롤 0
+    setPos(0);
   },[cat]); /////// cat이 다를때
 
   // 신상품 선택 데이터 만들기
@@ -73,13 +80,21 @@ function SinSang({ cat, chgItemFn }) {
     <>
       <h2 className="c1tit">
         NEW MEN'S ARRIVAL
-        <button onClick={()=>myCon.setPgName('item-list')}>전체리스트</button>
+        <button 
+        onClick={()=>
+        myCon.setPgName("item-list")}>전체리스트</button>
       </h2>
       <div
         className="flowbx"
-        onMouseEnter={() => {}}
+        onMouseEnter={() => {
+          // 호출참조변수값 false로 변경
+          callSts.current = false;
+          // -> 이 값으로 옆으로 흘러가기 멈춤
+        }}
         onMouseLeave={() => {
-          // callSts.current = 1;
+          // 호출참조변수값 ture로 변경
+          callSts.current = true;
+          // 다시 흘러가기 함수 호출!
           flowList($(".flist"), lpos, callSts);
         }}
       >
