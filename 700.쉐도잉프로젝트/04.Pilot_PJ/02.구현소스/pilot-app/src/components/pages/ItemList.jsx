@@ -20,7 +20,7 @@ function ItemList() {
   // [1] 카테고리정보
   const [cat,setCat] = useState(itemListData[0].cat);
   // [2] 상품정보
-  const [ginfo,setGinfo] = useState(null);
+  const [ginfo,setGinfo] = useState(itemListData[0].ginfo);
   
 
    // 화면랜더링구역 ////////
@@ -64,8 +64,9 @@ function ItemList() {
                      onClick={(e)=>{
                       // 기본이동막기
                       e.preventDefault();
-                      // 상품 상세모듈 전달 상태변수 변경
+                      // 상품 전달 상태변수 변경
                       setCat(v.cat);
+                      // 클릭시 해당 상품으로 상품정보 상태변수 바꾸기
                       setGinfo(v.ginfo);
                       // 상세상품정보박스 보이기
                       $('.bgbx').show();
@@ -94,14 +95,25 @@ function ItemList() {
             style={{
                position: "fixed",
                top: "0px",
-               paddingTop: "12vh",
+               padding: "12vh 4vw 0",
+               boxSizing: "border-box",
                backdropFilter: "blur(8px)",
                height: "100vh",
                zIndex: "9999",
+               width: "100%",
             }}
          >
-          {/* 아이템 디테일 컴포넌트 불러오기 */}
-          <ItemDetail cat={cat} ginfo={ginfo}/>
+          {/* 아이템 디테일 컴포넌트 불러오기 
+          cat - 카테고리 , ginfo - 상품정보, dt - 상품데이터 
+          setGinfo = ginfo값 변경메서드 */}
+          
+          <ItemDetail
+          // cat, ginfo는 개별상품정보 
+          cat={cat} ginfo={ginfo} 
+          // dt 전체데이터 (한줄리스트때문)
+          dt={itemListData} 
+          // setGinfo - 한줄리스트 클릭시 변경
+          setGinfo={setGinfo}/>
          </div>
       </main>
    );
