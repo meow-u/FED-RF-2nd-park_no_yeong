@@ -118,7 +118,7 @@ export default function Board() {
                      selRecord.current = v;
                   }}
                >
-                  {v.cont}
+                  {v.tit}
                </a>
             </td>
             <td>{v.unm}</td>
