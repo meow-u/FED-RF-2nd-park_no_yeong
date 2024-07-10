@@ -4,19 +4,30 @@ import { addComma } from "../../js/func/common_fn";
 import $ from "jquery";
 import { pCon } from "./pCon";
 
-function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
-  // cat - 카테고리
-  // ginfo - 상품정보
+function ItemDetail({ tot, setTot , dt}) {
+  // tot -  itemlist에서 전달된 상품토탈정보
+  // setTot - 상품 토탈정보 업데이트 함수
   // dt - 상품데이터
-  // setGinfo - ginfo값 변경메서드
-  // gIdx - 상품고유번호
-  console.log(cat, ginfo, gIdx);
 
-  // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
-  const myCon = useContext(pCon);
+  ////// 상품정보 개별셋업 /// 
+  
+  // cat - 카테고리
+  let cat = tot.cat;
+  // ginfo - 상품정보
+  let ginfo = tot.ginfo;
+  // gIdx - 상품고유번호
+  let gIdX = tot.idx; 
+
+  console.log(cat, ginfo, gIdX);
+
+////////////////////////////////////////////////////////////
+// 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
+const myCon = useContext(pCon);
+////////////////////////////////////////////////////////////
 
   // 제이쿼리 이벤트함수에 전달할 ginfo값 참조변수
   const getGinfo = useRef(ginfo);
+
   // getGinfo참조변수는 새로들어온 ginfo전달값이 달라진 경우
   // 업데이트한다!
   if (getGinfo.current != ginfo) getGinfo.current = ginfo;
@@ -85,6 +96,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
 
   // [ 화면랜더링구역 : 매번 ] ///
   useEffect(() => {
+
     // 매번 리랜더링 될때마다 수량초기화!
     $("#sum").val(1);
     // 총합계 초기화
@@ -102,6 +114,13 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
           e.preventDefault();
           // 창닫기
           $(".bgbx").hide();
+
+    // 매번 리랜더링 될때마다 수량초기화!
+    $("#sum").val(1);
+    // 총합계 초기화
+    $("#total").text(addComma(ginfo[3]) + "원");
+
+
         }}
       >
         <span className="ir">닫기버튼</span>
@@ -151,9 +170,8 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                         console.log(res);
                         // 상품상세모듈 전달 상태변수 변경
                         // find에서 받은값은 객체값
-                        // 그중 ginfo속성값만 필요함!
-                        setGinfo(res.ginfo);
-                        // 카테고리값은 바꿀필요없음!
+                        // 상품 토탈정보로 모든 객체값을 업데이트함 
+                        setTot(res);
                       }}
                     >
                       <img
@@ -268,7 +286,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button
+              <button //SHOPPING CART 버튼
                 className="btn"
                 onClick={() => {
                   // 로컬스에 넣기
@@ -282,17 +300,30 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                   locals = JSON.parse(locals);
 
                   // 로컬스에 객체 데이터 추가하기
+
+                  /************************ 
+                      [ 데이터 구조정의 ]
+                      2. idx: 상품 고유번호
+                      3. cat: 카테고리
+                      4. ginfo: 상품상세정보
+                      5. cnt: 상품갯수
+                   ************************/
                   locals.push({
-                    num: 1,
-                    idx: gIdx,
+                    idx: gIdX,
                     cat: cat,
                     ginfo: ginfo,
+                    // 몇개인지 갯수연결위해 추가 
+                    cnt: $("#sum").val(),
                   });
+
 
                   // 로컬스에 문자화하여 입력하기
                   localStorage.setItem(
                     "cart-data", JSON.stringify(locals));
 
+
+                  ///////////////////////////////
+                  // index.js에서 이 상태값으로 카드컴포넌트가  on/off 됨 
                   // 카트 상태값 변경
                   myCon.setCartSts(true);
                 }}

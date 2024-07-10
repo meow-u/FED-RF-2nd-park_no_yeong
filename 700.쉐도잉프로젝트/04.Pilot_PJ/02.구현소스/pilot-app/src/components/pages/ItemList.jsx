@@ -17,13 +17,8 @@ import ItemDetail from "../modules/itemDetail";
 
 function ItemList() {
   // 상태변수 만들기 //
-  // [1] 카테고리정보
-  const [cat,setCat] = useState(itemListData[0].cat);
-  // [2] 상품정보
-  const [ginfo,setGinfo] = useState(itemListData[0].ginfo);
-  
-  // 상품고유번호 참조변수
-  const gIdx = useRef(0);
+// 상품 토탈 정보
+const [tot,setTot] = useState(itemListData[0]); // 초기정보는 첫번째 항목설정함
 
    // 화면랜더링구역 ////////
    useEffect(() => {
@@ -60,18 +55,15 @@ function ItemList() {
                />
             </div>
             <div className="grid">
+               
                {itemListData.map((v, i) => (
                   <div key={i}>
                      <a href="#"
                      onClick={(e)=>{
                       // 기본이동막기
+                      // 상품토탈정보 업데이트
+                      setTot(v);
                       e.preventDefault();
-                      // 상품 전달 상태변수 변경
-                      setCat(v.cat);
-                      setGinfo(v.ginfo);
-                      // 상세상품정보박스 보이기
-                      // 상품 고유번호 idx 업데이트 
-                      gIdx.current = v.idx;
                       $('.bgbx').show();
                      //  console.log('data:',v);
                      }}>
@@ -94,7 +86,7 @@ function ItemList() {
          </section>
 
          {/* 상세 상품정보 박스 */}  
-         <div
+         <div 
             className="bgbx"
             style={{
                position: "fixed",
@@ -112,14 +104,13 @@ function ItemList() {
           setGinfo = ginfo값 변경메서드 */}
           
           <ItemDetail
-          // cat, ginfo는 개별상품정보 
-          cat={cat} ginfo={ginfo} 
+         // 상품토탈정보 디테일페이지로 전달
+         tot={tot}
+
           // dt 전체데이터 (한줄리스트때문)
           dt={itemListData} 
-          // setGinfo - 한줄리스트 클릭시 변경
-          setGinfo={setGinfo}
-          // 상품 고유번호 전달
-          gIdx={gIdx.current}
+          // setTot - 한줄리스트 클릭시 변경
+          setTot={setTot}
           />
           
          </div>
