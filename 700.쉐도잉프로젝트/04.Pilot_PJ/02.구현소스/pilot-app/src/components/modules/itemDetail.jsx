@@ -16,9 +16,9 @@ function ItemDetail({ tot, setTot , dt}) {
   // ginfo - 상품정보
   let ginfo = tot.ginfo;
   // gIdx - 상품고유번호
-  let gIdX = tot.idx; 
+  let gIdx = tot.idx; 
 
-  console.log(cat, ginfo, gIdX);
+  console.log(cat, ginfo, gIdx);
 
 ////////////////////////////////////////////////////////////
 // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
@@ -289,17 +289,60 @@ const myCon = useContext(pCon);
               <button //SHOPPING CART 버튼
                 className="btn"
                 onClick={() => {
-                  // 로컬스에 넣기
-                  // 로컬스 없으면 만들어라!
+                  // [ 로컬스 카드데이터 넣기 ]
+                  // 1. 로컬스 없으면 만들어라!
                   if (!localStorage.getItem("cart-data")) {
                     localStorage.setItem("cart-data", "[]");
                   } //// if /////
 
-                  // 로컬스 읽어와서 파싱하기
+                  // 2. 로컬스 읽어와서 파싱하기
                   let locals = localStorage.getItem("cart-data");
                   locals = JSON.parse(locals);
 
-                  // 로컬스에 객체 데이터 추가하기
+                  // 3. 기존 데이터중 동일한 데이터 거르기 (상품중복)
+                  // 파싱된 로컬스 데이터중 idx 항목을 검사하여
+                  // gIdx로 넣을 상품 idx와 같은것이 있으면
+                  // 메세지와 함께 리턴처리하여 입력을 막아준다!
+
+                // [ 방법 1 ] 
+                //배열 중복검사시 사용하는 메서드 : some()
+                // -> some은() 중복데이터 발생시 true 리턴 시켜서 
+                // 구분해준다!(썸~ 트루럽 만나면끝남)
+
+                //  let retSts = locals.some(v=>{
+                //     if(v.idx == gIdx) return true;
+
+                //   }); 
+                //[ 방법 2]
+                // 배열.includes(비교값)
+                // 주의사항: 배열값이 단일값이어야 비교가 된다!
+                // 예) let aa = [11,22,33]
+                // aa.includes(22) -> 있으면 결과 true 없으면 false
+                
+                // idx값만 모아서 다른 배열만들기 
+                let newLocals = locals.map(v=>v.idx);
+                console.log( "idx새배열",newLocals);
+
+                // 인클루드 비교
+                let retSts = newLocals.includes(gIdx);
+              
+              // 이렇게 한번에써도됨. 고차원함수라 그자리에 출력되니.
+              // let retSts=  locals.map(v=>v.idx).includes(gIdx);
+                
+
+                  console.log( '중복상태:',retSts)
+                  if (retSts){
+                    alert("이미 장바구니에 추가된 상품입니다!");
+
+                    /* 내가원하는건 장바구니 수량이 업데이트 되었습니다.
+                    이거임  */
+                    
+                    // 함수나가기
+
+                    return;
+                  } /// if ////
+                  ;
+                  // 4. 로컬스에 객체 데이터 추가하기
 
                   /************************ 
                       [ 데이터 구조정의 ]
@@ -309,7 +352,7 @@ const myCon = useContext(pCon);
                       5. cnt: 상품갯수
                    ************************/
                   locals.push({
-                    idx: gIdX,
+                    idx: gIdx,
                     cat: cat,
                     ginfo: ginfo,
                     // 몇개인지 갯수연결위해 추가 
@@ -321,11 +364,19 @@ const myCon = useContext(pCon);
                   localStorage.setItem(
                     "cart-data", JSON.stringify(locals));
 
+                    
+                    
+
 
                   ///////////////////////////////
                   // index.js에서 이 상태값으로 카드컴포넌트가  on/off 됨 
-                  // 카트 상태값 변경
-                  myCon.setCartSts(true);
+                  
+                  // 로컬스 카트 데이터 상태값 변경!
+                  myCon.setLocalsCart(
+                    localStorage.getItem("cart-data"));
+                  //카트리스트 사용여부 상태값 변경!
+                  myCon.setCartSts(false);
+              
                 }}
               >
                 SHOPPING CART
