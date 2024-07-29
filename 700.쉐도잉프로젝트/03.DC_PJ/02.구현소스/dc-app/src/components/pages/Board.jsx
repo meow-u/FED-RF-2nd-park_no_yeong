@@ -20,6 +20,9 @@ import "../../css/board_file.scss";
 import { initBoardData } from "../func/board_fn";
 import { dCon } from "../modules/dCon";
 
+// 엑시오스 가져오기
+import axios from "axios";
+
 export default function Board() {
    // 컨텍스트 사용하기
    const myCon = useContext(dCon);
@@ -38,26 +41,27 @@ export default function Board() {
       Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
    );
 
-   ///////// [ 상태관리 변수 ] //////////////////////////////////////
-   // [1] 페이지 번호//////////////////////////
+   ///////// [ 상태관리 변수 ] //////////////
+   // [1] 페이지 번호
    const [pageNum, setPageNum] = useState(1);
-   // [2] 기능모드////////////////////////////
+
+   // [2] 기능모드
    const [mode, setMode] = useState("L");
    // (1) 리스트 모드(L) : List Mode
    // (2) 글보기 모드(R) : Read Mode
    // (3) 글쓰기 모드(W) : Write Mode
    // (4) 수정 모드(M) : Modify Mode (삭제포함)
-   // [3] 검색어 저장변수:배열[기준, 검색어]////////////////////////
+
+   // [3] 검색어 저장변수 : 배열 [기준,검색어]
    const [keyword, setKeyword] = useState(["", ""]);
    console.log("[기준,키워드]", keyword);
 
-   // [4] 정렬 기준값 상태변수 : 값(asc (-1)) / desc(1))
+   // [4] 정렬 기준값 상태변수 : 값 (asc(-1) / desc(1))
    const [sort, setSort] = useState(1);
-   // -> 기존 셋팅값에 1을 곱하면 원래값 , -1을 곱하면 반대값셋팅
+   // -> 기존 셋팅값에 1을 곱하면 원래값, -1을 곱하면 반대값셋팅
 
    // [5] 정렬 항목값 상태변수 : 값 - idx / tit
    const [sortCta, setSortCta] = useState("idx");
-   // -> 기존 셋팅값에 1을 곱하면 원래값 , -1을 곱하면 반대값셋팅
 
    // [ 참조변수 ] ///
    // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로!
@@ -68,12 +72,17 @@ export default function Board() {
    // -> 특정리스트 글 제목 클릭시 데이터 저장함!
    // [3] 페이징의 페이징 번호
    const pgPgNum = useRef(1);
+   // [4] 파일저장 참조변수
+   const uploadFile = useRef(null);
+
+   // 파일저장변수 업데이트 함수
+   const updateFileInfo = (x) => (uploadFile.current = x);
 
    // [ 일반 변수로 매번 같은값을 유지하면 되는 변수 ]
    // 페이지당 개수 : 페이지당 레코드수
    const unitSize = 4;
    // 페이징의 페이징 개수 : 한번에 보여줄 페이징개수
-   const pgPgSize = 4;
+   const pgPgSize = 3;
 
    /********************************************** 
         함수명: bindList
@@ -84,37 +93,41 @@ export default function Board() {
 
       // 1. 전체 원본데이터 선택
       let orgData;
-      //1-1 검색어가 있는경우 필터하기
-      // keyword[0]: 검색기준/ keyword[1]:검색어
+
+      // 1-1.검색어가 있는경우 필터하기
+      // keyword[0] : 검색기준 / keyword[1] : 검색어
       if (keyword[1] != "") {
-         //검색어가 빈값이 아니면
          orgData = baseData.filter((v) => {
-            // 검색원본데이터 소문자 처리하기
+            // 1. 소문자 처리하기
+            // (1) 검색원본 데이터
             let orgTxt = v[keyword[0]].toLowerCase();
-            // 검색어데이터 소문자 처리하기
+            // (2) 검색어 데이터
             let txt = keyword[1].toLowerCase();
-            //2. 필터 검색조건에 맞는 데이터 수집하기
-            if (orgTxt.indexOf(txt) != -1) {
-               return true;
-            }
+
+            // console.log(v[keyword[0]].indexOf(keyword[1]));
+            // 2. 필터 검색조건에 맞는 데이터 수집하기
+            if (orgTxt.indexOf(txt) != -1) return true;
          });
-      }
-      //1-2 검색어가 없는경우 전체 넣기
+      } /////// if //////////
+      // 1-2.검색어가 없는경우 전체넣기
       else {
          orgData = baseData;
-      }
+      } //////// else ///////
+
       // 1-3. 새로 데이터를 담은 후 바로 전체개수 업데이트 필수!
       totalCount.current = orgData.length;
 
       // 2. 정렬 적용하기 : 내림차순
-      // sort 값이 1이면 desc(현재상태유지 )
-      // sort 값이 -1이면 asc (부호반대변경 )
-      // 정렬항목은 sortCta 값에 따름 ('idx'/'tit')
+      // sort값이 1이면 desc(현재상태유지)
+      // sort값이 -1이면 asc(부호반대변경)
+      // 정렬항목은 sortCta값에 따름("idx"/"tit")
+
+      // "idx"정렬항목일 경우만 Number()처리함수
       const chgVal = (x) =>
          sortCta == "idx"
-            ? //  idx는 숫자형으로 정렬
+            ? // idx는 숫자형으로 정렬
               Number(x[sortCta])
-            : // 'tit'는 문자형이고 소문자로 비교
+            : // "tit"는 문자형이고 소문자로 비교
               x[sortCta].toLowerCase();
 
       orgData.sort((a, b) =>
@@ -150,15 +163,16 @@ export default function Board() {
 
       console.log("일부데이터:", selData);
       console.log("여기:", selData.length);
+
       // if (selData.length == 0) setPageNum(pageNum - 1);
-      // -> ListMode컴포넌트가 업데이트 되는 동안에
-      // 리스트 관련 상태변수를 업데이트 하면
+      // -> ListMode컴포넌트가 업데이트 되는동안에
+      // 리스트 관련 상태변수를 업데이트하면
       // 업데이트 불가 에러 메시지가 발생한다!
       // 따라서 이런 코드는 다른 방식으로 변경해야함!
 
       return (
          // 전체 데이터 개수가 0 초과일 경우 출력
-         // 0 초과 ? map돌기 코드: 없음코드(3항연산자)
+         // 0초과 ? map돌기코드 : 없음코드
          totalCount.current > 0 ? (
             selData.map((v, i) => (
                <tr key={i}>
@@ -184,12 +198,12 @@ export default function Board() {
                </tr>
             ))
          ) : (
-            //데이터가 없을때 출력///////
+            // 데이터가 없을 때 출력 /////////
             <tr>
-               <td colSpan="5"> There is no data.</td>
+               <td colSpan="5">There is no data.</td>
             </tr>
          )
-      ); ////return///////////
+      ); //// return /////
    }; /////////// bindList 함수 /////////////////
 
    // 버튼 클릭시 변경함수 ////////
@@ -206,7 +220,7 @@ export default function Board() {
          // 리스트모드로 변경
          case "List":
             setMode("L");
-            //검색시에도 전체 데이터 나오게함
+            // 검색시에도 전체 데이터나오게 함
             setKeyword(["", ""]);
             break;
          // 서브밋일 경우 함수호출!
@@ -287,6 +301,9 @@ export default function Board() {
          // 시간까지 나오므로 앞에 10자리만 가져감!
          // 문자열.substr(0,10)
 
+         // 파일 업데이트 정보찍기
+         console.log(uploadFile.current);
+
          // 2. 글번호 만들기 /////
          // 전체 데이터중 idx 만 모아서 배열만들기
          let arrIdx = baseData.map((v) => parseInt(v.idx));
@@ -300,13 +317,59 @@ export default function Board() {
             idx: maxNum + 1,
             tit: title,
             cont: cont,
-            att: "",
+            att: uploadFile.current ? uploadFile.current.name : "",
             date: today.toJSON().substr(0, 10),
             uid: person.uid,
             unm: person.unm,
             cnt: "0",
          };
          // console.log("글쓰기 서브밋:",data);
+
+         // 파일전송 실패상태 변수
+         let isFail = false;
+
+         // [선택파일 서버전송]
+         // 파일이 있을 때만 전송
+         if (uploadFile.current) {
+            // 원래는 form 태그로 싸여있어서 서버전송을 하지만
+            // 없어도 form 전송을 서버에 할 수 있는 객체가 있다!
+            // FormData() 클래스 객체임!
+            const formData = new FormData();
+            // 전송할 데이터 추가하기
+            formData.append("file", uploadFile.current);
+
+            // 폼데이터에는 키값이 있음 확인하자!
+            for (const key of formData) console.log(key);
+
+            // 서버전송은 엑시오스로 하자!
+            // server.js에 서버에서 post방식으로 전송받는
+            // 셋팅이 익스프레스에서 되어 있어야함!
+            // 첫번째 셋팅값 전송url에는 서버에 셋팅된
+            // 포스트 방식 전송명인 /xxx를 하위 경로에 써준다
+            axios
+               .post("http://localhost:8080/xxx", formData)
+               .then((res) => {
+                  // res는 성공결과 리턴값 변수
+                  const { fileName } = res.data;
+                  console.log("전송성공!!!", fileName);
+               })
+               .catch((err) => {
+                  // err은 에러발생시 에러정보 변수
+                  console.log("에러발생:", err);
+                  // 실패 했으므로 업로드 실패상태 변수업데이트
+                  isFail = true;
+               });
+
+            // 파일참조변수 초기화필수!!!
+            uploadFile.current = null;
+         } ///////////////// if ///////////////
+
+         // 파일업로드 실패시 아래 코드는 실행하지 않음!
+         // 즉 DB에 입력하지 않는다!
+         if (isFail) {
+            alert("예상치 못한 오류로 파일전송에 실패하였습니다.");
+            return;
+         }
 
          // 4. 로컬스에 입력하기 //////
          // (1) 로컬스 파싱
@@ -401,8 +464,8 @@ export default function Board() {
                   setPageNum={setPageNum}
                   pgPgNum={pgPgNum}
                   pgPgSize={pgPgSize}
-                  keyword={keyword}
                   setKeyword={setKeyword}
+                  keyword={keyword}
                   sort={sort}
                   setSort={setSort}
                   sortCta={sortCta}
@@ -417,7 +480,12 @@ export default function Board() {
          {
             // 3. 쓰기 모드일 경우 로그인 정보 보내기
             // sts값은 문자열이므로 파싱하여 객체로 보냄
-            mode == "W" && <WriteMode sts={JSON.parse(sts)} />
+            mode == "W" && (
+               <WriteMode
+                  sts={JSON.parse(sts)}
+                  updateFileInfo={updateFileInfo}
+               />
+            )
          }
          {
             // 4. 수정 모드일 경우 상세보기 출력하기
@@ -521,12 +589,11 @@ const ListMode = ({
     6. pgPgNum : 페이지번호
     7. pgPgSize : 페이징의 페이지 크기
     8. keyword : 검색어
-    9. setKeyword : 검색어
+    9. setKeyword : 검색어셋팅
     10. sort : 정렬기준
-    11. setSort : 정렬기준 셋팅
+    11. setSort : 정렬기준셋팅
     12. sortCta : 정렬항목
     13. setSortCta : 정렬항목셋팅
-
   *******************************************/
 
    // 코드리턴구역 //////////////////////
@@ -538,15 +605,13 @@ const ListMode = ({
                <option value="cont">Contents</option>
                <option value="unm">Writer</option>
             </select>
+
             <select
                name="sel"
                id="sel"
                className="sel"
-               onChange={() => {
-                  setSort(sort * -1);
-               }}
+               onChange={() => setSort(sort * -1)}
             >
-               {/* -1 곱하면 -, +가 토글 됨 */}
                <option value="0" selected={sort == 1 ? true : false}>
                   Descending
                </option>
@@ -559,9 +624,9 @@ const ListMode = ({
                type="text"
                maxLength="50"
                onKeyUp={(e) => {
-                // e.keyCode는 번호로 13이 벤터
-                // e.key는 문자로 Enter가 엔터
-                // console.log(e.keyCode,e.keyCode);
+                  // e.keyCode는 번호로 13이 엔터
+                  // e.key 는 문자로 "Enter"가 엔터
+                  // console.log(e.key,e.keyCode);
                   if (e.key == "Enter") {
                      $(e.currentTarget).next().trigger("click");
                   }
@@ -572,40 +637,38 @@ const ListMode = ({
                onClick={(e) => {
                   // 검색기준값 읽어오기
                   let creteria = $(e.target).siblings(".cta").val();
-                  console.log("기준값", creteria);
+                  console.log("기준값:", creteria);
                   // 검색어 읽어오기
                   let txt = $(e.target).prev().val();
-                  console.log(typeof txt, "검색어", txt);
-                  // input값은 안쓰면 빈 스트링이 넘어온다
+                  console.log(typeof txt, "/검색어:", txt);
+                  // input값은 안쓰면 빈스트링이 넘어옴!
                   if (txt != "") {
-                     console.log("겸색해");
-                     //[검색기준,검색어]->setKeyword업데이트
+                     console.log("검색해!");
+                     // [검색기준,검색어] -> setKeyword 업데이트
                      setKeyword([creteria, txt]);
-                     //검색후엔 첫페이지로 보내기
+                     // 검색후엔 첫페이지로 보내기
                      setPageNum(1);
-                     //검색후엔 페이지의 페이징 번호 초기화(1)
+                     // 검색후엔 페이지의 페이징 번호 초기화(1)
                      pgPgNum.current = 1;
                   }
                   // 빈값일 경우
                   else {
-                     alert("검색어를 입력하세요!");
-                     // 전체 데이터 나오게함
-                     setKeyword(["", ""]);
+                     alert("Please enter a keyword!");
                   }
                }}
             >
                Search
             </button>
             {
-               // 키워드가 있는 경우에 전체 리스트 돌아가기 버튼 출력
+               // 키워드가 있는 경우에 전체 리스트 돌아가기 버튼출력
                keyword[0] !== "" && (
                   <button
                      className="back-total-list"
                      onClick={(e) => {
                         // 검색어 초기화
-                        setKeyword([""], [""]);
-                        // 검색어 삭제( input이니까 val() )
-                        $(e.currentTarget).siblings("#stxt").val('');
+                        setKeyword(["", ""]);
+                        // 검색어삭제(input이니까 val())
+                        $(e.currentTarget).siblings("#stxt").val("");
                         // 검색항목초기화
                         $(e.currentTarget).siblings("#cta").val("tit");
                         // 정렬초기화
@@ -620,14 +683,13 @@ const ListMode = ({
                   </button>
                )
             }
-            {/* 추가 정렬기준선택 박스 */}
+
+            {/* 정렬기준선택박스 */}
             <select
-               name="sort-cta"
-               id="sort-cta"
-               className="sort-cta"
-               onChange={(e) => {
-                  setSortCta(e.currentTarget.value);
-               }}
+               name="sort_cta"
+               id="sort_cta"
+               className="sort_cta"
+               onChange={(e) => setSortCta(e.currentTarget.value)}
                style={{ float: "right", translate: "0 5px" }}
             >
                <option value="idx" selected={sortCta == "idx" ? true : false}>
@@ -638,7 +700,6 @@ const ListMode = ({
                </option>
             </select>
          </div>
-
          <table className="dtbl" id="board">
             <thead>
                <tr>
@@ -653,16 +714,19 @@ const ListMode = ({
             <tfoot>
                <tr>
                   <td colSpan="5" className="paging">
-                     {totalCount.current > 0 && ( //데이터 갯수가 0 이상일때만 출력
-                        <PagingList
-                           totalCount={totalCount}
-                           unitSize={unitSize}
-                           pageNum={pageNum}
-                           setPageNum={setPageNum}
-                           pgPgNum={pgPgNum}
-                           pgPgSize={pgPgSize}
-                        />
-                     )}
+                     {
+                        // 데이터 개수가 0이상일때만 출력
+                        totalCount.current > 0 && (
+                           <PagingList
+                              totalCount={totalCount}
+                              unitSize={unitSize}
+                              pageNum={pageNum}
+                              setPageNum={setPageNum}
+                              pgPgNum={pgPgNum}
+                              pgPgSize={pgPgSize}
+                           />
+                        )
+                     }
                   </td>
                </tr>
             </tfoot>
@@ -750,6 +814,8 @@ const ReadMode = ({ selRecord, sts }) => {
       localStorage.setItem("board-data", JSON.stringify(bdData));
    } /// if : (!isRec) ///
 
+   // 이미지 미리보기 대상 이미지 확장자 배열변수
+   const imgExt = ["jpg", "png", "gif"];
    /////// 코드리턴 구역 ///////////
    return (
       <>
@@ -794,7 +860,38 @@ const ReadMode = ({ selRecord, sts }) => {
                </tr>
                <tr>
                   <td>Attachment</td>
-                  <td></td>
+                  <td>
+                     {
+                        // 첨부파일 데이터가 빈값이 아닐때만 출력
+                        data.att != "" && (
+                           <>
+                              <a
+                                 href={
+                                    process.env.PUBLIC_URL +
+                                    "/uploads/" +
+                                    data.att
+                                 }
+                                 download={data.att}
+                              >
+                                 {data.att}
+                              </a>
+                              {imgExt.includes(data.att.split(".")[1]) && (
+                                 <div>
+                                    <img
+                                       src={
+                                          process.env.PUBLIC_URL +
+                                          "/uploads/" +
+                                          data.att
+                                       }
+                                       alt="image"
+                                       style={{ width: "100%" }}
+                                    />
+                                 </div>
+                              )}
+                           </>
+                        )
+                     }
+                  </td>
                </tr>
             </tbody>
          </table>
@@ -805,8 +902,9 @@ const ReadMode = ({ selRecord, sts }) => {
 /****************************************** 
         쓰기 모드 서브 컴포넌트
 ******************************************/
-const WriteMode = ({ sts }) => {
+const WriteMode = ({ sts, updateFileInfo }) => {
    // sts - 로그인 상태정보
+   // updateFileInfo - 업로드파일 정보 업데이트 함수
    // 로그인한 사람만 글쓰기 가능!
    // console.log(sts);
 
@@ -859,7 +957,11 @@ const WriteMode = ({ sts }) => {
                </tr>
                <tr>
                   <td>Attachment</td>
-                  <td></td>
+                  <td>
+                     {/* 파일정보를 하위 컴포넌트에서 상위컴포넌트
+              변수인 uploadFild에 저장한다! */}
+                     <AttachBox saveFile={updateFileInfo} />
+                  </td>
                </tr>
             </tbody>
          </table>
@@ -878,6 +980,8 @@ const ModifyMode = ({ selRecord }) => {
    // 전달된 데이터 객체를 변수에 할당
    const data = selRecord.current;
 
+   // 이미지 미리보기 대상 이미지 확장자 배열변수
+   const imgExt = ["jpg", "png", "gif"];
    return (
       <>
          <table className="dtblview readone">
@@ -919,7 +1023,38 @@ const ModifyMode = ({ selRecord }) => {
                </tr>
                <tr>
                   <td>Attachment</td>
-                  <td></td>
+                  <td>
+                     {
+                        // 첨부파일 데이터가 빈값이 아닐때만 출력!
+                        data.att != "" && (
+                           <>
+                              <a
+                                 href={
+                                    process.env.PUBLIC_URL +
+                                    "/uploads/" +
+                                    data.att
+                                 }
+                                 download={data.att}
+                              >
+                                 {data.att}
+                              </a>
+                              {imgExt.includes(data.att.split(".")[1]) && (
+                                 <div>
+                                    <img
+                                       src={
+                                          process.env.PUBLIC_URL +
+                                          "/uploads/" +
+                                          data.att
+                                       }
+                                       alt="image"
+                                       style={{ width: "100%" }}
+                                    />
+                                 </div>
+                              )}
+                           </>
+                        )
+                     }
+                  </td>
                </tr>
             </tbody>
          </table>
@@ -957,12 +1092,14 @@ const PagingList = ({
       pagingCount++;
    }
 
-   // console.log(
-   //   "페이징개수:",
-   //   pagingCount,
-   //   "나머지개수:",
-   //   totalCount.current % unitSize
-   // );
+   console.log(
+      "페이징개수:",
+      pagingCount,
+      "전체레코드수:",
+      totalCount.current,
+      "나머지개수:",
+      totalCount.current % unitSize
+   );
 
    // [ 페이징의 페이징 하기 ]
    // [1] 페이징 블록
@@ -984,7 +1121,7 @@ const PagingList = ({
 
    console.log("페이징의 페이징개수:", pgPgCount);
    console.log("페이징의 페이징번호:", pgPgNum.current);
-   // 검색시 페이징번호 초기화 필요!
+   // 검색시 페이징번호 초기화필요!
 
    // (2) 리스트 시작값 / 한계값 구하기
    // 시작값 : (페페넘-1)*페페단
@@ -1142,3 +1279,151 @@ const PagingList = ({
    // 코드리턴
    return pgCode;
 }; ////////// pagingList 함수 //////////////
+
+/////////////////////////////////////////////
+// 업로드 기능 서브 컴포넌트 및 메서드 만들기 ///
+//////////////////////////////////////////////
+
+// 업로드 모듈을 리턴하는 서브컴포넌트 ////////
+const AttachBox = ({ saveFile }) => {
+   // saveFile 프롭스펑션다운!
+   // [상태관리변수] //////////////
+   // 1.드래그 또는 파일을 첨부할때 활성화 여부관리 변수
+   // 값: true 이면 활성화, false이면 비활성화
+   const [isOn, setIsOn] = useState(false);
+   // 2. 업로드파일 정보 관리변수
+   const [uploadedInfo, setUploadedInfo] = useState(null);
+
+   // [ 이벤트 처리 메서드 ]
+   // 드래그 대상영역을 들어가고 나갈때 isOn 상태값 업데이트하기
+   const controlDragEnter = () => setIsOn(true);
+   const controlDragLeave = () => setIsOn(false);
+   // 드래그를 할때 dragOver 이벤트는 비활성화함!(필요가 없어서!)
+   const controlDragOver = (e) => e.preventDefault();
+
+   // 드롭이벤트 발생시 처리 메서드
+   const controlDrop = (e) => {
+      // 기본 드롭기능 막기
+      e.preventDefault();
+      // 드롭했으므로 비활성화 전환!
+      setIsOn(false);
+
+      // 파일정보 읽어오기
+      // 드롭된 파일로 부터 전송된 파일정보는 아래와 같이 읽어온다!
+      const fileInfo = e.dataTransfer.files[0];
+      console.log(fileInfo);
+
+      // 파일정보셋팅 메서드 호출!
+      setFileInfo(fileInfo);
+
+      // 서브밋 저장구역에서 파일정보를 사용하도록
+      // 상위 컴포넌트 변수인 uploadFile에 저장하는
+      // 함수인 updateFileInfo() 를 호출하는 속성인
+      // saveFile() 속성 함수를 사용하여 업데이트한다!
+      saveFile(fileInfo);
+
+      // 서버전송은 서브밋 버튼 클릭후 실행!!!
+   }; ///////// controlDrop 메서드 ////////
+
+   // 드롭된 파일 정보를 화면 뿌려주는 메서드 //////
+   const setFileInfo = (fileInfo) => {
+      // 전달된 객체값을 한번에 할당하는 방법(객체 구조분해법)
+      // 구조분해 할당을 하면 객체의 값이 담긴다!
+      const { name, size: byteSize, type } = fileInfo;
+      // 바이트 단위의 파일크기를 mb단위로 변환한다!
+      const size = (byteSize / (1024 * 1024)).toFixed(2) + "mb";
+      // console.log('전체값:',fileInfo);
+      // console.log('name:',name);
+      // console.log('size:',size);
+      // console.log('type:',type);
+
+      // 파일정보 상태관리 변수에 업데이트함!
+      setUploadedInfo({ name, size, type });
+      // -> 변경시 리랜더링으로 업로드구역에 반영됨!
+   }; //////////// setFileInfo 메서드 //////////
+
+   // 파일선택 입력창 클릭시 파일선택으로 상태가 변경될때
+   // 파일정보 업데이트하기 함수 ///
+   const changeUpload = ({ target }) => {
+      // target은 이벤트타겟!
+      // 파일정보 읽어오기
+      const fileInfo = target.files[0];
+      console.log("클릭파일:", fileInfo);
+
+      // 파일정보셋팅 메서드 호출!
+      setFileInfo(fileInfo);
+
+      // 서브밋 저장구역에서 파일정보를 사용하도록
+      // 상위 컴포넌트 변수인 uploadFile에 저장하는
+      // 함수인 updateFileInfo() 를 호출하는 속성인
+      // saveFile() 속성 함수를 사용하여 업데이트한다!
+      saveFile(fileInfo);
+   }; /////////// changeUpload 함수 ///////////
+
+   /* 
+    [드래그 관련이벤트 구분]
+      onDragEnter : 드래그 대상 영역 안으로 들어갈때
+      onDragLeave : 드래그 대상 영역 밖으로 나갈때
+      onDragOver : 드래그 대상 영역 위에 있을때
+      onDrop : 드래그 대상 영역 안에 드롭될때
+  */
+   // 리턴 코드 //////////////////////
+   return (
+      <label
+         className="info-view"
+         onDragEnter={controlDragEnter}
+         onDragLeave={controlDragLeave}
+         onDragOver={controlDragOver}
+         onDrop={controlDrop}
+      >
+         {/* 파일을 클릭하여 선택창이 뜰때 파일을 선택하면
+      현재 상태가 변경되기때문에 onChange이벤트 속성을씀! */}
+         <input type="file" className="file" onChange={changeUpload} />
+         {
+            // 업로드 정보가 null이 아니면 파일정보 출력
+            uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />
+         }
+         {
+            // 업로드 정보가 null이면 안내문자 출력
+            !uploadedInfo && (
+               <>
+                  {/* 업로드안내 아이콘 */}
+                  <UpIcon />
+                  <p className="info-view-msg">Click or drop the file here.</p>
+                  <p className="info-view-desc">Up to 3MB per file</p>
+               </>
+            )
+         }
+      </label>
+   );
+}; ///////////// AttachBox 컴포넌트 //////////
+
+/* 
+Object.keys(obj) – 객체의 키만 담은 배열을 반환합니다.
+Object.values(obj) – 객체의 값만 담은 배열을 반환합니다.
+Object.entries(obj) – [키, 값] 쌍을 담은 배열을 반환합니다.
+*/
+
+// 파일정보를 보여주는 파일정보 컴포넌트 ////////
+const FileInfo = ({ uploadedInfo }) => (
+   <ul className="info-view-info">
+      {console.log(Object.entries(uploadedInfo))}
+      {Object.entries(uploadedInfo).map(([key, value]) => (
+         <li key={key}>
+            <span className="info-key">😊 {key} : </span>
+            <span className="info-value">{value}</span>
+         </li>
+      ))}
+   </ul>
+); ////////////// FileInfo 컴포넌트 ///////////
+
+// 업로드 표시 아이콘 SVG 태그 리턴 컴포넌트 ////
+// 화살표함수에 중괄호 안쓰고 JSX태그를 바로 쓰면 리턴키워드 생략
+const UpIcon = () => (
+   <svg className="icon" x="0px" y="0px" viewBox="0 0 99.09 122.88">
+      <path
+         fill="#000"
+         d="M64.64,13,86.77,36.21H64.64V13ZM42.58,71.67a3.25,3.25,0,0,1-4.92-4.25l9.42-10.91a3.26,3.26,0,0,1,4.59-.33,5.14,5.14,0,0,1,.4.41l9.3,10.28a3.24,3.24,0,0,1-4.81,4.35L52.8,67.07V82.52a3.26,3.26,0,1,1-6.52,0V67.38l-3.7,4.29ZM24.22,85.42a3.26,3.26,0,1,1,6.52,0v7.46H68.36V85.42a3.26,3.26,0,1,1,6.51,0V96.14a3.26,3.26,0,0,1-3.26,3.26H27.48a3.26,3.26,0,0,1-3.26-3.26V85.42ZM99.08,39.19c.15-.57-1.18-2.07-2.68-3.56L63.8,1.36A3.63,3.63,0,0,0,61,0H6.62A6.62,6.62,0,0,0,0,6.62V116.26a6.62,6.62,0,0,0,6.62,6.62H92.46a6.62,6.62,0,0,0,6.62-6.62V39.19Zm-7.4,4.42v71.87H7.4V7.37H57.25V39.9A3.71,3.71,0,0,0,61,43.61Z"
+      />
+   </svg>
+); //////////// UpIcon 컴포넌트 ////////
