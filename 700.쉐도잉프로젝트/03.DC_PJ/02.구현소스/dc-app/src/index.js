@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 /* 0. 라우터추가 (BrowserRouter만 넣어서안대면 나머지추가) */
 /* 1 */
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes, useLocation } from "react-router-dom";
 /* 2. 레이아웃 불러오기 */
 import Layout from "./components/layout/Layout";
 
@@ -65,7 +65,11 @@ export default function MainComponent() {
       // 1. 라우터 루트로 라우터 구성시작
       // basename 속성은 pakeage.json의 "homepage"속성값을읽어옴
       // 읽는방법은 (process.env.PUBLIC_URL  )
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      // <BrowserRouter basename={process.env.PUBLIC_URL}>
+         <HashRouter>
+            {/* basename 속성을 쓰지 않는다. 
+            해쉬라우터는 homepage 속성값을 자동으로 연결해준다! */}
+
          {/* 라우터 경로 변경시 최상단 이동 컴포넌트 */}
          <ScrollTop/>
          <Routes>
@@ -94,7 +98,8 @@ export default function MainComponent() {
             </Route>
             {/* Layout 루트 Route는 홀로닫지 말고 반드시 다른 하위 라우트를 감싸도록 한다!! */}
          </Routes>
-      </BrowserRouter>
+         </HashRouter>
+      // </BrowserRouter> 
    );
 }
 
