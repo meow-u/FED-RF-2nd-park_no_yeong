@@ -21,6 +21,7 @@ import $ from "jquery";
 
 // CSS불러오기
 import "../../css/fashion.scss";
+import FashionIntro from "../modules/FashionIntro";
 
 
 function Fashion({subCat}) {
@@ -128,9 +129,14 @@ function Fashion({subCat}) {
         </Parallax>
       </section>
       {/* 4. 단일상품영역 */}
-      <section id="c3" className="cont c3"></section>
+      <section id="c3" className="cont c3">
+        <FashionIntro catName="sub" subCat={subCat} opt={true} seq={0}/>
+      </section>
+
       {/* 5. 스타일상품영역 */}
-      <section id="c4" className="cont c4"></section>
+      <section id="c4" className="cont c4">
+      <FashionIntro catName="sub" subCat={subCat} opt={false} seq={1}/>
+      </section>
     </>
   );
 }
