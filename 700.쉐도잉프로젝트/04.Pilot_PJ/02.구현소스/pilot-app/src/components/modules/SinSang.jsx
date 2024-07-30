@@ -9,11 +9,11 @@ import { showInfo, removeInfo, flowList } from "../../js/func/sinsang_fn";
 // 신상 데이터 불러오기 /////
 import { sinsangData } from "../../js/data/sinsang";
 import { pCon } from "./pCon";
-import { setPos } from "../../js/func/smoothScroll24";
 
-function SinSang({ cat, chgItemFn }) {
+function SinSang({ cat, chgItemFn, setPos }) {
   // cat - 카테고리 분류명 (men/women/style)
   // chgItemFn - 선택상품정보 변경 부모함수
+  // setPos - 부드러운 스크롤 위치값 변경함수
 
   // 전역컨텍스트 사용하기
   const myCon = useContext(pCon);

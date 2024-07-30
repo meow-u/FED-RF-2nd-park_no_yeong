@@ -4,30 +4,26 @@ import { addComma } from "../../js/func/common_fn";
 import $ from "jquery";
 import { pCon } from "./pCon";
 
-function ItemDetail({ tot, setTot , dt}) {
-  // tot -  itemlist에서 전달된 상품토탈정보
-  // setTot - 상품 토탈정보 업데이트 함수
+function ItemDetail({ tot, setTot, dt }) {
+  // tot - 상품토탈정보
+  // setTot - 상품토탈정보 업데이트함수
   // dt - 상품데이터
 
-  ////// 상품정보 개별셋업 /// 
-  
+  // 상품정보 개별 셋업 ////
   // cat - 카테고리
   let cat = tot.cat;
   // ginfo - 상품정보
   let ginfo = tot.ginfo;
   // gIdx - 상품고유번호
-  let gIdx = tot.idx; 
+  let gIdx = tot.idx;
 
   console.log(cat, ginfo, gIdx);
 
-////////////////////////////////////////////////////////////
-// 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
-const myCon = useContext(pCon);
-////////////////////////////////////////////////////////////
+  // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
+  const myCon = useContext(pCon);
 
   // 제이쿼리 이벤트함수에 전달할 ginfo값 참조변수
   const getGinfo = useRef(ginfo);
-
   // getGinfo참조변수는 새로들어온 ginfo전달값이 달라진 경우
   // 업데이트한다!
   if (getGinfo.current != ginfo) getGinfo.current = ginfo;
@@ -96,7 +92,6 @@ const myCon = useContext(pCon);
 
   // [ 화면랜더링구역 : 매번 ] ///
   useEffect(() => {
-
     // 매번 리랜더링 될때마다 수량초기화!
     $("#sum").val(1);
     // 총합계 초기화
@@ -114,13 +109,11 @@ const myCon = useContext(pCon);
           e.preventDefault();
           // 창닫기
           $(".bgbx").hide();
-
-    // 매번 리랜더링 될때마다 수량초기화!
-    $("#sum").val(1);
-    // 총합계 초기화
-    $("#total").text(addComma(ginfo[3]) + "원");
-
-
+          // 창닫을때 초기화하기!  
+          // 수량초기화!
+          $("#sum").val(1);
+          // 총합계 초기화
+          $("#total").text(addComma(ginfo[3]) + "원");
         }}
       >
         <span className="ir">닫기버튼</span>
@@ -170,7 +163,7 @@ const myCon = useContext(pCon);
                         console.log(res);
                         // 상품상세모듈 전달 상태변수 변경
                         // find에서 받은값은 객체값
-                        // 상품 토탈정보로 모든 객체값을 업데이트함 
+                        // 상품토탈정보로 모든 객체값을 업데이트함
                         setTot(res);
                       }}
                     >
@@ -286,10 +279,10 @@ const myCon = useContext(pCon);
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button //SHOPPING CART 버튼
+              <button
                 className="btn"
                 onClick={() => {
-                  // [ 로컬스 카드데이터 넣기 ]
+                  // [ 로컬스 카트 데이터 넣기 ]
                   // 1. 로컬스 없으면 만들어라!
                   if (!localStorage.getItem("cart-data")) {
                     localStorage.setItem("cart-data", "[]");
@@ -299,84 +292,64 @@ const myCon = useContext(pCon);
                   let locals = localStorage.getItem("cart-data");
                   locals = JSON.parse(locals);
 
-                  // 3. 기존 데이터중 동일한 데이터 거르기 (상품중복)
-                  // 파싱된 로컬스 데이터중 idx 항목을 검사하여
-                  // gIdx로 넣을 상품 idx와 같은것이 있으면
-                  // 메세지와 함께 리턴처리하여 입력을 막아준다!
+                  // 3. 기존 데이터 중 동일한 데이터 거르기
+                  // 파싱된 로컬스 데이터 중 idx항목을 검사하여
+                  // gIdx로 넣을 상품 idx와 같은 것이 있으면
+                  // 메시지와 함께 리턴처리하여 입력을 막아준다!
 
-                // [ 방법 1 ] 
-                //배열 중복검사시 사용하는 메서드 : some()
-                // -> some은() 중복데이터 발생시 true 리턴 시켜서 
-                // 구분해준다!(썸~ 트루럽 만나면끝남)
+                  // [ 방법1 ]
+                  // 배열 중복검사시 사용하는 메서드: some()
+                  // -> some()은 중복데이터 발생시 true리턴
+                  // 시켜서 구분해준다!
+                  // let retSts = locals.some(v=>{
+                  //   if(v.idx==gIdx) return true;
+                  // });
 
-                //  let retSts = locals.some(v=>{
-                //     if(v.idx == gIdx) return true;
+                  // [ 방법2 ]
+                  // 배열.includes(비교값)
+                  // 주의사항: 배열값이 단일값이어야 비교가된다!
+                  // 예) let aa = [11,22,33]
+                  // aa.includes(22) -> 있으면 결과 true!
 
-                //   }); 
-                //[ 방법 2]
-                // 배열.includes(비교값)
-                // 주의사항: 배열값이 단일값이어야 비교가 된다!
-                // 예) let aa = [11,22,33]
-                // aa.includes(22) -> 있으면 결과 true 없으면 false
-                
-                // idx값만 모아서 다른 배열만들기 
-                let newLocals = locals.map(v=>v.idx);
-                console.log( "idx새배열",newLocals);
+                  // idx값만 모아서 다른 배열만들기
+                  let newLocals = locals.map(v=>v.idx);
+                  console.log("idx새배열:",newLocals);
 
-                // 인클루드 비교
-                let retSts = newLocals.includes(gIdx);
-              
-              // 이렇게 한번에써도됨. 고차원함수라 그자리에 출력되니.
-              // let retSts=  locals.map(v=>v.idx).includes(gIdx);
-                
+                  // 인클루드 비교
+                  let retSts = newLocals.includes(gIdx);
 
-                  console.log( '중복상태:',retSts)
-                  if (retSts){
-                    alert("이미 장바구니에 추가된 상품입니다!");
-
-                    /* 내가원하는건 장바구니 수량이 업데이트 되었습니다.
-                    이거임  */
-                    
-                    // 함수나가기
-
+                  console.log("중복상태:",retSts);
+                  if(retSts){
+                    // 메시지 보이기
+                    alert("이미 선택하신 상품입니다!");
+                    // 함수 나가기
                     return;
-                  } /// if ////
-                  ;
-                  // 4. 로컬스에 객체 데이터 추가하기
+                  } ///// if //////
 
-                  /************************ 
-                      [ 데이터 구조정의 ]
-                      2. idx: 상품 고유번호
-                      3. cat: 카테고리
-                      4. ginfo: 상품상세정보
-                      5. cnt: 상품갯수
-                   ************************/
+                  // 4.로컬스에 객체 데이터 추가하기
                   locals.push({
                     idx: gIdx,
                     cat: cat,
                     ginfo: ginfo,
-                    // 몇개인지 갯수연결위해 추가 
-                    cnt: $("#sum").val(),
+                    cnt: $("#sum").val()
                   });
-
+                  /************************** 
+                    [데이터 구조정의]
+                    1. idx : 상품고유번호
+                    2. cat : 카테고리
+                    3. ginfo : 상품정보
+                    4. cnt : 상품개수
+                  **************************/
 
                   // 로컬스에 문자화하여 입력하기
                   localStorage.setItem(
                     "cart-data", JSON.stringify(locals));
 
-                    
-                    
-
-
-                  ///////////////////////////////
-                  // index.js에서 이 상태값으로 카드컴포넌트가  on/off 됨 
-                  
-                  // 로컬스 카트 데이터 상태값 변경!
+                  // 로컬스 카트데이터 상태값 변경!
                   myCon.setLocalsCart(
                     localStorage.getItem("cart-data"));
-                  //카트리스트 사용여부 상태값 변경!
-                  myCon.setCartSts(false);
-              
+                  // 카트리스트 생성 상태값 변경!
+                  myCon.setCartSts(true);
                 }}
               >
                 SHOPPING CART

@@ -52,7 +52,8 @@ function TopArea({pgName}) {
       <div id="top-area">
         <header className="top-area ibx">
           <h1 id="logo">
-            <a href="#"> <img src={process.env.PUBLIC_URL+"/images/main_logo.png"} alt="파일럿로고" />
+            <a href="#">
+              <img src={process.env.PUBLIC_URL+"/images/main_logo.png"} alt="파일럿로고" />
             </a>
           </h1>
           <nav className="gnb">

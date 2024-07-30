@@ -13,13 +13,13 @@ import CartList from './components/modules/CartList';
 
 function MainComponent(props) {
 
-
   // 로컬스 카트 존재여부변수
   let cartTemp = false;
-  // [ 로컬스 카트 데이터 상태변수 ]
+
+  // [ 로컬스 카트 데이터 상태변수 ] ///
   const [localsCart,setLocalsCart] = 
   useState(localStorage.getItem("cart-data"));
-  
+
   // 로컬스 카트 데이터 존재여부에 따라 상태값 변경
   if(localsCart){
     // 데이터가 있으면 cartTemp값 true로 변경
@@ -30,12 +30,12 @@ function MainComponent(props) {
   } //////////// 카트존재여부 if ////////
 
 
+
   // 상태관리 변수 셋팅 ///////
   // 1. 페이지변경 상태변수
   const [pgName, setPgName] = useState("main");
   // 2. 카트리스트 사용여부 : true 일때 사용
   const [cartSts,setCartSts] = useState(cartTemp);
-  
 
   /**************************************** 
     [ 컨텍스트 API 공개 변수들 ]
@@ -46,15 +46,19 @@ function MainComponent(props) {
       [ 컨텍스트 API 공개 변수들 ]
       1. setPgName - 페이지이름 셋팅
       2. setCartSts - 카트 사용여부 셋팅
-      3. setlocalsCart -로컬스 카드 데이터 변경 함수 
-      4. localsCart -로컬스 카드 데이터
-    
+      3. setLocalsCart - 로컬스 카트 데이터 변경함수
+      4. localsCart - 로컬스 카트 데이터 변수    
     ***************************************/
 
   // 코드 리턴구역 /////////////
   return (
-    <pCon.Provider value={{setPgName,setCartSts,localsCart,setLocalsCart}}>
-      <TopArea  pgName={pgName} />
+    <pCon.Provider value={{
+      setPgName,
+      setCartSts,
+      setLocalsCart,
+      localsCart,
+      }}>
+      <TopArea pgName={pgName} />
       <MainArea page={pgName} />
       <FooterArea />
       {/* 카트리스트 : 카트상태값 true 출력 */}
