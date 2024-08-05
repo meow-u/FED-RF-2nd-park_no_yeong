@@ -88,7 +88,7 @@ export default function Board() {
    const reducerFn = (gval, action) => {
       // gval - 지가 벨류레 ... 의 줄임말 -> 리듀서 변수가 들어옴  (왜들어와??)
       // 기존값을 활용하여 업데이트하기 위해 들어옴!
-      console.log('지발:',gval);
+      console.log("지발:", gval);
       // 1. 구조 분해 할당으로 객체의 배열 값 받기
       const [key, ele] = action.type;
       // 배열값 구조 : [구분문자열, 이벤트발생요소 ]
@@ -97,46 +97,45 @@ export default function Board() {
       // 2. key 값에 따라 분기하기
       switch (key) {
          // (1) 검색일 경우 실행 코드
-         case "search":
-            {
-               // 검색기준값 읽어오기
-               let creteria = $(ele).siblings(".cta").val();
-               console.log("기준값:", creteria);
-               // 검색어 읽어오기
-               let txt = $(ele).prev().val();
-               console.log(typeof txt, "/검색어:", txt);
-               // input값은 안쓰면 빈스트링이 넘어옴!
-               if (txt != "") {
-                  console.log("검색해!");
-                  // [검색기준,검색어] -> setKeyword 업데이트
-                  setKeyword([creteria, txt]);
-                  // 검색후엔 첫페이지로 보내기
-                  setPageNum(1);
-                  // 검색후엔 페이지의 페이징 번호 초기화(1)
-                  pgPgNum.current = 1;
-               }
-               // 빈값일 경우
-               else {
-                  alert("Please enter a keyword!");
-               }
-               // 리턴 코드 값은 리듀서 변수에 할당!
-               return gval+(gval!=''?"*":"")+txt;
+         case "search": {
+            // 검색기준값 읽어오기
+            let creteria = $(ele).siblings(".cta").val();
+            console.log("기준값:", creteria);
+            // 검색어 읽어오기
+            let txt = $(ele).prev().val();
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴!
+            if (txt != "") {
+               console.log("검색해!");
+               // [검색기준,검색어] -> setKeyword 업데이트
+               setKeyword([creteria, txt]);
+               // 검색후엔 첫페이지로 보내기
+               setPageNum(1);
+               // 검색후엔 페이지의 페이징 번호 초기화(1)
+               pgPgNum.current = 1;
             }
+            // 빈값일 경우
+            else {
+               alert("Please enter a keyword!");
+            }
+            // 리턴 코드 값은 리듀서 변수에 할당!
+            return gval + (gval != "" ? "*" : "") + txt;
+         }
          // (2) 전체 리스트로 돌아가기 실행 코드
          case "back":
             {
-                  // 검색어 초기화
-                  setKeyword(["", ""]);
-                  // 검색어삭제(input이니까 val())
-                  $(ele).siblings("#stxt").val("");
-                  // 검색항목초기화
-                  $(ele).siblings("#cta").val("tit");
-                  // 정렬초기화
-                  setSort(1);
-                  // 정렬항목초기화
-                  setSortCta("idx");
-                  // 첫페이지번호변경
-                  setPageNum(1);
+               // 검색어 초기화
+               setKeyword(["", ""]);
+               // 검색어삭제(input이니까 val())
+               $(ele).siblings("#stxt").val("");
+               // 검색항목초기화
+               $(ele).siblings("#cta").val("tit");
+               // 정렬초기화
+               setSort(1);
+               // 정렬항목초기화
+               setSortCta("idx");
+               // 첫페이지번호변경
+               setPageNum(1);
             }
             // 리턴 코드 값은 리듀서 변수에 할당!
             return gval;
@@ -741,7 +740,7 @@ const ListMode = ({
                      onClick={(e) => {
                         // 리듀서 메서드 호출
                         dispach({ type: ["back", e.target] });
-                        // 보낼값 구성 : [구분문자열, 이벤트발생요소 
+                        // 보낼값 구성 : [구분문자열, 이벤트발생요소
                      }}
                   >
                      Back to Total List
@@ -761,7 +760,17 @@ const ListMode = ({
                <option value="idx">Recent</option>
                <option value="tit">Title</option>
             </select>
-            <b>{memory}</b>
+            <button style={{ position: "relative" }}>
+               History
+               <b style={{ position: "absolute", lineHeight: "1.7" }}>
+                  {memory.indexOf("*") !== -1 &&
+                     memory.split("*").map((v) => (
+                        <div>
+                           <a href="#">{v}</a>
+                        </div>
+                     ))}
+               </b>
+            </button>
          </div>
          <table className="dtbl" id="board">
             <thead>
