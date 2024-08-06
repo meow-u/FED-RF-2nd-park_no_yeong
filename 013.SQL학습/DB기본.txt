@@ -57,7 +57,7 @@ DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 1. DDL(데이터 정의언어) : 데이터 저장 구조 묘사
  -> CREATE TABLE, CREATE DATABASE...
 
-2. DML(데이터 조작언어) : 저장된 데이터 가공
+2. DML(데이터 조작언어) : 저장된 데이터 가공 데이타 메뉴플레이션 랭기지
  -> INSERT, UPDATE, DELETE, SELECT...
 
 
