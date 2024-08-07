@@ -122,8 +122,8 @@ export default function Board() {
             return (
                // 숙제 :문자열 *이 있으면 스플릿으로 잘라서 배열로 만들고 배열값중 현재 입력된 txt가 배열중에 없으면  새로등록하고 있으면 등록하지 않는다 를 코드로 작성할것!!
                // 힌트1 : 등록 앉는다 는 gval만 넣으면 됨 , 힌트2 : 배열값중 단순 비교는 include() 사용 !  
-               // (gval.indexOf("*") != -1 && gval)?
-               gval + (gval != "" ? "*" : "") + txt
+               (gval.indexOf("*") != -1 && gval.split("*").includes(txt)) ?
+               gval : gval + (gval != "" ? "*" : "") + txt 
             );
          }
          // (2) 전체 리스트로 돌아가기 실행 코드
