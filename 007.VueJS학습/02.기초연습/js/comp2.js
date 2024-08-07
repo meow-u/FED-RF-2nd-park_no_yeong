@@ -1,4 +1,5 @@
-// 01. 컴포넌트 연습1 JS
+// 02. 컴포넌트 연습2 JS= 부모변수를 자식에게 전달!
+// ->>> Props Down 프롭스 다운!
 
 // 뷰JS 인스턴스 생성용 함수 : x는 대상요소
 const makeVue = (x) => new Vue({ el: x });
@@ -44,6 +45,27 @@ Vue.component("list-comp", {
     </div>
     `, // template ///
 
+   // [ 상위 컴포넌트 전달변수 설정 속성 : props ]
+   props: [
+      "list-num",
+      "my-seq",
+      "end-let",
+   ] /* 이렇게 프롭스로 써야 내부전달용으로 전달되어 태그에서는 보이지않음 */,
+
+   // 배열형은 설정한 변수명을 문자형으로 나열만 하면 되고
+   // 만약 각 변수의 데이터형(type)을 특정하고싶다면
+   // 객체형을 사용하여 아래와같이 표현한다! (타입스크립트너낌)
+   // props:{변수명:변수형}
+   // props:{
+   //    "list-num":Number,
+   //    "my-seq":Number,
+   //    "end-let":String
+   // },
+
+   // 이 변수를 사용할때는 캐믈케이스 변수로 사용함!
+   // "list-num" -> this.listNum
+   // -> 내부용 변수이므로 this키워드 반드시 사용!
+
    // 2-2. data 옵션 : 컴포넌트 내부 변수 셋팅
    // 실행원리 : 컴포넌트가 빌드할 때
    // data 속성의 '함수를 호출'한다!
@@ -57,9 +79,10 @@ Vue.component("list-comp", {
       return {
          // <- 여기가 객체지
          // 이미지 src
-         gsrc: `./images/${this.setNum()}.jpg`,
+         gsrc: `./images/${this.listNum}.jpg`,
+         /* listNum 프롭스다운 안할때는 this.setNum()로 출력했었음  */
          // 상품명
-         gname: this.setName(),
+         gname: this.setName() + " " + this.endLet + this.mySeq,
          // 상품가격
          gprice: this.setPrice(),
       };
@@ -94,18 +117,29 @@ makeVue(".grid");
 
 // 3. 유튜브 동영상 컴포넌트 만들기
 Vue.component("ifr-comp", {
-
    template: `
     <iframe width="49%" style="aspect-ratio: 16/9;" 
     v-bind:src="ifrSrc" title="#고윤정 과 함께 차가운 겨울을 더욱 액티브하게!  l 디스커버리 23FW #goyounjung #크롭패딩" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
     `,
-    // 3-2 data옵션
-    data(){//객체를리턴한다
-        return {
-            ifrSrc: `https://www.youtube.com/embed/ZH1Y1l1OmTY?autoplay=1&mute=1&loop=1&playlist=ZH1Y1l1OmTY`,
-        }
-    },
-    
+   props: ["video-code"],
+   // -> 사용시 this.videoCode
+
+   // 3-2 data옵션
+   data() {
+      //객체를리턴한다
+      return {
+         ifrSrc: this.getIframeSrc(this.videoCode) /* 넣을 동영상 뒷자리 */,
+      };
+   }, //// data ////
+   // 3-3. methods 속성
+   methods: {
+      // 동영상 정보 리턴함수
+      getIframeSrc(code) {
+         // 동영상코드
+
+         return `https://www.youtube.com/embed/${code}?autoplay=1&mute=1&loop=1&playlist=${code}`;
+      },
+   },
 });
 // 뷰 인스턴스 생성하기 : 유튜브 동영상 컴포넌트
 makeVue(".you-box");
@@ -114,24 +148,22 @@ makeVue(".you-box");
 // 2) <만들컴포이름>으로 html에 생성하고
 // 2) Vue.component('만든이름',{ template: `<div>컴포내용</div>` ,data(){ return {키:값,...} }}); 으로 컴포넌트만들기
 
+// 하단영역 컴포넌트 구성하기
 
-
-// 하단영역 컴포넌트 구성하기 
-
-Vue.component('footer-comp',{
-    template: `
-    <h1 style="text-align:center; background:lightblue; height:100px; line-height:100px;" v-text="content"></h1>
+Vue.component("footer-comp", {
+   template: `
+    <div style="text-align:center; background:lightblue; height:100px; line-height:100px;">
+    {{this.content}}
     <div v-html="text"></div>
+    </div>
     `,
-    data(){
-        return{
-            content:"Discovery Expedition",
-            text:`<span>상세정보</span>`,
-        }
-
-    },
-})
-
+   data() {
+      return {
+         content: "Discovery Expedition",
+         text: `<span>상세정보</span>`,
+      };
+   },
+});
 
 // makeVue(".you-box"); 아래랑같은거
-new Vue({el: "footer-comp"});
+new Vue({ el: ".tit2" });

@@ -139,7 +139,7 @@ const vm = new Vue({
             )
          ); // push ///
          // 생성된 데이터 확인
-         console.log("itemData:", this.itemData);
+         // console.log("itemData:", this.itemData);
       } //////// for ////////
    }, // created /////
 
