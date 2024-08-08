@@ -77,7 +77,7 @@
     (2) 설치후 버전확인
         vue --version
 
-4. VueJS 프로젝트 생성하기
+4. VueJS 프로젝트 생성하기 (cd로 위치 이동하고)
 
     (1) 프로젝트 생성명령어
         vue init webpack 프로젝트명
