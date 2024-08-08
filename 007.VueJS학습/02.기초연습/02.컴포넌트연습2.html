@@ -62,7 +62,16 @@
             v-bind:list-num="n"
             v-bind:my-seq="i"
             v-bind:end-let="'DE'"
+            
+            v-on:oh-my-gotkimchi="overMsg"
+            v-on:hull="goMsg"
          ></list-comp>
+         <!-- 
+            v-on:hull="goMsg"
+            내가 만든 이벤트명으로 부모메서드 호출!
+            이것을 어디서 연결하나? 
+            내 함수에서 this.$emit("hull,전달값") 하면 호출가능
+          -->
          <!-- 
              v-bind:key 설정은 반복컴포넌트일 경우 유일값으로 설정되는 필수 속성이다! 
              웹팩으로 설치된 개발환경에서는 에러가 발생함!
