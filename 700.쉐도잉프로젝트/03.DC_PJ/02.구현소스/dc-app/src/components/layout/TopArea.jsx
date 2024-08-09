@@ -15,7 +15,7 @@ import Logo from "../modules/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-import { memo } from "react";
+import { memo, useEffect } from "react";
 // import { useContext } from "react";
 // import { dCon } from "../modules/dCon";
 
@@ -31,26 +31,24 @@ import { memo } from "react";
 // -> 전달되는 함수가 반드시 useCallback() 처리가 되어야 한다!!!
 
 // --> 객체,배열,함수는 모두 값저장이 아니고 주소저장임!
-// 그래서 이 주소를 고정해줘야 같은값으로 인식하여 
+// 그래서 이 주소를 고정해줘야 같은값으로 인식하여
 // 메모이제이션 된다!
 
 // export default function TopArea() {
-export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage})=> {
+export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
    // 전달값
    // 1. loginMsg - 로그인메세지변수
    // 2. loginSts - 로그인 상태변수
-   // 3. logoutFn - 로그아웃함수 !!! 
-   
-   console.log('상단영역 랜더링!')
+   // 3. logoutFn - 로그아웃함수 !!!
+
+   console.log("상단영역 랜더링!");
    // context 사용하기 (이거쓰면 memo써도 리랜더링 무조건 된다함)
    // -> 메모이제이션을위해 사용안함
    // const myCon= useContext(dCon);
 
-
-
    // 이동함수
    // const goNav = useNavigate();
-   
+
    // 사용시 goNav(라우터주소, {전달객체})
    // 전달객체 없으면 비워놓음!
    // 사용법: 반드시 useNavigate()메서드를 변수에 담아
@@ -102,6 +100,20 @@ export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage})=> {
       goPage("/search", { state: { keyword: txt } });
       ////////////////////////////////////////
    }; ////////// goSearch
+
+   // 햄버거용 함수 : 전체메뉴 보이기
+   const showMenu = () => $(".top-area").toggleClass("on");
+
+   // 랜더링후 실행구역 ///////////////
+   useEffect(() => {
+      // GNB a요소 클릭시 전체메뉴 닫기
+      // 대상: .gnb a[href!='#']
+      // -> href가 '#'이 아닌 gnb 하위 모든 a요소
+      // -> != 은 제이쿼리전용!
+      $(".gnb a[href!='#']").on("click", () => {
+         $(".top-area").removeClass("on");
+      }); /////////// click //////////
+   }); ///////// useEffect /////////
 
    // 코드 리턴구역
    return (
@@ -233,7 +245,9 @@ export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage})=> {
                   }
                </ul>
             </nav>
+            {/* 모바일용 햄버거 버튼 */}
+            <button className="hambtn" onClick={showMenu}></button>
          </header>
       </>
    );
-}) //////////// TopArea ////////////////////////
+}); //////////// TopArea ////////////////////////

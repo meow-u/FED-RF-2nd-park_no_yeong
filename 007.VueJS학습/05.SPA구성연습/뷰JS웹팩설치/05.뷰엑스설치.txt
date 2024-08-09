@@ -9,6 +9,7 @@
  npm install --save --force vuex@3
  ((뷰엑스+바벨설치))
  npm install --save --force vuex@3 babel-polyfill
+ (npm i vuex@3 babel-polyfill)
 
  1) 기본설치 명령어 : npm intall
 
