@@ -118,12 +118,19 @@ export default function Board() {
             else {
                alert("Please enter a keyword!");
             }
-            // 리턴 코드 값은 리듀서 변수에 할당!
+            // 리턴코드값은 리듀서 변수에 할당!
             return (
-               // 숙제 :문자열 *이 있으면 스플릿으로 잘라서 배열로 만들고 배열값중 현재 입력된 txt가 배열중에 없으면  새로등록하고 있으면 등록하지 않는다 를 코드로 작성할것!!
-               // 힌트1 : 등록 앉는다 는 gval만 넣으면 됨 , 힌트2 : 배열값중 단순 비교는 include() 사용 !  
-               (gval.indexOf("*") != -1 && gval.split("*").includes(txt)) ?
-               gval : gval + (gval != "" ? "*" : "") + txt 
+               // 숙제: *문자열이 있으면 split으로 잘라서
+               // 배열로 만들고 배열값중 현재 입력된 txt가
+               // 배열중에 없으면 새로 등록하고 있으면
+               // 등록하지 않는다를 코드로 작성할것!
+               // 힌트1: 등록않는다는 gval만 넣으면 됨
+               // 힌트2: 배열값 중 단순비교는 includes()사용!
+               gval.indexOf("*") !== -1
+                  ? gval.split("*").includes(txt)
+                     ? gval
+                     : gval + (gval != "" ? "*" : "") + txt
+                  : gval + (gval != "" ? "*" : "") + txt
             );
          }
          // (2) 전체 리스트로 돌아가기 실행 코드
@@ -793,9 +800,28 @@ const ListMode = ({
                <option value="idx">Recent</option>
                <option value="tit">Title</option>
             </select>
-            <button style={{ position: "relative" }}>
-               History
-               <ol style={{ position: "absolute", lineHeight: "1.7" }}>
+      <button style={{ position: "relative" }}
+          onClick={(e)=>{
+            // 클릭시 하위 ol 보이기
+            $(e.currentTarget).find("ol").show();
+          }}
+        >
+          History
+          <ol
+            style={{
+              position: "absolute",
+              lineHeight: "1.7",
+              padding: "5px 15px",
+              border: "1px solid gray",
+              borderRadius: "10px",
+              backgroundColor: "#f8f8ffcc",
+              display: "none",
+            }}
+            onMouseLeave={(e)=>{
+              // 아웃시 숨기기
+              $(e.currentTarget).hide();
+            }}
+          >
                   {memory.indexOf("*") !== -1 &&
                      memory.split("*").map((v) => (
                         <li>
